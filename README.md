@@ -23,17 +23,17 @@ format		validate
 ```
 
 ### Using the Tools
+The `validate` command reads in a language grammar file and ensures that it is
+formatted using Crater Dog Syntax Notation™ (aka CDSN) as follows:
+```
+$ go-grammar-tools/bin/validate example/grammar.cdsn
+```
+
 The `format` command reads in a language grammar file formatted using Crater Dog
 Syntax Notation™ (aka CDSN) and reformats it in its canonical format as
 follows:
 ```
 $ go-grammar-tools/bin/format example/grammar.cdsn
-```
-
-The `validate` command reads in a language grammar file and ensures that it is
-formatted using Crater Dog Syntax Notation™ (aka CDSN) as follows:
-```
-$ go-grammar-tools/bin/validate example/grammar.cdsn
 ```
 
 <H5 align="center"> Copyright © 2009 - 2024  Crater Dog Technologies™. All rights reserved. </H5>
