@@ -14,7 +14,7 @@ package main
 
 import (
 	fmt "fmt"
-	gra "github.com/craterdog/go-grammar-framework/v2"
+	cds "github.com/craterdog/go-grammar-framework/v3/cdsn"
 	osx "os"
 )
 
@@ -23,25 +23,25 @@ import (
 func main() {
 	// Validate the commandline arguments.
 	if len(osx.Args) < 2 {
-		fmt.Println("Usage: format <grammar-file>")
+		fmt.Println("Usage: format <syntax-file>")
 		return
 	}
-	var grammarFile = osx.Args[1]
+	var syntaxFile = osx.Args[1]
 
-	// Parse the grammar file.
-	var bytes, err = osx.ReadFile(grammarFile)
+	// Parse the syntax file.
+	var bytes, err = osx.ReadFile(syntaxFile)
 	if err != nil {
 		panic(err)
 	}
 	var source = string(bytes)
-	var parser = gra.Parser().Make()
-	var grammar = parser.ParseSource(source)
+	var parser = cds.Parser().Make()
+	var syntax = parser.ParseSource(source)
 
-	// Reformat the grammar file.
-	var formatter = gra.Formatter().Make()
-	source = formatter.FormatGrammar(grammar)
+	// Reformat the syntax file.
+	var formatter = cds.Formatter().Make()
+	source = formatter.FormatSyntax(syntax)
 	bytes = []byte(source)
-	err = osx.WriteFile(grammarFile, bytes, 0644)
+	err = osx.WriteFile(syntaxFile, bytes, 0644)
 	if err != nil {
 		panic(err)
 	}

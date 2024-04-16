@@ -14,7 +14,7 @@ package main
 
 import (
 	fmt "fmt"
-	gra "github.com/craterdog/go-grammar-framework/v2"
+	age "github.com/craterdog/go-grammar-framework/v3/agent"
 	osx "os"
 )
 
@@ -29,6 +29,6 @@ func main() {
 	var directory = osx.Args[1]
 
 	// Generate the class files.
-	var generator = gra.Generator().Make()
+	var generator = age.Generator().Make()
 	generator.GenerateModel(directory)
 }
