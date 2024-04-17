@@ -37,6 +37,10 @@ func main() {
 	var parser = cds.Parser().Make()
 	var syntax = parser.ParseSource(source)
 
+	// Validate the syntax.
+	var validator = cds.Validator().Make()
+	validator.ValidateSyntax(syntax)
+
 	// Reformat the syntax file.
 	var formatter = cds.Formatter().Make()
 	source = formatter.FormatSyntax(syntax)

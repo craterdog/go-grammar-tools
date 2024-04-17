@@ -22,16 +22,17 @@ import (
 
 func main() {
 	// Validate the commandline arguments.
-	if len(osx.Args) < 2 {
-		fmt.Println("Usage: initialize <package-directory>")
+	if len(osx.Args) < 4 {
+		fmt.Println(
+			"Usage: initialize <package-directory> <copyright> <notation-name>",
+		)
 		return
 	}
 	var directory = osx.Args[1]
+	var copyright = osx.Args[2]
+	var notation = osx.Args[3]
 
-	// Generate the class files.
+	// Create a new syntax file.
 	var generator = age.Generator().Make()
 	generator.CreateSyntax(directory, copyright, notation)
 }
-
-const copyright = ""
-const notation = "NOTATION"

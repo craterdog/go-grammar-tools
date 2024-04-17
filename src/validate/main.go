@@ -28,7 +28,7 @@ func main() {
 	}
 	var syntaxFile = osx.Args[1]
 
-	// Validate the syntax file.
+	// Parse the syntax file.
 	var bytes, err = osx.ReadFile(syntaxFile)
 	if err != nil {
 		panic(err)
@@ -36,6 +36,8 @@ func main() {
 	var source = string(bytes)
 	var parser = cds.Parser().Make()
 	var syntax = parser.ParseSource(source)
+
+	// Validate the syntax.
 	var validator = cds.Validator().Make()
 	validator.ValidateSyntax(syntax)
 }

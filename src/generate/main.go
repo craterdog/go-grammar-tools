@@ -28,7 +28,7 @@ func main() {
 	}
 	var directory = osx.Args[1]
 
-	// Generate the class files.
+	// Generate the package file.
 	var generator = age.Generator().Make()
 	generator.GenerateModel(directory)
 }
