@@ -1,9 +1,9 @@
-github.com/craterdog/go-collection-framework/v3 v3.11.0 h1:M2Cl6j0Y+uTldRNL4IUq22jSrQnFOv2FWkvlW49lWhU=
-github.com/craterdog/go-collection-framework/v3 v3.11.0/go.mod h1:HEDpP5tO8AdzuCIOJds67vAQk2YYacFQChxDLfHJTIM=
-github.com/craterdog/go-grammar-framework/v3 v3.0.0 h1:CF6lD/UKhBd/5C3qXX4jBDDO3n+TXjoHEfpYzItfwQg=
-github.com/craterdog/go-grammar-framework/v3 v3.0.0/go.mod h1:MS8oI20MGBzVVafTTlIi0ewZfYX/tCMDqDVBmqGaPLk=
-github.com/craterdog/go-model-framework/v3 v3.2.0 h1:ZI3yPKuGhQfVIbcR/kbGLhl5UqRJVh0wNsysFWu+vCU=
-github.com/craterdog/go-model-framework/v3 v3.2.0/go.mod h1:E+edKwdIgSiad5ArVr8jYULVrbvLdBZBYkPbMC00Tsw=
+github.com/craterdog/go-collection-framework/v4 v4.0.0 h1:YcqSB45RNb5wQO0DvKssMSUNx1h0hYkoidjew8wJKCE=
+github.com/craterdog/go-collection-framework/v4 v4.0.0/go.mod h1:Ts5n1OQIekrJTcuA43I8WE36lx3gROnj2NsISXtv0J4=
+github.com/craterdog/go-grammar-framework/v4 v4.0.0 h1:/uWIBk5YplxfC3rP8v0Ke1pacziN2PXJZC6CN/U8Bfw=
+github.com/craterdog/go-grammar-framework/v4 v4.0.0/go.mod h1:ti0FulJACrDKdSFlfX/Tm8RoKSvlPAyrdc/3RmSfSqo=
+github.com/craterdog/go-model-framework/v4 v4.1.0 h1:JjlGwQmVKyKALSU0AogJg+wXidePFpGljHKvHH6gNKE=
+github.com/craterdog/go-model-framework/v4 v4.1.0/go.mod h1:m7TTWQrquaWzT6DkO4O7PB9LFNx0RNBojWbKSjy5mN0=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=

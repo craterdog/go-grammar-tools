@@ -14,7 +14,7 @@ package main
 
 import (
 	fmt "fmt"
-	age "github.com/craterdog/go-grammar-framework/v3/agent"
+	age "github.com/craterdog/go-grammar-framework/v4/cdsn/agent"
 	osx "os"
 )
 
@@ -22,13 +22,15 @@ import (
 
 func main() {
 	// Validate the commandline arguments.
-	if len(osx.Args) < 2 {
-		fmt.Println("Usage: generate <package-directory>")
+	if len(osx.Args) < 3 {
+		fmt.Println("Usage: generate <package-directory> <grammar-name>")
 		return
 	}
 	var directory = osx.Args[1]
+	var name = osx.Args[2]
 
 	// Generate the package file.
 	var generator = age.Generator().Make()
-	generator.GenerateModel(directory)
+	generator.GenerateAST(directory, name)
+	generator.GenerateAgents(directory, name)
 }

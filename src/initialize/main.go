@@ -14,7 +14,7 @@ package main
 
 import (
 	fmt "fmt"
-	age "github.com/craterdog/go-grammar-framework/v3/agent"
+	age "github.com/craterdog/go-grammar-framework/v4/cdsn/agent"
 	osx "os"
 )
 
@@ -24,7 +24,7 @@ func main() {
 	// Validate the commandline arguments.
 	if len(osx.Args) < 4 {
 		fmt.Println(
-			"Usage: initialize <package-directory> <copyright> <notation-name>",
+			"Usage: initialize <package-directory> <notation-name> <copyright>",
 		)
 		return
 	}
@@ -34,5 +34,5 @@ func main() {
 
 	// Create a new syntax file.
 	var generator = age.Generator().Make()
-	generator.CreateSyntax(directory, copyright, notation)
+	generator.CreateSyntax(directory, notation, copyright)
 }

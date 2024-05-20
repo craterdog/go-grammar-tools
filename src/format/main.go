@@ -14,7 +14,7 @@ package main
 
 import (
 	fmt "fmt"
-	cds "github.com/craterdog/go-grammar-framework/v3/cdsn"
+	age "github.com/craterdog/go-grammar-framework/v4/cdsn/agent"
 	osx "os"
 )
 
@@ -34,15 +34,15 @@ func main() {
 		panic(err)
 	}
 	var source = string(bytes)
-	var parser = cds.Parser().Make()
+	var parser = age.Parser().Make()
 	var syntax = parser.ParseSource(source)
 
 	// Validate the syntax.
-	var validator = cds.Validator().Make()
+	var validator = age.Validator().Make()
 	validator.ValidateSyntax(syntax)
 
 	// Reformat the syntax file.
-	var formatter = cds.Formatter().Make()
+	var formatter = age.Formatter().Make()
 	source = formatter.FormatSyntax(syntax)
 	bytes = []byte(source)
 	err = osx.WriteFile(syntaxFile, bytes, 0644)
