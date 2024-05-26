@@ -23,29 +23,33 @@ import (
 // MAIN PROGRAM
 
 func main() {
-	var directory = retrieveArguments()
+	var module, directory = retrieveArguments()
 	var syntax = parseSyntax(directory)
 	validateSyntax(syntax)
-	var astModel = generateAST(directory, syntax)
-	generateClasses(directory, astModel)
-	var agentModel = generateAgent(directory, syntax)
-	generateFormatter(directory, agentModel)
-	generateParser(directory, agentModel)
-	generateScanner(directory, agentModel)
-	generateToken(directory, agentModel)
-	generateValidator(directory, agentModel)
+	var astModel = generateAST(module, directory, syntax)
+	generateClasses(module, directory, astModel)
+	var agentModel = generateAgent(module, directory, syntax)
+	generateFormatter(module, directory, syntax, agentModel)
+	generateParser(module, directory, syntax, agentModel)
+	generateScanner(module, directory, syntax, agentModel)
+	generateToken(module, directory, syntax, agentModel)
+	generateValidator(module, directory, syntax, agentModel)
 }
 
-func retrieveArguments() (directory string) {
-	if len(osx.Args) < 2 {
-		fmt.Println("Usage: generate <directory>")
+func retrieveArguments() (
+	module string,
+	directory string,
+) {
+	if len(osx.Args) < 3 {
+		fmt.Println("Usage: generate <module> <directory>")
 		return
 	}
-	directory = osx.Args[1]
+	module = osx.Args[1]
+	directory = osx.Args[2]
 	if !sts.HasSuffix(directory, "/") {
 		directory += "/"
 	}
-	return directory
+	return module, directory
 }
 
 func validateSyntax(syntax gra.SyntaxLike) {
@@ -65,7 +69,11 @@ func parseSyntax(directory string) gra.SyntaxLike {
 	return syntax
 }
 
-func generateAST(directory string, syntax gra.SyntaxLike) mod.ModelLike {
+func generateAST(
+	module string,
+	directory string,
+	syntax gra.SyntaxLike,
+) mod.ModelLike {
 	var astDirectory = directory + "ast/"
 	var err = osx.MkdirAll(astDirectory, 0755)
 	if err != nil {
@@ -73,7 +81,7 @@ func generateAST(directory string, syntax gra.SyntaxLike) mod.ModelLike {
 	}
 	var astFile = astDirectory + "Package.go"
 	var generator = gra.Generator()
-	var astModel = generator.GenerateAST(syntax)
+	var astModel = generator.GenerateAST(module, syntax)
 	var formatter = mod.Formatter()
 	var source = formatter.FormatModel(astModel)
 	var bytes = []byte(source)
@@ -84,7 +92,11 @@ func generateAST(directory string, syntax gra.SyntaxLike) mod.ModelLike {
 	return astModel
 }
 
-func generateAgent(directory string, syntax gra.SyntaxLike) mod.ModelLike {
+func generateAgent(
+	module string,
+	directory string,
+	syntax gra.SyntaxLike,
+) mod.ModelLike {
 	var agentDirectory = directory + "agent/"
 	var err = osx.MkdirAll(agentDirectory, 0755)
 	if err != nil {
@@ -92,7 +104,7 @@ func generateAgent(directory string, syntax gra.SyntaxLike) mod.ModelLike {
 	}
 	var agentFile = agentDirectory + "Package.go"
 	var generator = gra.Generator()
-	var agentModel = generator.GenerateAgent(syntax)
+	var agentModel = generator.GenerateAgent(module, syntax)
 	var formatter = mod.Formatter()
 	var source = formatter.FormatModel(agentModel)
 	var bytes = []byte(source)
@@ -104,17 +116,36 @@ func generateAgent(directory string, syntax gra.SyntaxLike) mod.ModelLike {
 }
 
 func generateClasses(
+	module string,
 	directory string,
 	astModel mod.ModelLike,
 ) {
+	var generator = mod.Generator()
+	var iterator = astModel.GetClasses().GetIterator()
+	for iterator.HasNext() {
+		var class = iterator.GetNext()
+		var name = sts.ToLower(sts.TrimSuffix(
+			class.GetDeclaration().GetIdentifier(),
+			"ClassLike",
+		))
+		var source = generator.GenerateClass(astModel, name)
+		var bytes = []byte(source)
+		var filename = directory + "ast/" + name + ".go"
+		var err = osx.WriteFile(filename, bytes, 0644)
+		if err != nil {
+			panic(err)
+		}
+	}
 }
 
 func generateFormatter(
+	module string,
 	directory string,
+	syntax gra.SyntaxLike,
 	agentModel mod.ModelLike,
 ) {
 	var generator = gra.Generator()
-	var source = generator.GenerateFormatter(agentModel)
+	var source = generator.GenerateFormatter(module, syntax, agentModel)
 	var bytes = []byte(source)
 	var filename = directory + "agent/formatter.go"
 	var err = osx.WriteFile(filename, bytes, 0644)
@@ -124,11 +155,13 @@ func generateFormatter(
 }
 
 func generateParser(
+	module string,
 	directory string,
+	syntax gra.SyntaxLike,
 	agentModel mod.ModelLike,
 ) {
 	var generator = gra.Generator()
-	var source = generator.GenerateParser(agentModel)
+	var source = generator.GenerateParser(module, syntax, agentModel)
 	var bytes = []byte(source)
 	var filename = directory + "agent/parser.go"
 	var err = osx.WriteFile(filename, bytes, 0644)
@@ -138,11 +171,13 @@ func generateParser(
 }
 
 func generateScanner(
+	module string,
 	directory string,
+	syntax gra.SyntaxLike,
 	agentModel mod.ModelLike,
 ) {
 	var generator = gra.Generator()
-	var source = generator.GenerateScanner(agentModel)
+	var source = generator.GenerateScanner(module, syntax, agentModel)
 	var bytes = []byte(source)
 	var filename = directory + "agent/scanner.go"
 	var err = osx.WriteFile(filename, bytes, 0644)
@@ -152,11 +187,13 @@ func generateScanner(
 }
 
 func generateToken(
+	module string,
 	directory string,
+	syntax gra.SyntaxLike,
 	agentModel mod.ModelLike,
 ) {
 	var generator = gra.Generator()
-	var source = generator.GenerateToken(agentModel)
+	var source = generator.GenerateToken(module, syntax, agentModel)
 	var bytes = []byte(source)
 	var filename = directory + "agent/token.go"
 	var err = osx.WriteFile(filename, bytes, 0644)
@@ -166,11 +203,13 @@ func generateToken(
 }
 
 func generateValidator(
+	module string,
 	directory string,
+	syntax gra.SyntaxLike,
 	agentModel mod.ModelLike,
 ) {
 	var generator = gra.Generator()
-	var source = generator.GenerateValidator(agentModel)
+	var source = generator.GenerateValidator(module, syntax, agentModel)
 	var bytes = []byte(source)
 	var filename = directory + "agent/validator.go"
 	var err = osx.WriteFile(filename, bytes, 0644)

@@ -1,31 +1,41 @@
 input=tst/input
 output=tst/output
+module=github.com/craterdog/example
 
-echo "Validating the syntax files:"
+echo "Validating the syntax files..."
 for file in `ls $input`; do
 	echo "    $file"
 	bin/validate $input/$file
 done
 echo
 
-echo "Formatting the syntax files:"
-rm -r $output/*
+echo "Formatting the syntax files..."
 for file in `ls $input`; do
 	echo "    $file"
 	model=${file%?cdsn}
+	rm -rf $output/$model
 	mkdir $output/$model
 	cp $input/$file $output/$model/Syntax.cdsn
 	bin/format $output/$model/Syntax.cdsn
 done
 echo
 
-echo "Generating the AST and agent packages:"
-for syntax in `ls $output`; do
+echo "Generating the AST and agent packages..."
+for file in `ls $input`; do
+	syntax=${file%?cdsn}
 	echo "    $syntax"
-	bin/generate $output/$syntax
+	bin/generate $module/$syntax $output/$syntax
 done
 echo
 
-echo "Initializing a syntax file:"
+echo "Initializing a syntax file..."
+rm -rf $output/example
+mkdir $output/example
 bin/initialize $output/example/ example ""
 echo
+
+echo "Tidying up..."
+cd $output
+go mod tidy
+cd - >/dev/null
+echo "Done."
