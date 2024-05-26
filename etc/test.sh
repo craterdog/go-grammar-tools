@@ -22,9 +22,9 @@ echo
 
 echo "Generating the AST and agent packages..."
 for file in `ls $input`; do
-	syntax=${file%?cdsn}
-	echo "    $syntax"
-	bin/generate $module/$syntax $output/$syntax
+	model=${file%?cdsn}
+	echo "    $model"
+	bin/generate $module/$model $output/$model
 done
 echo
 
