@@ -14,38 +14,52 @@ package main
 
 import (
 	fmt "fmt"
-	age "github.com/craterdog/go-grammar-framework/v4/cdsn/agent"
+	gra "github.com/craterdog/go-grammar-framework/v4"
 	osx "os"
 )
 
 // MAIN PROGRAM
 
 func main() {
-	// Validate the commandline arguments.
+	var syntaxFile = retrieveArguments()
+	var syntax = parseSyntax(syntaxFile)
+	validateSyntax(syntax)
+	reformatSyntax(syntaxFile, syntax)
+}
+
+func retrieveArguments() (syntaxFile string) {
 	if len(osx.Args) < 2 {
-		fmt.Println("Usage: format <syntax-file>")
+		fmt.Println("Usage: generate <syntax-file>")
 		return
 	}
-	var syntaxFile = osx.Args[1]
+	syntaxFile = osx.Args[1]
+	return syntaxFile
+}
 
-	// Parse the syntax file.
+func parseSyntax(syntaxFile string) gra.SyntaxLike {
 	var bytes, err = osx.ReadFile(syntaxFile)
 	if err != nil {
 		panic(err)
 	}
 	var source = string(bytes)
-	var parser = age.Parser().Make()
+	var parser = gra.Parser()
 	var syntax = parser.ParseSource(source)
+	return syntax
+}
 
-	// Validate the syntax.
-	var validator = age.Validator().Make()
+func validateSyntax(syntax gra.SyntaxLike) {
+	var validator = gra.Validator()
 	validator.ValidateSyntax(syntax)
+}
 
-	// Reformat the syntax file.
-	var formatter = age.Formatter().Make()
-	source = formatter.FormatSyntax(syntax)
-	bytes = []byte(source)
-	err = osx.WriteFile(syntaxFile, bytes, 0644)
+func reformatSyntax(
+	syntaxFile string,
+	syntax gra.SyntaxLike,
+) {
+	var formatter = gra.Formatter()
+	var source = formatter.FormatSyntax(syntax)
+	var bytes = []byte(source)
+	var err = osx.WriteFile(syntaxFile, bytes, 0644)
 	if err != nil {
 		panic(err)
 	}

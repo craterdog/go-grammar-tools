@@ -14,30 +14,39 @@ package main
 
 import (
 	fmt "fmt"
-	age "github.com/craterdog/go-grammar-framework/v4/cdsn/agent"
+	gra "github.com/craterdog/go-grammar-framework/v4"
 	osx "os"
 )
 
 // MAIN PROGRAM
 
 func main() {
-	// Validate the commandline arguments.
+	var syntaxFile = retrieveArguments()
+	var syntax = parseSyntax(syntaxFile)
+	validateSyntax(syntax)
+}
+
+func retrieveArguments() (syntaxFile string) {
 	if len(osx.Args) < 2 {
-		fmt.Println("Usage: validate <syntax-file>")
+		fmt.Println("Usage: generate <syntax-file>")
 		return
 	}
-	var syntaxFile = osx.Args[1]
+	syntaxFile = osx.Args[1]
+	return syntaxFile
+}
 
-	// Parse the syntax file.
+func parseSyntax(syntaxFile string) gra.SyntaxLike {
 	var bytes, err = osx.ReadFile(syntaxFile)
 	if err != nil {
 		panic(err)
 	}
 	var source = string(bytes)
-	var parser = age.Parser().Make()
+	var parser = gra.Parser()
 	var syntax = parser.ParseSource(source)
+	return syntax
+}
 
-	// Validate the syntax.
-	var validator = age.Validator().Make()
+func validateSyntax(syntax gra.SyntaxLike) {
+	var validator = gra.Validator()
 	validator.ValidateSyntax(syntax)
 }

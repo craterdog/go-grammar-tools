@@ -14,25 +14,63 @@ package main
 
 import (
 	fmt "fmt"
-	age "github.com/craterdog/go-grammar-framework/v4/cdsn/agent"
+	gra "github.com/craterdog/go-grammar-framework/v4"
 	osx "os"
+	sts "strings"
 )
 
 // MAIN PROGRAM
 
 func main() {
-	// Validate the commandline arguments.
+	var directory, name, copyright = retrieveArguments()
+	var syntax = createSyntax(name, copyright)
+	saveSyntax(directory, syntax)
+}
+
+func retrieveArguments() (
+	directory string,
+	name string,
+	copyright string,
+) {
 	if len(osx.Args) < 4 {
 		fmt.Println(
-			"Usage: initialize <package-directory> <notation-name> <copyright>",
+			"Usage: initialize <directory> <name> <copyright>",
 		)
 		return
 	}
-	var directory = osx.Args[1]
-	var copyright = osx.Args[2]
-	var notation = osx.Args[3]
+	directory = osx.Args[1]
+	if !sts.HasSuffix(directory, "/") {
+		directory += "/"
+	}
+	name = osx.Args[2]
+	copyright = osx.Args[3]
+	return directory, name, copyright
+}
 
-	// Create a new syntax file.
-	var generator = age.Generator().Make()
-	generator.CreateSyntax(directory, notation, copyright)
+func createSyntax(
+	name string,
+	copyright string,
+) gra.SyntaxLike {
+	var generator = gra.Generator()
+	var syntax = generator.CreateSyntax(name, copyright)
+	return syntax
+}
+
+func saveSyntax(directory string, syntax gra.SyntaxLike) {
+	var err = osx.MkdirAll(directory, 0755)
+	if err != nil {
+		panic(err)
+	}
+	var syntaxFile = directory + "Syntax.cdsn"
+	fmt.Printf(
+		"The syntax file %q does not yet exist.\n\tCreating it...\n",
+		syntaxFile,
+	)
+	var formatter = gra.Formatter()
+	var source = formatter.FormatSyntax(syntax)
+	var bytes = []byte(source)
+	err = osx.WriteFile(syntaxFile, bytes, 0644)
+	if err != nil {
+		panic(err)
+	}
 }
