@@ -63,7 +63,7 @@ func saveSyntax(directory string, syntax gra.SyntaxLike) {
 	}
 	var syntaxFile = directory + "Syntax.cdsn"
 	fmt.Printf(
-		"The syntax file %q does not yet exist.\n\tCreating it...\n",
+		"    Creating %q now...\n",
 		syntaxFile,
 	)
 	var formatter = gra.Formatter()
