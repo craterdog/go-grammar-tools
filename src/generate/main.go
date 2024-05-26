@@ -20,8 +20,6 @@ import (
 	sts "strings"
 )
 
-// MAIN PROGRAM
-
 func main() {
 	var module, directory = retrieveArguments()
 	var syntax = parseSyntax(directory)

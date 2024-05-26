@@ -19,8 +19,6 @@ import (
 	sts "strings"
 )
 
-// MAIN PROGRAM
-
 func main() {
 	var directory, name, copyright = retrieveArguments()
 	var syntax = createSyntax(name, copyright)

@@ -18,8 +18,6 @@ import (
 	osx "os"
 )
 
-// MAIN PROGRAM
-
 func main() {
 	var syntaxFile = retrieveArguments()
 	var syntax = parseSyntax(syntaxFile)
