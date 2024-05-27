@@ -1,5 +1,7 @@
 echo "Compiling the following tools:"
 mkdir -p ./bin/
+echo "	version"
+go build -o ./bin/ ./src/version
 echo "	initialize"
 go build -o ./bin/ ./src/initialize
 echo "	validate"
