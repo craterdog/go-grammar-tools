@@ -27,8 +27,8 @@ on interfaces, not on each other.
 package agent
 
 import (
-	col "github.com/craterdog/go-collection-framework/v4/collection"
 	ast "github.com/craterdog/example/gcmn/ast"
+	col "github.com/craterdog/go-collection-framework/v4/collection"
 )
 
 // Types

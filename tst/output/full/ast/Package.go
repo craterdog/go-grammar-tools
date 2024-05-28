@@ -33,6 +33,16 @@ import (
 // Classes
 
 /*
+DefaultClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete default-like class.
+*/
+type DefaultClassLike interface {
+	// Constructors
+	Make() DefaultLike
+}
+
+/*
 ExampleClassLike is a class interface that defines the complete set of
 class constants, constructors and functions that must be supported by each
 concrete example-like class.
@@ -45,13 +55,13 @@ type ExampleClassLike interface {
 }
 
 /*
-DefaultClassLike is a class interface that defines the complete set of
+ListClassLike is a class interface that defines the complete set of
 class constants, constructors and functions that must be supported by each
-concrete default-like class.
+concrete list-like class.
 */
-type DefaultClassLike interface {
+type ListClassLike interface {
 	// Constructors
-	Make() DefaultLike
+	MakeWithExamples(examples col.ListLike[ExampleLike]) ListLike
 }
 
 /*
@@ -67,17 +77,17 @@ type PrimitiveClassLike interface {
 	MakeWithAnything(anything string) PrimitiveLike
 }
 
-/*
-ListClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete list-like class.
-*/
-type ListClassLike interface {
-	// Constructors
-	MakeWithExamples(examples col.ListLike[ExampleLike]) ListLike
-}
-
 // Instances
+
+/*
+DefaultLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete default-like class.
+*/
+type DefaultLike interface {
+	// Attributes
+	GetClass() DefaultClassLike
+}
 
 /*
 ExampleLike is an instance interface that defines the complete set of
@@ -93,13 +103,14 @@ type ExampleLike interface {
 }
 
 /*
-DefaultLike is an instance interface that defines the complete set of
+ListLike is an instance interface that defines the complete set of
 instance attributes, abstractions and methods that must be supported by each
-instance of a concrete default-like class.
+instance of a concrete list-like class.
 */
-type DefaultLike interface {
+type ListLike interface {
 	// Attributes
-	GetClass() DefaultClassLike
+	GetClass() ListClassLike
+	GetExamples() col.ListLike[ExampleLike]
 }
 
 /*
@@ -114,15 +125,4 @@ type PrimitiveLike interface {
 	GetText() string
 	GetInteger() string
 	GetAnything() string
-}
-
-/*
-ListLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete list-like class.
-*/
-type ListLike interface {
-	// Attributes
-	GetClass() ListClassLike
-	GetExamples() col.ListLike[ExampleLike]
 }

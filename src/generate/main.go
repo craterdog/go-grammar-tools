@@ -25,8 +25,10 @@ func main() {
 	var syntax = parseSyntax(directory)
 	validateSyntax(syntax)
 	var astModel = generateAST(module, directory, syntax)
+	validateModel(astModel)
 	generateClasses(module, directory, astModel)
 	var agentModel = generateAgent(module, directory, syntax)
+	validateModel(agentModel)
 	generateFormatter(module, directory, syntax, agentModel)
 	generateParser(module, directory, syntax, agentModel)
 	generateScanner(module, directory, syntax, agentModel)
@@ -115,6 +117,11 @@ func generateAgent(
 		panic(err)
 	}
 	return agentModel
+}
+
+func validateModel(model mod.ModelLike) {
+	var validator = mod.Validator()
+	validator.ValidateModel(model)
 }
 
 func generateClasses(

@@ -33,90 +33,6 @@ import (
 // Classes
 
 /*
-SyntaxClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete syntax-like class.
-*/
-type SyntaxClassLike interface {
-	// Constructors
-	MakeWithAttributes(
-		headers col.ListLike[HeaderLike],
-		definitions col.ListLike[DefinitionLike],
-	) SyntaxLike
-}
-
-/*
-HeaderClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete header-like class.
-*/
-type HeaderClassLike interface {
-	// Constructors
-	MakeWithComment(comment string) HeaderLike
-}
-
-/*
-DefinitionClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete definition-like class.
-*/
-type DefinitionClassLike interface {
-	// Constructors
-	MakeWithAttributes(
-		comment string,
-		name string,
-		expression ExpressionLike,
-	) DefinitionLike
-}
-
-/*
-ExpressionClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete expression-like class.
-*/
-type ExpressionClassLike interface {
-	// Constructors
-	MakeWithInline(inline InlineLike) ExpressionLike
-	MakeWithMultiline(multiline MultilineLike) ExpressionLike
-}
-
-/*
-InlineClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete inline-like class.
-*/
-type InlineClassLike interface {
-	// Constructors
-	MakeWithAttributes(
-		alternatives col.ListLike[AlternativeLike],
-		note string,
-	) InlineLike
-}
-
-/*
-MultilineClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete multiline-like class.
-*/
-type MultilineClassLike interface {
-	// Constructors
-	MakeWithLines(lines col.ListLike[LineLike]) MultilineLike
-}
-
-/*
-LineClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete line-like class.
-*/
-type LineClassLike interface {
-	// Constructors
-	MakeWithAttributes(
-		alternative AlternativeLike,
-		note string,
-	) LineLike
-}
-
-/*
 AlternativeClassLike is a class interface that defines the complete set of
 class constants, constructors and functions that must be supported by each
 concrete alternative-like class.
@@ -124,32 +40,6 @@ concrete alternative-like class.
 type AlternativeClassLike interface {
 	// Constructors
 	MakeWithFactors(factors col.ListLike[FactorLike]) AlternativeLike
-}
-
-/*
-FactorClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete factor-like class.
-*/
-type FactorClassLike interface {
-	// Constructors
-	MakeWithAttributes(
-		predicate PredicateLike,
-		cardinality CardinalityLike,
-	) FactorLike
-}
-
-/*
-PredicateClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete predicate-like class.
-*/
-type PredicateClassLike interface {
-	// Constructors
-	MakeWithAtom(atom AtomLike) PredicateLike
-	MakeWithElement(element ElementLike) PredicateLike
-	MakeWithFilter(filter FilterLike) PredicateLike
-	MakeWithPrecedence(precedence PrecedenceLike) PredicateLike
 }
 
 /*
@@ -161,47 +51,6 @@ type AtomClassLike interface {
 	// Constructors
 	MakeWithGlyph(glyph GlyphLike) AtomLike
 	MakeWithIntrinsic(intrinsic string) AtomLike
-}
-
-/*
-GlyphClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete glyph-like class.
-*/
-type GlyphClassLike interface {
-	// Constructors
-	MakeWithCharacters(characters col.ListLike[string]) GlyphLike
-}
-
-/*
-ElementClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete element-like class.
-*/
-type ElementClassLike interface {
-	// Constructors
-	MakeWithLiteral(literal string) ElementLike
-	MakeWithName(name string) ElementLike
-}
-
-/*
-FilterClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete filter-like class.
-*/
-type FilterClassLike interface {
-	// Constructors
-	MakeWithAtoms(atoms col.ListLike[AtomLike]) FilterLike
-}
-
-/*
-PrecedenceClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete precedence-like class.
-*/
-type PrecedenceClassLike interface {
-	// Constructors
-	MakeWithExpression(expression ExpressionLike) PrecedenceLike
 }
 
 /*
@@ -224,90 +73,158 @@ type ConstraintClassLike interface {
 	MakeWithNumbers(numbers col.ListLike[string]) ConstraintLike
 }
 
+/*
+DefinitionClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete definition-like class.
+*/
+type DefinitionClassLike interface {
+	// Constructors
+	MakeWithAttributes(
+		comment string,
+		name string,
+		expression ExpressionLike,
+	) DefinitionLike
+}
+
+/*
+ElementClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete element-like class.
+*/
+type ElementClassLike interface {
+	// Constructors
+	MakeWithLiteral(literal string) ElementLike
+	MakeWithName(name string) ElementLike
+}
+
+/*
+ExpressionClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete expression-like class.
+*/
+type ExpressionClassLike interface {
+	// Constructors
+	MakeWithInline(inline InlineLike) ExpressionLike
+	MakeWithMultiline(multiline MultilineLike) ExpressionLike
+}
+
+/*
+FactorClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete factor-like class.
+*/
+type FactorClassLike interface {
+	// Constructors
+	MakeWithAttributes(
+		predicate PredicateLike,
+		cardinality CardinalityLike,
+	) FactorLike
+}
+
+/*
+FilterClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete filter-like class.
+*/
+type FilterClassLike interface {
+	// Constructors
+	MakeWithAtoms(atoms col.ListLike[AtomLike]) FilterLike
+}
+
+/*
+GlyphClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete glyph-like class.
+*/
+type GlyphClassLike interface {
+	// Constructors
+	MakeWithCharacters(characters col.ListLike[string]) GlyphLike
+}
+
+/*
+HeaderClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete header-like class.
+*/
+type HeaderClassLike interface {
+	// Constructors
+	MakeWithComment(comment string) HeaderLike
+}
+
+/*
+InlineClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete inline-like class.
+*/
+type InlineClassLike interface {
+	// Constructors
+	MakeWithAttributes(
+		alternatives col.ListLike[AlternativeLike],
+		note string,
+	) InlineLike
+}
+
+/*
+LineClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete line-like class.
+*/
+type LineClassLike interface {
+	// Constructors
+	MakeWithAttributes(
+		alternative AlternativeLike,
+		note string,
+	) LineLike
+}
+
+/*
+MultilineClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete multiline-like class.
+*/
+type MultilineClassLike interface {
+	// Constructors
+	MakeWithLines(lines col.ListLike[LineLike]) MultilineLike
+}
+
+/*
+PrecedenceClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete precedence-like class.
+*/
+type PrecedenceClassLike interface {
+	// Constructors
+	MakeWithExpression(expression ExpressionLike) PrecedenceLike
+}
+
+/*
+PredicateClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete predicate-like class.
+*/
+type PredicateClassLike interface {
+	// Constructors
+	MakeWithAtom(atom AtomLike) PredicateLike
+	MakeWithElement(element ElementLike) PredicateLike
+	MakeWithFilter(filter FilterLike) PredicateLike
+	MakeWithPrecedence(precedence PrecedenceLike) PredicateLike
+}
+
+/*
+SyntaxClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete syntax-like class.
+*/
+type SyntaxClassLike interface {
+	// Constructors
+	MakeWithAttributes(
+		headers col.ListLike[HeaderLike],
+		definitions col.ListLike[DefinitionLike],
+	) SyntaxLike
+}
+
 // Instances
-
-/*
-SyntaxLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete syntax-like class.
-*/
-type SyntaxLike interface {
-	// Attributes
-	GetClass() SyntaxClassLike
-	GetHeaders() col.ListLike[HeaderLike]
-	GetDefinitions() col.ListLike[DefinitionLike]
-}
-
-/*
-HeaderLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete header-like class.
-*/
-type HeaderLike interface {
-	// Attributes
-	GetClass() HeaderClassLike
-	GetComment() string
-}
-
-/*
-DefinitionLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete definition-like class.
-*/
-type DefinitionLike interface {
-	// Attributes
-	GetClass() DefinitionClassLike
-	GetComment() string
-	GetName() string
-	GetExpression() ExpressionLike
-}
-
-/*
-ExpressionLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete expression-like class.
-*/
-type ExpressionLike interface {
-	// Attributes
-	GetClass() ExpressionClassLike
-	GetInline() InlineLike
-	GetMultiline() MultilineLike
-}
-
-/*
-InlineLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete inline-like class.
-*/
-type InlineLike interface {
-	// Attributes
-	GetClass() InlineClassLike
-	GetAlternatives() col.ListLike[AlternativeLike]
-	GetNote() string
-}
-
-/*
-MultilineLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete multiline-like class.
-*/
-type MultilineLike interface {
-	// Attributes
-	GetClass() MultilineClassLike
-	GetLines() col.ListLike[LineLike]
-}
-
-/*
-LineLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete line-like class.
-*/
-type LineLike interface {
-	// Attributes
-	GetClass() LineClassLike
-	GetAlternative() AlternativeLike
-	GetNote() string
-}
 
 /*
 AlternativeLike is an instance interface that defines the complete set of
@@ -321,32 +238,6 @@ type AlternativeLike interface {
 }
 
 /*
-FactorLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete factor-like class.
-*/
-type FactorLike interface {
-	// Attributes
-	GetClass() FactorClassLike
-	GetPredicate() PredicateLike
-	GetCardinality() CardinalityLike
-}
-
-/*
-PredicateLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete predicate-like class.
-*/
-type PredicateLike interface {
-	// Attributes
-	GetClass() PredicateClassLike
-	GetAtom() AtomLike
-	GetElement() ElementLike
-	GetFilter() FilterLike
-	GetPrecedence() PrecedenceLike
-}
-
-/*
 AtomLike is an instance interface that defines the complete set of
 instance attributes, abstractions and methods that must be supported by each
 instance of a concrete atom-like class.
@@ -356,51 +247,6 @@ type AtomLike interface {
 	GetClass() AtomClassLike
 	GetGlyph() GlyphLike
 	GetIntrinsic() string
-}
-
-/*
-GlyphLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete glyph-like class.
-*/
-type GlyphLike interface {
-	// Attributes
-	GetClass() GlyphClassLike
-	GetCharacters() col.ListLike[string]
-}
-
-/*
-ElementLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete element-like class.
-*/
-type ElementLike interface {
-	// Attributes
-	GetClass() ElementClassLike
-	GetLiteral() string
-	GetName() string
-}
-
-/*
-FilterLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete filter-like class.
-*/
-type FilterLike interface {
-	// Attributes
-	GetClass() FilterClassLike
-	GetAtoms() col.ListLike[AtomLike]
-}
-
-/*
-PrecedenceLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete precedence-like class.
-*/
-type PrecedenceLike interface {
-	// Attributes
-	GetClass() PrecedenceClassLike
-	GetExpression() ExpressionLike
 }
 
 /*
@@ -423,4 +269,158 @@ type ConstraintLike interface {
 	// Attributes
 	GetClass() ConstraintClassLike
 	GetNumbers() col.ListLike[string]
+}
+
+/*
+DefinitionLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete definition-like class.
+*/
+type DefinitionLike interface {
+	// Attributes
+	GetClass() DefinitionClassLike
+	GetComment() string
+	GetName() string
+	GetExpression() ExpressionLike
+}
+
+/*
+ElementLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete element-like class.
+*/
+type ElementLike interface {
+	// Attributes
+	GetClass() ElementClassLike
+	GetLiteral() string
+	GetName() string
+}
+
+/*
+ExpressionLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete expression-like class.
+*/
+type ExpressionLike interface {
+	// Attributes
+	GetClass() ExpressionClassLike
+	GetInline() InlineLike
+	GetMultiline() MultilineLike
+}
+
+/*
+FactorLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete factor-like class.
+*/
+type FactorLike interface {
+	// Attributes
+	GetClass() FactorClassLike
+	GetPredicate() PredicateLike
+	GetCardinality() CardinalityLike
+}
+
+/*
+FilterLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete filter-like class.
+*/
+type FilterLike interface {
+	// Attributes
+	GetClass() FilterClassLike
+	GetAtoms() col.ListLike[AtomLike]
+}
+
+/*
+GlyphLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete glyph-like class.
+*/
+type GlyphLike interface {
+	// Attributes
+	GetClass() GlyphClassLike
+	GetCharacters() col.ListLike[string]
+}
+
+/*
+HeaderLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete header-like class.
+*/
+type HeaderLike interface {
+	// Attributes
+	GetClass() HeaderClassLike
+	GetComment() string
+}
+
+/*
+InlineLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete inline-like class.
+*/
+type InlineLike interface {
+	// Attributes
+	GetClass() InlineClassLike
+	GetAlternatives() col.ListLike[AlternativeLike]
+	GetNote() string
+}
+
+/*
+LineLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete line-like class.
+*/
+type LineLike interface {
+	// Attributes
+	GetClass() LineClassLike
+	GetAlternative() AlternativeLike
+	GetNote() string
+}
+
+/*
+MultilineLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete multiline-like class.
+*/
+type MultilineLike interface {
+	// Attributes
+	GetClass() MultilineClassLike
+	GetLines() col.ListLike[LineLike]
+}
+
+/*
+PrecedenceLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete precedence-like class.
+*/
+type PrecedenceLike interface {
+	// Attributes
+	GetClass() PrecedenceClassLike
+	GetExpression() ExpressionLike
+}
+
+/*
+PredicateLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete predicate-like class.
+*/
+type PredicateLike interface {
+	// Attributes
+	GetClass() PredicateClassLike
+	GetAtom() AtomLike
+	GetElement() ElementLike
+	GetFilter() FilterLike
+	GetPrecedence() PrecedenceLike
+}
+
+/*
+SyntaxLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete syntax-like class.
+*/
+type SyntaxLike interface {
+	// Attributes
+	GetClass() SyntaxClassLike
+	GetHeaders() col.ListLike[HeaderLike]
+	GetDefinitions() col.ListLike[DefinitionLike]
 }

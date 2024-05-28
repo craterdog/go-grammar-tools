@@ -33,6 +33,296 @@ import (
 // Classes
 
 /*
+AbstractionClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete abstraction-like class.
+*/
+type AbstractionClassLike interface {
+	// Constructors
+	MakeWithAttributes(
+		prefix PrefixLike,
+		identifier string,
+		arguments ArgumentsLike,
+	) AbstractionLike
+}
+
+/*
+AbstractionsClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete abstractions-like class.
+*/
+type AbstractionsClassLike interface {
+	// Constructors
+	MakeWithAbstractions(abstractions col.ListLike[AbstractionLike]) AbstractionsLike
+}
+
+/*
+ArgumentsClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete arguments-like class.
+*/
+type ArgumentsClassLike interface {
+	// Constructors
+	MakeWithAbstractions(abstractions col.ListLike[AbstractionLike]) ArgumentsLike
+}
+
+/*
+AspectClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete aspect-like class.
+*/
+type AspectClassLike interface {
+	// Constructors
+	MakeWithAttributes(
+		declaration DeclarationLike,
+		methods MethodsLike,
+	) AspectLike
+}
+
+/*
+AspectsClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete aspects-like class.
+*/
+type AspectsClassLike interface {
+	// Constructors
+	MakeWithAspects(aspects col.ListLike[AspectLike]) AspectsLike
+}
+
+/*
+AttributeClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete attribute-like class.
+*/
+type AttributeClassLike interface {
+	// Constructors
+	MakeWithAttributes(
+		identifier string,
+		parameter ParameterLike,
+		abstraction AbstractionLike,
+	) AttributeLike
+}
+
+/*
+AttributesClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete attributes-like class.
+*/
+type AttributesClassLike interface {
+	// Constructors
+	MakeWithAttributes(attributes col.ListLike[AttributeLike]) AttributesLike
+}
+
+/*
+ClassClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete class-like class.
+*/
+type ClassClassLike interface {
+	// Constructors
+	MakeWithAttributes(
+		declaration DeclarationLike,
+		constants ConstantsLike,
+		constructors ConstructorsLike,
+		functions FunctionsLike,
+	) ClassLike
+}
+
+/*
+ClassesClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete classes-like class.
+*/
+type ClassesClassLike interface {
+	// Constructors
+	MakeWithClasses(classes col.ListLike[ClassLike]) ClassesLike
+}
+
+/*
+ConstantClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete constant-like class.
+*/
+type ConstantClassLike interface {
+	// Constructors
+	MakeWithAttributes(
+		identifier string,
+		abstraction AbstractionLike,
+	) ConstantLike
+}
+
+/*
+ConstantsClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete constants-like class.
+*/
+type ConstantsClassLike interface {
+	// Constructors
+	MakeWithConstants(constants col.ListLike[ConstantLike]) ConstantsLike
+}
+
+/*
+ConstructorClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete constructor-like class.
+*/
+type ConstructorClassLike interface {
+	// Constructors
+	MakeWithAttributes(
+		identifier string,
+		parameters ParametersLike,
+		abstraction AbstractionLike,
+	) ConstructorLike
+}
+
+/*
+ConstructorsClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete constructors-like class.
+*/
+type ConstructorsClassLike interface {
+	// Constructors
+	MakeWithConstructors(constructors col.ListLike[ConstructorLike]) ConstructorsLike
+}
+
+/*
+DeclarationClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete declaration-like class.
+*/
+type DeclarationClassLike interface {
+	// Constructors
+	MakeWithAttributes(
+		comment string,
+		identifier string,
+		parameters ParametersLike,
+	) DeclarationLike
+}
+
+/*
+EnumerationClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete enumeration-like class.
+*/
+type EnumerationClassLike interface {
+	// Constructors
+	MakeWithAttributes(
+		parameter ParameterLike,
+		identifiers col.ListLike[string],
+	) EnumerationLike
+}
+
+/*
+FunctionClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete function-like class.
+*/
+type FunctionClassLike interface {
+	// Constructors
+	MakeWithAttributes(
+		identifier string,
+		parameters ParametersLike,
+		result ResultLike,
+	) FunctionLike
+}
+
+/*
+FunctionalClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete functional-like class.
+*/
+type FunctionalClassLike interface {
+	// Constructors
+	MakeWithAttributes(
+		declaration DeclarationLike,
+		parameters ParametersLike,
+		result ResultLike,
+	) FunctionalLike
+}
+
+/*
+FunctionalsClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete functionals-like class.
+*/
+type FunctionalsClassLike interface {
+	// Constructors
+	MakeWithFunctionals(functionals col.ListLike[FunctionalLike]) FunctionalsLike
+}
+
+/*
+FunctionsClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete functions-like class.
+*/
+type FunctionsClassLike interface {
+	// Constructors
+	MakeWithFunctions(functions col.ListLike[FunctionLike]) FunctionsLike
+}
+
+/*
+HeaderClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete header-like class.
+*/
+type HeaderClassLike interface {
+	// Constructors
+	MakeWithAttributes(
+		comment string,
+		identifier string,
+	) HeaderLike
+}
+
+/*
+InstanceClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete instance-like class.
+*/
+type InstanceClassLike interface {
+	// Constructors
+	MakeWithAttributes(
+		declaration DeclarationLike,
+		attributes AttributesLike,
+		abstractions AbstractionsLike,
+		methods MethodsLike,
+	) InstanceLike
+}
+
+/*
+InstancesClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete instances-like class.
+*/
+type InstancesClassLike interface {
+	// Constructors
+	MakeWithInstances(instances col.ListLike[InstanceLike]) InstancesLike
+}
+
+/*
+MethodClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete method-like class.
+*/
+type MethodClassLike interface {
+	// Constructors
+	MakeWithAttributes(
+		identifier string,
+		parameters ParametersLike,
+		result ResultLike,
+	) MethodLike
+}
+
+/*
+MethodsClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete methods-like class.
+*/
+type MethodsClassLike interface {
+	// Constructors
+	MakeWithMethods(methods col.ListLike[MethodLike]) MethodsLike
+}
+
+/*
 ModelClassLike is a class interface that defines the complete set of
 class constants, constructors and functions that must be supported by each
 concrete model-like class.
@@ -52,39 +342,6 @@ type ModelClassLike interface {
 }
 
 /*
-NoticeClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete notice-like class.
-*/
-type NoticeClassLike interface {
-	// Constructors
-	MakeWithComment(comment string) NoticeLike
-}
-
-/*
-HeaderClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete header-like class.
-*/
-type HeaderClassLike interface {
-	// Constructors
-	MakeWithAttributes(
-		comment string,
-		identifier string,
-	) HeaderLike
-}
-
-/*
-ModulesClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete modules-like class.
-*/
-type ModulesClassLike interface {
-	// Constructors
-	MakeWithModules(modules col.ListLike[ModuleLike]) ModulesLike
-}
-
-/*
 ModuleClassLike is a class interface that defines the complete set of
 class constants, constructors and functions that must be supported by each
 concrete module-like class.
@@ -98,13 +355,67 @@ type ModuleClassLike interface {
 }
 
 /*
-TypesClassLike is a class interface that defines the complete set of
+ModulesClassLike is a class interface that defines the complete set of
 class constants, constructors and functions that must be supported by each
-concrete types-like class.
+concrete modules-like class.
 */
-type TypesClassLike interface {
+type ModulesClassLike interface {
 	// Constructors
-	MakeWithTypes(types col.ListLike[TypeLike]) TypesLike
+	MakeWithModules(modules col.ListLike[ModuleLike]) ModulesLike
+}
+
+/*
+NoticeClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete notice-like class.
+*/
+type NoticeClassLike interface {
+	// Constructors
+	MakeWithComment(comment string) NoticeLike
+}
+
+/*
+ParameterClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete parameter-like class.
+*/
+type ParameterClassLike interface {
+	// Constructors
+	MakeWithAttributes(
+		identifier string,
+		abstraction AbstractionLike,
+	) ParameterLike
+}
+
+/*
+ParametersClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete parameters-like class.
+*/
+type ParametersClassLike interface {
+	// Constructors
+	MakeWithParameters(parameters col.ListLike[ParameterLike]) ParametersLike
+}
+
+/*
+PrefixClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete prefix-like class.
+*/
+type PrefixClassLike interface {
+	// Constructors
+	MakeWithIdentifier(identifier string) PrefixLike
+}
+
+/*
+ResultClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete result-like class.
+*/
+type ResultClassLike interface {
+	// Constructors
+	MakeWithAbstraction(abstraction AbstractionLike) ResultLike
+	MakeWithParameters(parameters ParametersLike) ResultLike
 }
 
 /*
@@ -122,327 +433,304 @@ type TypeClassLike interface {
 }
 
 /*
-DeclarationClassLike is a class interface that defines the complete set of
+TypesClassLike is a class interface that defines the complete set of
 class constants, constructors and functions that must be supported by each
-concrete declaration-like class.
+concrete types-like class.
 */
-type DeclarationClassLike interface {
+type TypesClassLike interface {
 	// Constructors
-	MakeWithAttributes(
-		comment string,
-		identifier string,
-		parameters ParametersLike,
-	) DeclarationLike
-}
-
-/*
-ParametersClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete parameters-like class.
-*/
-type ParametersClassLike interface {
-	// Constructors
-	MakeWithParameters(parameters col.ListLike[ParameterLike]) ParametersLike
-}
-
-/*
-ParameterClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete parameter-like class.
-*/
-type ParameterClassLike interface {
-	// Constructors
-	MakeWithAttributes(
-		identifier string,
-		abstraction AbstractionLike,
-	) ParameterLike
-}
-
-/*
-AbstractionClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete abstraction-like class.
-*/
-type AbstractionClassLike interface {
-	// Constructors
-	MakeWithAttributes(
-		prefix PrefixLike,
-		identifier string,
-		arguments ArgumentsLike,
-	) AbstractionLike
-}
-
-/*
-PrefixClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete prefix-like class.
-*/
-type PrefixClassLike interface {
-	// Constructors
-	MakeWithIdentifier(identifier string) PrefixLike
-}
-
-/*
-ArgumentsClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete arguments-like class.
-*/
-type ArgumentsClassLike interface {
-	// Constructors
-	MakeWithAbstractions(abstractions col.ListLike[AbstractionLike]) ArgumentsLike
-}
-
-/*
-EnumerationClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete enumeration-like class.
-*/
-type EnumerationClassLike interface {
-	// Constructors
-	MakeWithAttributes(
-		parameter ParameterLike,
-		identifiers col.ListLike[string],
-	) EnumerationLike
-}
-
-/*
-FunctionalsClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete functionals-like class.
-*/
-type FunctionalsClassLike interface {
-	// Constructors
-	MakeWithFunctionals(functionals col.ListLike[FunctionalLike]) FunctionalsLike
-}
-
-/*
-FunctionalClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete functional-like class.
-*/
-type FunctionalClassLike interface {
-	// Constructors
-	MakeWithAttributes(
-		declaration DeclarationLike,
-		parameters ParametersLike,
-		result ResultLike,
-	) FunctionalLike
-}
-
-/*
-ResultClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete result-like class.
-*/
-type ResultClassLike interface {
-	// Constructors
-	MakeWithAbstraction(abstraction AbstractionLike) ResultLike
-	MakeWithParameters(parameters ParametersLike) ResultLike
-}
-
-/*
-AspectsClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete aspects-like class.
-*/
-type AspectsClassLike interface {
-	// Constructors
-	MakeWithAspects(aspects col.ListLike[AspectLike]) AspectsLike
-}
-
-/*
-AspectClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete aspect-like class.
-*/
-type AspectClassLike interface {
-	// Constructors
-	MakeWithAttributes(
-		declaration DeclarationLike,
-		methods MethodsLike,
-	) AspectLike
-}
-
-/*
-ClassesClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete classes-like class.
-*/
-type ClassesClassLike interface {
-	// Constructors
-	MakeWithClasses(classes col.ListLike[ClassLike]) ClassesLike
-}
-
-/*
-ClassClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete class-like class.
-*/
-type ClassClassLike interface {
-	// Constructors
-	MakeWithAttributes(
-		declaration DeclarationLike,
-		constants ConstantsLike,
-		constructors ConstructorsLike,
-		functions FunctionsLike,
-	) ClassLike
-}
-
-/*
-ConstantsClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete constants-like class.
-*/
-type ConstantsClassLike interface {
-	// Constructors
-	MakeWithConstants(constants col.ListLike[ConstantLike]) ConstantsLike
-}
-
-/*
-ConstantClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete constant-like class.
-*/
-type ConstantClassLike interface {
-	// Constructors
-	MakeWithAttributes(
-		identifier string,
-		abstraction AbstractionLike,
-	) ConstantLike
-}
-
-/*
-ConstructorsClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete constructors-like class.
-*/
-type ConstructorsClassLike interface {
-	// Constructors
-	MakeWithConstructors(constructors col.ListLike[ConstructorLike]) ConstructorsLike
-}
-
-/*
-ConstructorClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete constructor-like class.
-*/
-type ConstructorClassLike interface {
-	// Constructors
-	MakeWithAttributes(
-		identifier string,
-		parameters ParametersLike,
-		abstraction AbstractionLike,
-	) ConstructorLike
-}
-
-/*
-FunctionsClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete functions-like class.
-*/
-type FunctionsClassLike interface {
-	// Constructors
-	MakeWithFunctions(functions col.ListLike[FunctionLike]) FunctionsLike
-}
-
-/*
-FunctionClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete function-like class.
-*/
-type FunctionClassLike interface {
-	// Constructors
-	MakeWithAttributes(
-		identifier string,
-		parameters ParametersLike,
-		result ResultLike,
-	) FunctionLike
-}
-
-/*
-InstancesClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete instances-like class.
-*/
-type InstancesClassLike interface {
-	// Constructors
-	MakeWithInstances(instances col.ListLike[InstanceLike]) InstancesLike
-}
-
-/*
-InstanceClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete instance-like class.
-*/
-type InstanceClassLike interface {
-	// Constructors
-	MakeWithAttributes(
-		declaration DeclarationLike,
-		attributes AttributesLike,
-		abstractions AbstractionsLike,
-		methods MethodsLike,
-	) InstanceLike
-}
-
-/*
-AttributesClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete attributes-like class.
-*/
-type AttributesClassLike interface {
-	// Constructors
-	MakeWithAttributes(attributes col.ListLike[AttributeLike]) AttributesLike
-}
-
-/*
-AttributeClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete attribute-like class.
-*/
-type AttributeClassLike interface {
-	// Constructors
-	MakeWithAttributes(
-		identifier string,
-		parameter ParameterLike,
-		abstraction AbstractionLike,
-	) AttributeLike
-}
-
-/*
-AbstractionsClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete abstractions-like class.
-*/
-type AbstractionsClassLike interface {
-	// Constructors
-	MakeWithAbstractions(abstractions col.ListLike[AbstractionLike]) AbstractionsLike
-}
-
-/*
-MethodsClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete methods-like class.
-*/
-type MethodsClassLike interface {
-	// Constructors
-	MakeWithMethods(methods col.ListLike[MethodLike]) MethodsLike
-}
-
-/*
-MethodClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete method-like class.
-*/
-type MethodClassLike interface {
-	// Constructors
-	MakeWithAttributes(
-		identifier string,
-		parameters ParametersLike,
-		result ResultLike,
-	) MethodLike
+	MakeWithTypes(types col.ListLike[TypeLike]) TypesLike
 }
 
 // Instances
+
+/*
+AbstractionLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete abstraction-like class.
+*/
+type AbstractionLike interface {
+	// Attributes
+	GetClass() AbstractionClassLike
+	GetPrefix() PrefixLike
+	GetIdentifier() string
+	GetArguments() ArgumentsLike
+}
+
+/*
+AbstractionsLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete abstractions-like class.
+*/
+type AbstractionsLike interface {
+	// Attributes
+	GetClass() AbstractionsClassLike
+	GetAbstractions() col.ListLike[AbstractionLike]
+}
+
+/*
+ArgumentsLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete arguments-like class.
+*/
+type ArgumentsLike interface {
+	// Attributes
+	GetClass() ArgumentsClassLike
+	GetAbstractions() col.ListLike[AbstractionLike]
+}
+
+/*
+AspectLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete aspect-like class.
+*/
+type AspectLike interface {
+	// Attributes
+	GetClass() AspectClassLike
+	GetDeclaration() DeclarationLike
+	GetMethods() MethodsLike
+}
+
+/*
+AspectsLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete aspects-like class.
+*/
+type AspectsLike interface {
+	// Attributes
+	GetClass() AspectsClassLike
+	GetAspects() col.ListLike[AspectLike]
+}
+
+/*
+AttributeLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete attribute-like class.
+*/
+type AttributeLike interface {
+	// Attributes
+	GetClass() AttributeClassLike
+	GetIdentifier() string
+	GetParameter() ParameterLike
+	GetAbstraction() AbstractionLike
+}
+
+/*
+AttributesLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete attributes-like class.
+*/
+type AttributesLike interface {
+	// Attributes
+	GetClass() AttributesClassLike
+	GetAttributes() col.ListLike[AttributeLike]
+}
+
+/*
+ClassLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete class-like class.
+*/
+type ClassLike interface {
+	// Attributes
+	GetClass() ClassClassLike
+	GetDeclaration() DeclarationLike
+	GetConstants() ConstantsLike
+	GetConstructors() ConstructorsLike
+	GetFunctions() FunctionsLike
+}
+
+/*
+ClassesLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete classes-like class.
+*/
+type ClassesLike interface {
+	// Attributes
+	GetClass() ClassesClassLike
+	GetClasses() col.ListLike[ClassLike]
+}
+
+/*
+ConstantLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete constant-like class.
+*/
+type ConstantLike interface {
+	// Attributes
+	GetClass() ConstantClassLike
+	GetIdentifier() string
+	GetAbstraction() AbstractionLike
+}
+
+/*
+ConstantsLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete constants-like class.
+*/
+type ConstantsLike interface {
+	// Attributes
+	GetClass() ConstantsClassLike
+	GetConstants() col.ListLike[ConstantLike]
+}
+
+/*
+ConstructorLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete constructor-like class.
+*/
+type ConstructorLike interface {
+	// Attributes
+	GetClass() ConstructorClassLike
+	GetIdentifier() string
+	GetParameters() ParametersLike
+	GetAbstraction() AbstractionLike
+}
+
+/*
+ConstructorsLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete constructors-like class.
+*/
+type ConstructorsLike interface {
+	// Attributes
+	GetClass() ConstructorsClassLike
+	GetConstructors() col.ListLike[ConstructorLike]
+}
+
+/*
+DeclarationLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete declaration-like class.
+*/
+type DeclarationLike interface {
+	// Attributes
+	GetClass() DeclarationClassLike
+	GetComment() string
+	GetIdentifier() string
+	GetParameters() ParametersLike
+}
+
+/*
+EnumerationLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete enumeration-like class.
+*/
+type EnumerationLike interface {
+	// Attributes
+	GetClass() EnumerationClassLike
+	GetParameter() ParameterLike
+	GetIdentifiers() col.ListLike[string]
+}
+
+/*
+FunctionLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete function-like class.
+*/
+type FunctionLike interface {
+	// Attributes
+	GetClass() FunctionClassLike
+	GetIdentifier() string
+	GetParameters() ParametersLike
+	GetResult() ResultLike
+}
+
+/*
+FunctionalLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete functional-like class.
+*/
+type FunctionalLike interface {
+	// Attributes
+	GetClass() FunctionalClassLike
+	GetDeclaration() DeclarationLike
+	GetParameters() ParametersLike
+	GetResult() ResultLike
+}
+
+/*
+FunctionalsLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete functionals-like class.
+*/
+type FunctionalsLike interface {
+	// Attributes
+	GetClass() FunctionalsClassLike
+	GetFunctionals() col.ListLike[FunctionalLike]
+}
+
+/*
+FunctionsLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete functions-like class.
+*/
+type FunctionsLike interface {
+	// Attributes
+	GetClass() FunctionsClassLike
+	GetFunctions() col.ListLike[FunctionLike]
+}
+
+/*
+HeaderLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete header-like class.
+*/
+type HeaderLike interface {
+	// Attributes
+	GetClass() HeaderClassLike
+	GetComment() string
+	GetIdentifier() string
+}
+
+/*
+InstanceLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete instance-like class.
+*/
+type InstanceLike interface {
+	// Attributes
+	GetClass() InstanceClassLike
+	GetDeclaration() DeclarationLike
+	GetAttributes() AttributesLike
+	GetAbstractions() AbstractionsLike
+	GetMethods() MethodsLike
+}
+
+/*
+InstancesLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete instances-like class.
+*/
+type InstancesLike interface {
+	// Attributes
+	GetClass() InstancesClassLike
+	GetInstances() col.ListLike[InstanceLike]
+}
+
+/*
+MethodLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete method-like class.
+*/
+type MethodLike interface {
+	// Attributes
+	GetClass() MethodClassLike
+	GetIdentifier() string
+	GetParameters() ParametersLike
+	GetResult() ResultLike
+}
+
+/*
+MethodsLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete methods-like class.
+*/
+type MethodsLike interface {
+	// Attributes
+	GetClass() MethodsClassLike
+	GetMethods() col.ListLike[MethodLike]
+}
 
 /*
 ModelLike is an instance interface that defines the complete set of
@@ -463,26 +751,15 @@ type ModelLike interface {
 }
 
 /*
-NoticeLike is an instance interface that defines the complete set of
+ModuleLike is an instance interface that defines the complete set of
 instance attributes, abstractions and methods that must be supported by each
-instance of a concrete notice-like class.
+instance of a concrete module-like class.
 */
-type NoticeLike interface {
+type ModuleLike interface {
 	// Attributes
-	GetClass() NoticeClassLike
-	GetComment() string
-}
-
-/*
-HeaderLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete header-like class.
-*/
-type HeaderLike interface {
-	// Attributes
-	GetClass() HeaderClassLike
-	GetComment() string
+	GetClass() ModuleClassLike
 	GetIdentifier() string
+	GetText() string
 }
 
 /*
@@ -497,26 +774,60 @@ type ModulesLike interface {
 }
 
 /*
-ModuleLike is an instance interface that defines the complete set of
+NoticeLike is an instance interface that defines the complete set of
 instance attributes, abstractions and methods that must be supported by each
-instance of a concrete module-like class.
+instance of a concrete notice-like class.
 */
-type ModuleLike interface {
+type NoticeLike interface {
 	// Attributes
-	GetClass() ModuleClassLike
-	GetIdentifier() string
-	GetText() string
+	GetClass() NoticeClassLike
+	GetComment() string
 }
 
 /*
-TypesLike is an instance interface that defines the complete set of
+ParameterLike is an instance interface that defines the complete set of
 instance attributes, abstractions and methods that must be supported by each
-instance of a concrete types-like class.
+instance of a concrete parameter-like class.
 */
-type TypesLike interface {
+type ParameterLike interface {
 	// Attributes
-	GetClass() TypesClassLike
-	GetTypes() col.ListLike[TypeLike]
+	GetClass() ParameterClassLike
+	GetIdentifier() string
+	GetAbstraction() AbstractionLike
+}
+
+/*
+ParametersLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete parameters-like class.
+*/
+type ParametersLike interface {
+	// Attributes
+	GetClass() ParametersClassLike
+	GetParameters() col.ListLike[ParameterLike]
+}
+
+/*
+PrefixLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete prefix-like class.
+*/
+type PrefixLike interface {
+	// Attributes
+	GetClass() PrefixClassLike
+	GetIdentifier() string
+}
+
+/*
+ResultLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete result-like class.
+*/
+type ResultLike interface {
+	// Attributes
+	GetClass() ResultClassLike
+	GetAbstraction() AbstractionLike
+	GetParameters() ParametersLike
 }
 
 /*
@@ -533,323 +844,12 @@ type TypeLike interface {
 }
 
 /*
-DeclarationLike is an instance interface that defines the complete set of
+TypesLike is an instance interface that defines the complete set of
 instance attributes, abstractions and methods that must be supported by each
-instance of a concrete declaration-like class.
+instance of a concrete types-like class.
 */
-type DeclarationLike interface {
+type TypesLike interface {
 	// Attributes
-	GetClass() DeclarationClassLike
-	GetComment() string
-	GetIdentifier() string
-	GetParameters() ParametersLike
-}
-
-/*
-ParametersLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete parameters-like class.
-*/
-type ParametersLike interface {
-	// Attributes
-	GetClass() ParametersClassLike
-	GetParameters() col.ListLike[ParameterLike]
-}
-
-/*
-ParameterLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete parameter-like class.
-*/
-type ParameterLike interface {
-	// Attributes
-	GetClass() ParameterClassLike
-	GetIdentifier() string
-	GetAbstraction() AbstractionLike
-}
-
-/*
-AbstractionLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete abstraction-like class.
-*/
-type AbstractionLike interface {
-	// Attributes
-	GetClass() AbstractionClassLike
-	GetPrefix() PrefixLike
-	GetIdentifier() string
-	GetArguments() ArgumentsLike
-}
-
-/*
-PrefixLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete prefix-like class.
-*/
-type PrefixLike interface {
-	// Attributes
-	GetClass() PrefixClassLike
-	GetIdentifier() string
-}
-
-/*
-ArgumentsLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete arguments-like class.
-*/
-type ArgumentsLike interface {
-	// Attributes
-	GetClass() ArgumentsClassLike
-	GetAbstractions() col.ListLike[AbstractionLike]
-}
-
-/*
-EnumerationLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete enumeration-like class.
-*/
-type EnumerationLike interface {
-	// Attributes
-	GetClass() EnumerationClassLike
-	GetParameter() ParameterLike
-	GetIdentifiers() col.ListLike[string]
-}
-
-/*
-FunctionalsLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete functionals-like class.
-*/
-type FunctionalsLike interface {
-	// Attributes
-	GetClass() FunctionalsClassLike
-	GetFunctionals() col.ListLike[FunctionalLike]
-}
-
-/*
-FunctionalLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete functional-like class.
-*/
-type FunctionalLike interface {
-	// Attributes
-	GetClass() FunctionalClassLike
-	GetDeclaration() DeclarationLike
-	GetParameters() ParametersLike
-	GetResult() ResultLike
-}
-
-/*
-ResultLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete result-like class.
-*/
-type ResultLike interface {
-	// Attributes
-	GetClass() ResultClassLike
-	GetAbstraction() AbstractionLike
-	GetParameters() ParametersLike
-}
-
-/*
-AspectsLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete aspects-like class.
-*/
-type AspectsLike interface {
-	// Attributes
-	GetClass() AspectsClassLike
-	GetAspects() col.ListLike[AspectLike]
-}
-
-/*
-AspectLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete aspect-like class.
-*/
-type AspectLike interface {
-	// Attributes
-	GetClass() AspectClassLike
-	GetDeclaration() DeclarationLike
-	GetMethods() MethodsLike
-}
-
-/*
-ClassesLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete classes-like class.
-*/
-type ClassesLike interface {
-	// Attributes
-	GetClass() ClassesClassLike
-	GetClasses() col.ListLike[ClassLike]
-}
-
-/*
-ClassLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete class-like class.
-*/
-type ClassLike interface {
-	// Attributes
-	GetClass() ClassClassLike
-	GetDeclaration() DeclarationLike
-	GetConstants() ConstantsLike
-	GetConstructors() ConstructorsLike
-	GetFunctions() FunctionsLike
-}
-
-/*
-ConstantsLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete constants-like class.
-*/
-type ConstantsLike interface {
-	// Attributes
-	GetClass() ConstantsClassLike
-	GetConstants() col.ListLike[ConstantLike]
-}
-
-/*
-ConstantLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete constant-like class.
-*/
-type ConstantLike interface {
-	// Attributes
-	GetClass() ConstantClassLike
-	GetIdentifier() string
-	GetAbstraction() AbstractionLike
-}
-
-/*
-ConstructorsLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete constructors-like class.
-*/
-type ConstructorsLike interface {
-	// Attributes
-	GetClass() ConstructorsClassLike
-	GetConstructors() col.ListLike[ConstructorLike]
-}
-
-/*
-ConstructorLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete constructor-like class.
-*/
-type ConstructorLike interface {
-	// Attributes
-	GetClass() ConstructorClassLike
-	GetIdentifier() string
-	GetParameters() ParametersLike
-	GetAbstraction() AbstractionLike
-}
-
-/*
-FunctionsLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete functions-like class.
-*/
-type FunctionsLike interface {
-	// Attributes
-	GetClass() FunctionsClassLike
-	GetFunctions() col.ListLike[FunctionLike]
-}
-
-/*
-FunctionLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete function-like class.
-*/
-type FunctionLike interface {
-	// Attributes
-	GetClass() FunctionClassLike
-	GetIdentifier() string
-	GetParameters() ParametersLike
-	GetResult() ResultLike
-}
-
-/*
-InstancesLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete instances-like class.
-*/
-type InstancesLike interface {
-	// Attributes
-	GetClass() InstancesClassLike
-	GetInstances() col.ListLike[InstanceLike]
-}
-
-/*
-InstanceLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete instance-like class.
-*/
-type InstanceLike interface {
-	// Attributes
-	GetClass() InstanceClassLike
-	GetDeclaration() DeclarationLike
-	GetAttributes() AttributesLike
-	GetAbstractions() AbstractionsLike
-	GetMethods() MethodsLike
-}
-
-/*
-AttributesLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete attributes-like class.
-*/
-type AttributesLike interface {
-	// Attributes
-	GetClass() AttributesClassLike
-	GetAttributes() col.ListLike[AttributeLike]
-}
-
-/*
-AttributeLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete attribute-like class.
-*/
-type AttributeLike interface {
-	// Attributes
-	GetClass() AttributeClassLike
-	GetIdentifier() string
-	GetParameter() ParameterLike
-	GetAbstraction() AbstractionLike
-}
-
-/*
-AbstractionsLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete abstractions-like class.
-*/
-type AbstractionsLike interface {
-	// Attributes
-	GetClass() AbstractionsClassLike
-	GetAbstractions() col.ListLike[AbstractionLike]
-}
-
-/*
-MethodsLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete methods-like class.
-*/
-type MethodsLike interface {
-	// Attributes
-	GetClass() MethodsClassLike
-	GetMethods() col.ListLike[MethodLike]
-}
-
-/*
-MethodLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete method-like class.
-*/
-type MethodLike interface {
-	// Attributes
-	GetClass() MethodClassLike
-	GetIdentifier() string
-	GetParameters() ParametersLike
-	GetResult() ResultLike
+	GetClass() TypesClassLike
+	GetTypes() col.ListLike[TypeLike]
 }
