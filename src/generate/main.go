@@ -80,6 +80,8 @@ func generateAST(
 	var astFile = astDirectory + "Package.go"
 	var generator = gra.Generator()
 	var astModel = generator.GenerateAST(module, syntax)
+	var validator = mod.Validator()
+	validator.ValidateModel(astModel)
 	var formatter = mod.Formatter()
 	var source = formatter.FormatModel(astModel)
 	var bytes = []byte(source)
@@ -103,6 +105,8 @@ func generateAgent(
 	var agentFile = agentDirectory + "Package.go"
 	var generator = gra.Generator()
 	var agentModel = generator.GenerateAgent(module, syntax)
+	var validator = mod.Validator()
+	validator.ValidateModel(agentModel)
 	var formatter = mod.Formatter()
 	var source = formatter.FormatModel(agentModel)
 	var bytes = []byte(source)
