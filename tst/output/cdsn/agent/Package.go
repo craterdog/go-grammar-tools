@@ -146,15 +146,7 @@ type FormatterLike interface {
 	GetMaximum() int
 
 	// Methods
-	FormatAbstraction(abstraction ast.AbstractionLike) string
-	FormatArguments(arguments col.ListLike[ast.AbstractionLike]) string
-	FormatGenerics(parameters col.ListLike[ast.ParameterLike]) string
-	FormatMethod(method ast.MethodLike) string
 	FormatSyntax(syntax ast.SyntaxLike) string
-	FormatParameter(parameter ast.ParameterLike) string
-	FormatParameterNames(parameters col.ListLike[ast.ParameterLike]) string
-	FormatParameters(parameters col.ListLike[ast.ParameterLike]) string
-	FormatResult(result ast.ResultLike) string
 }
 
 /*
