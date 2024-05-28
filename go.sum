@@ -1,7 +1,7 @@
 github.com/craterdog/go-collection-framework/v4 v4.4.1 h1:Jw8lEMFoc1LH9mO2+dx27NIbIj3FsFVTPi4tN7I3IFM=
 github.com/craterdog/go-collection-framework/v4 v4.4.1/go.mod h1:Ts5n1OQIekrJTcuA43I8WE36lx3gROnj2NsISXtv0J4=
-github.com/craterdog/go-grammar-framework/v4 v4.4.3 h1:oM1yB+ds1BT5oezye+4AIbb8kQ5evODZrCXC0GY9XHw=
-github.com/craterdog/go-grammar-framework/v4 v4.4.3/go.mod h1:U/gBMci3Rr/OCZcJh0sVZ2Kte3DgQb2BP4wBPjbY3TE=
+github.com/craterdog/go-grammar-framework/v4 v4.4.4 h1:RGGEZi3G3AOTFctGgZ9+SPlM4/vCegl64nNr4VtaDKw=
+github.com/craterdog/go-grammar-framework/v4 v4.4.4/go.mod h1:U/gBMci3Rr/OCZcJh0sVZ2Kte3DgQb2BP4wBPjbY3TE=
 github.com/craterdog/go-model-framework/v4 v4.5.1 h1:UtmdIFA8dUyOWa3RgfAmF5bAqXHZ5e2dGKxYXwmftV4=
 github.com/craterdog/go-model-framework/v4 v4.5.1/go.mod h1:ysWY5XfKWHqT/PQYASJPPVa6hm9c/S9iQXmNHuugarI=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
