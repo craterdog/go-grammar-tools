@@ -27,7 +27,7 @@ func main() {
 func retrieveArguments() (syntaxFile string) {
 	if len(osx.Args) < 2 {
 		fmt.Println("Usage: validate <syntax-file>")
-		return
+		osx.Exit(1)
 	}
 	syntaxFile = osx.Args[1]
 	return syntaxFile

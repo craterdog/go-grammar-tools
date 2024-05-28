@@ -42,7 +42,7 @@ func retrieveArguments() (
 ) {
 	if len(osx.Args) < 3 {
 		fmt.Println("Usage: generate <module> <directory>")
-		return
+		osx.Exit(1)
 	}
 	module = osx.Args[1]
 	directory = osx.Args[2]

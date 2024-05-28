@@ -34,7 +34,7 @@ func retrieveArguments() (
 		fmt.Println(
 			"Usage: initialize <directory> <name> <copyright>",
 		)
-		return
+		osx.Exit(1)
 	}
 	directory = osx.Args[1]
 	if !sts.HasSuffix(directory, "/") {
