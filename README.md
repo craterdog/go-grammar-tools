@@ -3,37 +3,33 @@
 ## Go Language Grammar Tools
 
 ### Overview
-This project provides a set of Go based tools that can validate and format a
-language syntax defined using Crater Dog Syntax Notation™ (aka CDSN).  For full
-details on the Go Language Grammar Framework click
-[here](https://github.com/craterdog/go-grammar-framework/wiki)
+This project provides a set of Go based command-line tools that can be used to
+parse, validate and format a language grammar defined in a `Syntax.cdsn` file
+using Crater Dog Syntax Notation™ (aka CDSN) using the Go Language Grammar
+Framework.  It can also generate the corresponding `Package.go` files for the
+abstract syntax tree (AST) and agent packages that implement the language
+grammar.
+
+### Quick Links
+For more information on this project click on the following links:
+ * [project documentation](https://github.com/craterdog/go-grammar-tools/wiki)
+ * [grammar framework](https://github.com/craterdog/go-grammar-framework/wiki)
 
 ### Getting Started
-To install the language syntax tools do the following from a terminal window:
+To install the language grammar tools do the following from a terminal window:
 ```
 $ git clone git@github.com:craterdog/go-grammar-tools.git
 $ cd go-grammar-tools/
-$ ./etc/build.sh
+$ etc/build.sh
 $ ls
 LICENSE		bin		go.mod		src
-README.md	etc		go.sum
+README.md	etc		go.sum		tst
 
-$ls bin/
-format		validate
-```
+$ ls bin/
+format		generate	initialize	validate	version
 
-### Using the Tools
-The `validate` command reads in a language syntax file and ensures that it is
-formatted using Crater Dog Syntax Notation™ (aka CDSN) as follows:
-```
-$ go-grammar-tools/bin/validate example/Syntax.cdsn
-```
-
-The `format` command reads in a language syntax file formatted using Crater Dog
-Syntax Notation™ (aka CDSN) and reformats it in its canonical format as
-follows:
-```
-$ go-grammar-tools/bin/format example/Syntax.cdsn
+$ bin/version
+bin/version: v4.6.0
 ```
 
 <H5 align="center"> Copyright © 2009 - 2024  Crater Dog Technologies™. All rights reserved. </H5>
