@@ -9,6 +9,7 @@
 .  Initiative. (See https://opensource.org/license/MIT)                        .
 ................................................................................
 */
+
 package ast
 
 import ()
@@ -18,7 +19,7 @@ import ()
 // Reference
 
 var factorClass = &factorClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -32,10 +33,8 @@ func Factor() FactorClassLike {
 // Target
 
 type factorClass_ struct {
-	// This class has no private constants.
+	// Define class constants.
 }
-
-// Constants
 
 // Constructors
 
@@ -44,18 +43,19 @@ func (c *factorClass_) MakeWithAttributes(
 	cardinality CardinalityLike,
 ) FactorLike {
 	return &factor_{
+		// Initialize instance attributes.
+		class_: c,
 		predicate_: predicate,
 		cardinality_: cardinality,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
 // Target
 
 type factor_ struct {
+	// Define instance attributes.
 	class_ FactorClassLike
 	predicate_ PredicateLike
 	cardinality_ CardinalityLike
@@ -74,7 +74,5 @@ func (v *factor_) GetPredicate() PredicateLike {
 func (v *factor_) GetCardinality() CardinalityLike {
 	return v.cardinality_
 }
-
-// Public
 
 // Private

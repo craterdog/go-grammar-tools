@@ -9,6 +9,7 @@
 .  Initiative. (See https://opensource.org/license/MIT)                        .
 ................................................................................
 */
+
 package ast
 
 import (
@@ -20,7 +21,7 @@ import (
 // Reference
 
 var alternativeClass = &alternativeClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -34,26 +35,25 @@ func Alternative() AlternativeClassLike {
 // Target
 
 type alternativeClass_ struct {
-	// This class has no private constants.
+	// Define class constants.
 }
-
-// Constants
 
 // Constructors
 
 func (c *alternativeClass_) MakeWithFactors(factors col.ListLike[FactorLike]) AlternativeLike {
 	return &alternative_{
+		// Initialize instance attributes.
+		class_: c,
 		factors_: factors,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
 // Target
 
 type alternative_ struct {
+	// Define instance attributes.
 	class_ AlternativeClassLike
 	factors_ col.ListLike[FactorLike]
 }
@@ -67,7 +67,5 @@ func (v *alternative_) GetClass() AlternativeClassLike {
 func (v *alternative_) GetFactors() col.ListLike[FactorLike] {
 	return v.factors_
 }
-
-// Public
 
 // Private

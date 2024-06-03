@@ -9,6 +9,7 @@
 .  Initiative. (See https://opensource.org/license/MIT)                        .
 ................................................................................
 */
+
 package ast
 
 import (
@@ -20,7 +21,7 @@ import (
 // Reference
 
 var enumerationClass = &enumerationClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -34,10 +35,8 @@ func Enumeration() EnumerationClassLike {
 // Target
 
 type enumerationClass_ struct {
-	// This class has no private constants.
+	// Define class constants.
 }
-
-// Constants
 
 // Constructors
 
@@ -46,18 +45,19 @@ func (c *enumerationClass_) MakeWithAttributes(
 	identifiers col.ListLike[string],
 ) EnumerationLike {
 	return &enumeration_{
+		// Initialize instance attributes.
+		class_: c,
 		parameter_: parameter,
 		identifiers_: identifiers,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
 // Target
 
 type enumeration_ struct {
+	// Define instance attributes.
 	class_ EnumerationClassLike
 	parameter_ ParameterLike
 	identifiers_ col.ListLike[string]
@@ -76,7 +76,5 @@ func (v *enumeration_) GetParameter() ParameterLike {
 func (v *enumeration_) GetIdentifiers() col.ListLike[string] {
 	return v.identifiers_
 }
-
-// Public
 
 // Private

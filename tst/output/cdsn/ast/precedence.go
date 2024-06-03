@@ -9,6 +9,7 @@
 .  Initiative. (See https://opensource.org/license/MIT)                        .
 ................................................................................
 */
+
 package ast
 
 import ()
@@ -18,7 +19,7 @@ import ()
 // Reference
 
 var precedenceClass = &precedenceClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -32,26 +33,25 @@ func Precedence() PrecedenceClassLike {
 // Target
 
 type precedenceClass_ struct {
-	// This class has no private constants.
+	// Define class constants.
 }
-
-// Constants
 
 // Constructors
 
 func (c *precedenceClass_) MakeWithExpression(expression ExpressionLike) PrecedenceLike {
 	return &precedence_{
+		// Initialize instance attributes.
+		class_: c,
 		expression_: expression,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
 // Target
 
 type precedence_ struct {
+	// Define instance attributes.
 	class_ PrecedenceClassLike
 	expression_ ExpressionLike
 }
@@ -65,7 +65,5 @@ func (v *precedence_) GetClass() PrecedenceClassLike {
 func (v *precedence_) GetExpression() ExpressionLike {
 	return v.expression_
 }
-
-// Public
 
 // Private

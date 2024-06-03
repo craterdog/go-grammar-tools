@@ -9,6 +9,7 @@
 .  Initiative. (See https://opensource.org/license/MIT)                        .
 ................................................................................
 */
+
 package ast
 
 import (
@@ -20,7 +21,7 @@ import (
 // Reference
 
 var inlineClass = &inlineClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -34,10 +35,8 @@ func Inline() InlineClassLike {
 // Target
 
 type inlineClass_ struct {
-	// This class has no private constants.
+	// Define class constants.
 }
-
-// Constants
 
 // Constructors
 
@@ -46,18 +45,19 @@ func (c *inlineClass_) MakeWithAttributes(
 	note string,
 ) InlineLike {
 	return &inline_{
+		// Initialize instance attributes.
+		class_: c,
 		alternatives_: alternatives,
 		note_: note,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
 // Target
 
 type inline_ struct {
+	// Define instance attributes.
 	class_ InlineClassLike
 	alternatives_ col.ListLike[AlternativeLike]
 	note_ string
@@ -76,7 +76,5 @@ func (v *inline_) GetAlternatives() col.ListLike[AlternativeLike] {
 func (v *inline_) GetNote() string {
 	return v.note_
 }
-
-// Public
 
 // Private

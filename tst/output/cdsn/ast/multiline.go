@@ -9,6 +9,7 @@
 .  Initiative. (See https://opensource.org/license/MIT)                        .
 ................................................................................
 */
+
 package ast
 
 import (
@@ -20,7 +21,7 @@ import (
 // Reference
 
 var multilineClass = &multilineClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -34,26 +35,25 @@ func Multiline() MultilineClassLike {
 // Target
 
 type multilineClass_ struct {
-	// This class has no private constants.
+	// Define class constants.
 }
-
-// Constants
 
 // Constructors
 
 func (c *multilineClass_) MakeWithLines(lines col.ListLike[LineLike]) MultilineLike {
 	return &multiline_{
+		// Initialize instance attributes.
+		class_: c,
 		lines_: lines,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
 // Target
 
 type multiline_ struct {
+	// Define instance attributes.
 	class_ MultilineClassLike
 	lines_ col.ListLike[LineLike]
 }
@@ -67,7 +67,5 @@ func (v *multiline_) GetClass() MultilineClassLike {
 func (v *multiline_) GetLines() col.ListLike[LineLike] {
 	return v.lines_
 }
-
-// Public
 
 // Private

@@ -9,6 +9,7 @@
 .  Initiative. (See https://opensource.org/license/MIT)                        .
 ................................................................................
 */
+
 package ast
 
 import ()
@@ -18,7 +19,7 @@ import ()
 // Reference
 
 var functionClass = &functionClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -32,10 +33,8 @@ func Function() FunctionClassLike {
 // Target
 
 type functionClass_ struct {
-	// This class has no private constants.
+	// Define class constants.
 }
-
-// Constants
 
 // Constructors
 
@@ -45,19 +44,20 @@ func (c *functionClass_) MakeWithAttributes(
 	result ResultLike,
 ) FunctionLike {
 	return &function_{
+		// Initialize instance attributes.
+		class_: c,
 		identifier_: identifier,
 		parameters_: parameters,
 		result_: result,
 	}
 }
 
-// Functions
-
 // INSTANCE METHODS
 
 // Target
 
 type function_ struct {
+	// Define instance attributes.
 	class_ FunctionClassLike
 	identifier_ string
 	parameters_ ParametersLike
@@ -81,7 +81,5 @@ func (v *function_) GetParameters() ParametersLike {
 func (v *function_) GetResult() ResultLike {
 	return v.result_
 }
-
-// Public
 
 // Private

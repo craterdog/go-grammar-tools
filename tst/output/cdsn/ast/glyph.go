@@ -9,6 +9,7 @@
 .  Initiative. (See https://opensource.org/license/MIT)                        .
 ................................................................................
 */
+
 package ast
 
 import (
@@ -20,7 +21,7 @@ import (
 // Reference
 
 var glyphClass = &glyphClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -34,26 +35,25 @@ func Glyph() GlyphClassLike {
 // Target
 
 type glyphClass_ struct {
-	// This class has no private constants.
+	// Define class constants.
 }
-
-// Constants
 
 // Constructors
 
 func (c *glyphClass_) MakeWithCharacters(characters col.ListLike[string]) GlyphLike {
 	return &glyph_{
+		// Initialize instance attributes.
+		class_: c,
 		characters_: characters,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
 // Target
 
 type glyph_ struct {
+	// Define instance attributes.
 	class_ GlyphClassLike
 	characters_ col.ListLike[string]
 }
@@ -67,7 +67,5 @@ func (v *glyph_) GetClass() GlyphClassLike {
 func (v *glyph_) GetCharacters() col.ListLike[string] {
 	return v.characters_
 }
-
-// Public
 
 // Private

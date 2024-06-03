@@ -9,6 +9,7 @@
 .  Initiative. (See https://opensource.org/license/MIT)                        .
 ................................................................................
 */
+
 package ast
 
 import (
@@ -20,7 +21,7 @@ import (
 // Reference
 
 var syntaxClass = &syntaxClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -34,10 +35,8 @@ func Syntax() SyntaxClassLike {
 // Target
 
 type syntaxClass_ struct {
-	// This class has no private constants.
+	// Define class constants.
 }
-
-// Constants
 
 // Constructors
 
@@ -46,18 +45,19 @@ func (c *syntaxClass_) MakeWithAttributes(
 	definitions col.ListLike[DefinitionLike],
 ) SyntaxLike {
 	return &syntax_{
+		// Initialize instance attributes.
+		class_: c,
 		headers_: headers,
 		definitions_: definitions,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
 // Target
 
 type syntax_ struct {
+	// Define instance attributes.
 	class_ SyntaxClassLike
 	headers_ col.ListLike[HeaderLike]
 	definitions_ col.ListLike[DefinitionLike]
@@ -76,7 +76,5 @@ func (v *syntax_) GetHeaders() col.ListLike[HeaderLike] {
 func (v *syntax_) GetDefinitions() col.ListLike[DefinitionLike] {
 	return v.definitions_
 }
-
-// Public
 
 // Private

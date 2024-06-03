@@ -9,6 +9,7 @@
 .  Initiative. (See https://opensource.org/license/MIT)                        .
 ................................................................................
 */
+
 package ast
 
 import (
@@ -20,7 +21,7 @@ import (
 // Reference
 
 var aspectsClass = &aspectsClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -34,26 +35,25 @@ func Aspects() AspectsClassLike {
 // Target
 
 type aspectsClass_ struct {
-	// This class has no private constants.
+	// Define class constants.
 }
-
-// Constants
 
 // Constructors
 
 func (c *aspectsClass_) MakeWithAspects(aspects col.ListLike[AspectLike]) AspectsLike {
 	return &aspects_{
+		// Initialize instance attributes.
+		class_: c,
 		aspects_: aspects,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
 // Target
 
 type aspects_ struct {
+	// Define instance attributes.
 	class_ AspectsClassLike
 	aspects_ col.ListLike[AspectLike]
 }
@@ -67,7 +67,5 @@ func (v *aspects_) GetClass() AspectsClassLike {
 func (v *aspects_) GetAspects() col.ListLike[AspectLike] {
 	return v.aspects_
 }
-
-// Public
 
 // Private

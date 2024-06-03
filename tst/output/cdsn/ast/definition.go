@@ -9,6 +9,7 @@
 .  Initiative. (See https://opensource.org/license/MIT)                        .
 ................................................................................
 */
+
 package ast
 
 import ()
@@ -18,7 +19,7 @@ import ()
 // Reference
 
 var definitionClass = &definitionClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -32,10 +33,8 @@ func Definition() DefinitionClassLike {
 // Target
 
 type definitionClass_ struct {
-	// This class has no private constants.
+	// Define class constants.
 }
-
-// Constants
 
 // Constructors
 
@@ -45,19 +44,20 @@ func (c *definitionClass_) MakeWithAttributes(
 	expression ExpressionLike,
 ) DefinitionLike {
 	return &definition_{
+		// Initialize instance attributes.
+		class_: c,
 		comment_: comment,
 		name_: name,
 		expression_: expression,
 	}
 }
 
-// Functions
-
 // INSTANCE METHODS
 
 // Target
 
 type definition_ struct {
+	// Define instance attributes.
 	class_ DefinitionClassLike
 	comment_ string
 	name_ string
@@ -81,7 +81,5 @@ func (v *definition_) GetName() string {
 func (v *definition_) GetExpression() ExpressionLike {
 	return v.expression_
 }
-
-// Public
 
 // Private

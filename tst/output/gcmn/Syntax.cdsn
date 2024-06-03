@@ -49,6 +49,7 @@ matched by the parser in the order listed.  A rule definition may also be
 directly or indirectly recursive.  The sequence of factors within in a rule
 definition may be separated by spaces which are ignored by the parser.
 <!
+
 AST: Model EOL* EOF  ! Terminated with an end-of-file marker.
 
 Model: Notice Header Modules? Types? Functionals? Aspects? Classes? Instances?
@@ -133,7 +134,7 @@ the name of other tokens.  Token definitions cannot be recursive and the
 scanning of tokens is NOT greedy.  And any spaces within a token definition
 are NOT ignored.
 <!
-comment: "/*" EOL ANY* EOL "*/" EOL+  ! Chooses the shortest possible match.
+comment: "/*" ANY* "*/"  ! Chooses the shortest possible match.
 
 delimiter: "[" | "]" | "(" | ")" | "{" | "}" | "." | "," | "="
 

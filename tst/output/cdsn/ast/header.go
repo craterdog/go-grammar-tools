@@ -9,6 +9,7 @@
 .  Initiative. (See https://opensource.org/license/MIT)                        .
 ................................................................................
 */
+
 package ast
 
 import ()
@@ -18,7 +19,7 @@ import ()
 // Reference
 
 var headerClass = &headerClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -32,26 +33,25 @@ func Header() HeaderClassLike {
 // Target
 
 type headerClass_ struct {
-	// This class has no private constants.
+	// Define class constants.
 }
-
-// Constants
 
 // Constructors
 
 func (c *headerClass_) MakeWithComment(comment string) HeaderLike {
 	return &header_{
+		// Initialize instance attributes.
+		class_: c,
 		comment_: comment,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
 // Target
 
 type header_ struct {
+	// Define instance attributes.
 	class_ HeaderClassLike
 	comment_ string
 }
@@ -65,7 +65,5 @@ func (v *header_) GetClass() HeaderClassLike {
 func (v *header_) GetComment() string {
 	return v.comment_
 }
-
-// Public
 
 // Private

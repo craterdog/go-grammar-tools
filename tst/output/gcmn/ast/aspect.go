@@ -9,6 +9,7 @@
 .  Initiative. (See https://opensource.org/license/MIT)                        .
 ................................................................................
 */
+
 package ast
 
 import ()
@@ -18,7 +19,7 @@ import ()
 // Reference
 
 var aspectClass = &aspectClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -32,10 +33,8 @@ func Aspect() AspectClassLike {
 // Target
 
 type aspectClass_ struct {
-	// This class has no private constants.
+	// Define class constants.
 }
-
-// Constants
 
 // Constructors
 
@@ -44,18 +43,19 @@ func (c *aspectClass_) MakeWithAttributes(
 	methods MethodsLike,
 ) AspectLike {
 	return &aspect_{
+		// Initialize instance attributes.
+		class_: c,
 		declaration_: declaration,
 		methods_: methods,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
 // Target
 
 type aspect_ struct {
+	// Define instance attributes.
 	class_ AspectClassLike
 	declaration_ DeclarationLike
 	methods_ MethodsLike
@@ -74,7 +74,5 @@ func (v *aspect_) GetDeclaration() DeclarationLike {
 func (v *aspect_) GetMethods() MethodsLike {
 	return v.methods_
 }
-
-// Public
 
 // Private

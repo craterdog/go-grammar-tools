@@ -9,6 +9,7 @@
 .  Initiative. (See https://opensource.org/license/MIT)                        .
 ................................................................................
 */
+
 package ast
 
 import ()
@@ -18,7 +19,7 @@ import ()
 // Reference
 
 var primitiveClass = &primitiveClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -32,44 +33,49 @@ func Primitive() PrimitiveClassLike {
 // Target
 
 type primitiveClass_ struct {
-	// This class has no private constants.
+	// Define class constants.
 }
-
-// Constants
 
 // Constructors
 
 func (c *primitiveClass_) MakeWithCharacter(character string) PrimitiveLike {
 	return &primitive_{
+		// Initialize instance attributes.
+		class_: c,
 		character_: character,
 	}
 }
 
 func (c *primitiveClass_) MakeWithText(text string) PrimitiveLike {
 	return &primitive_{
+		// Initialize instance attributes.
+		class_: c,
 		text_: text,
 	}
 }
 
 func (c *primitiveClass_) MakeWithInteger(integer string) PrimitiveLike {
 	return &primitive_{
+		// Initialize instance attributes.
+		class_: c,
 		integer_: integer,
 	}
 }
 
 func (c *primitiveClass_) MakeWithAnything(anything string) PrimitiveLike {
 	return &primitive_{
+		// Initialize instance attributes.
+		class_: c,
 		anything_: anything,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
 // Target
 
 type primitive_ struct {
+	// Define instance attributes.
 	class_ PrimitiveClassLike
 	character_ string
 	text_ string
@@ -98,7 +104,5 @@ func (v *primitive_) GetInteger() string {
 func (v *primitive_) GetAnything() string {
 	return v.anything_
 }
-
-// Public
 
 // Private

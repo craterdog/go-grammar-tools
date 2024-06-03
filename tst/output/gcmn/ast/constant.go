@@ -9,6 +9,7 @@
 .  Initiative. (See https://opensource.org/license/MIT)                        .
 ................................................................................
 */
+
 package ast
 
 import ()
@@ -18,7 +19,7 @@ import ()
 // Reference
 
 var constantClass = &constantClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -32,10 +33,8 @@ func Constant() ConstantClassLike {
 // Target
 
 type constantClass_ struct {
-	// This class has no private constants.
+	// Define class constants.
 }
-
-// Constants
 
 // Constructors
 
@@ -44,18 +43,19 @@ func (c *constantClass_) MakeWithAttributes(
 	abstraction AbstractionLike,
 ) ConstantLike {
 	return &constant_{
+		// Initialize instance attributes.
+		class_: c,
 		identifier_: identifier,
 		abstraction_: abstraction,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
 // Target
 
 type constant_ struct {
+	// Define instance attributes.
 	class_ ConstantClassLike
 	identifier_ string
 	abstraction_ AbstractionLike
@@ -74,7 +74,5 @@ func (v *constant_) GetIdentifier() string {
 func (v *constant_) GetAbstraction() AbstractionLike {
 	return v.abstraction_
 }
-
-// Public
 
 // Private

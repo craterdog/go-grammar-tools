@@ -9,6 +9,7 @@
 .  Initiative. (See https://opensource.org/license/MIT)                        .
 ................................................................................
 */
+
 package ast
 
 import ()
@@ -18,7 +19,7 @@ import ()
 // Reference
 
 var prefixClass = &prefixClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -32,26 +33,25 @@ func Prefix() PrefixClassLike {
 // Target
 
 type prefixClass_ struct {
-	// This class has no private constants.
+	// Define class constants.
 }
-
-// Constants
 
 // Constructors
 
 func (c *prefixClass_) MakeWithIdentifier(identifier string) PrefixLike {
 	return &prefix_{
+		// Initialize instance attributes.
+		class_: c,
 		identifier_: identifier,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
 // Target
 
 type prefix_ struct {
+	// Define instance attributes.
 	class_ PrefixClassLike
 	identifier_ string
 }
@@ -65,7 +65,5 @@ func (v *prefix_) GetClass() PrefixClassLike {
 func (v *prefix_) GetIdentifier() string {
 	return v.identifier_
 }
-
-// Public
 
 // Private

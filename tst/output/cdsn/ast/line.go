@@ -9,6 +9,7 @@
 .  Initiative. (See https://opensource.org/license/MIT)                        .
 ................................................................................
 */
+
 package ast
 
 import ()
@@ -18,7 +19,7 @@ import ()
 // Reference
 
 var lineClass = &lineClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -32,10 +33,8 @@ func Line() LineClassLike {
 // Target
 
 type lineClass_ struct {
-	// This class has no private constants.
+	// Define class constants.
 }
-
-// Constants
 
 // Constructors
 
@@ -44,18 +43,19 @@ func (c *lineClass_) MakeWithAttributes(
 	note string,
 ) LineLike {
 	return &line_{
+		// Initialize instance attributes.
+		class_: c,
 		alternative_: alternative,
 		note_: note,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
 // Target
 
 type line_ struct {
+	// Define instance attributes.
 	class_ LineClassLike
 	alternative_ AlternativeLike
 	note_ string
@@ -74,7 +74,5 @@ func (v *line_) GetAlternative() AlternativeLike {
 func (v *line_) GetNote() string {
 	return v.note_
 }
-
-// Public
 
 // Private

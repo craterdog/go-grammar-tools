@@ -9,6 +9,7 @@
 .  Initiative. (See https://opensource.org/license/MIT)                        .
 ................................................................................
 */
+
 package ast
 
 import (
@@ -20,7 +21,7 @@ import (
 // Reference
 
 var parametersClass = &parametersClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -34,26 +35,25 @@ func Parameters() ParametersClassLike {
 // Target
 
 type parametersClass_ struct {
-	// This class has no private constants.
+	// Define class constants.
 }
-
-// Constants
 
 // Constructors
 
 func (c *parametersClass_) MakeWithParameters(parameters col.ListLike[ParameterLike]) ParametersLike {
 	return &parameters_{
+		// Initialize instance attributes.
+		class_: c,
 		parameters_: parameters,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
 // Target
 
 type parameters_ struct {
+	// Define instance attributes.
 	class_ ParametersClassLike
 	parameters_ col.ListLike[ParameterLike]
 }
@@ -67,7 +67,5 @@ func (v *parameters_) GetClass() ParametersClassLike {
 func (v *parameters_) GetParameters() col.ListLike[ParameterLike] {
 	return v.parameters_
 }
-
-// Public
 
 // Private

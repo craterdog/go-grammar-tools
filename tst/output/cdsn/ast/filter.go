@@ -9,6 +9,7 @@
 .  Initiative. (See https://opensource.org/license/MIT)                        .
 ................................................................................
 */
+
 package ast
 
 import (
@@ -20,7 +21,7 @@ import (
 // Reference
 
 var filterClass = &filterClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -34,26 +35,25 @@ func Filter() FilterClassLike {
 // Target
 
 type filterClass_ struct {
-	// This class has no private constants.
+	// Define class constants.
 }
-
-// Constants
 
 // Constructors
 
 func (c *filterClass_) MakeWithAtoms(atoms col.ListLike[AtomLike]) FilterLike {
 	return &filter_{
+		// Initialize instance attributes.
+		class_: c,
 		atoms_: atoms,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
 // Target
 
 type filter_ struct {
+	// Define instance attributes.
 	class_ FilterClassLike
 	atoms_ col.ListLike[AtomLike]
 }
@@ -67,7 +67,5 @@ func (v *filter_) GetClass() FilterClassLike {
 func (v *filter_) GetAtoms() col.ListLike[AtomLike] {
 	return v.atoms_
 }
-
-// Public
 
 // Private

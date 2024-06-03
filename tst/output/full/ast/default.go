@@ -9,6 +9,7 @@
 .  Initiative. (See https://opensource.org/license/MIT)                        .
 ................................................................................
 */
+
 package ast
 
 import ()
@@ -18,7 +19,7 @@ import ()
 // Reference
 
 var defaultClass = &defaultClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -32,24 +33,24 @@ func Default() DefaultClassLike {
 // Target
 
 type defaultClass_ struct {
-	// This class has no private constants.
+	// Define class constants.
 }
-
-// Constants
 
 // Constructors
 
 func (c *defaultClass_) Make() DefaultLike {
-	return &default_{}
+	return &default_{
+		// Initialize instance attributes.
+		class_: c,
+	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
 // Target
 
 type default_ struct {
+	// Define instance attributes.
 	class_ DefaultClassLike
 }
 
@@ -58,7 +59,5 @@ type default_ struct {
 func (v *default_) GetClass() DefaultClassLike {
 	return v.class_
 }
-
-// Public
 
 // Private

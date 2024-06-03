@@ -9,6 +9,7 @@
 .  Initiative. (See https://opensource.org/license/MIT)                        .
 ................................................................................
 */
+
 package ast
 
 import (
@@ -20,7 +21,7 @@ import (
 // Reference
 
 var constructorsClass = &constructorsClass_{
-	// Any private class constants should be initialized here.
+	// Initialize class constants.
 }
 
 // Function
@@ -34,26 +35,25 @@ func Constructors() ConstructorsClassLike {
 // Target
 
 type constructorsClass_ struct {
-	// This class has no private constants.
+	// Define class constants.
 }
-
-// Constants
 
 // Constructors
 
 func (c *constructorsClass_) MakeWithConstructors(constructors col.ListLike[ConstructorLike]) ConstructorsLike {
 	return &constructors_{
+		// Initialize instance attributes.
+		class_: c,
 		constructors_: constructors,
 	}
 }
-
-// Functions
 
 // INSTANCE METHODS
 
 // Target
 
 type constructors_ struct {
+	// Define instance attributes.
 	class_ ConstructorsClassLike
 	constructors_ col.ListLike[ConstructorLike]
 }
@@ -67,7 +67,5 @@ func (v *constructors_) GetClass() ConstructorsClassLike {
 func (v *constructors_) GetConstructors() col.ListLike[ConstructorLike] {
 	return v.constructors_
 }
-
-// Public
 
 // Private
