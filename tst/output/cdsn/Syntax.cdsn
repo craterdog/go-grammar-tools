@@ -48,12 +48,11 @@ by the parser in the order listed.  A rule definition may also be directly or
 indirectly recursive.  The sequence of factors within in a rule definition may
 be separated by spaces which are ignored by the parser.
 <!
-
 AST: Syntax EOL* EOF  ! Terminated with an end-of-file marker.
 
 Syntax: Header+ Definition+
 
-Header: comment EOL+
+Header: comment EOL{2}
 
 Definition: (comment EOL)? name ":" Expression EOL+
 
