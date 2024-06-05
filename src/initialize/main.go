@@ -60,10 +60,6 @@ func saveSyntax(directory string, syntax gra.SyntaxLike) {
 		panic(err)
 	}
 	var syntaxFile = directory + "Syntax.cdsn"
-	fmt.Printf(
-		"    Creating %q now...\n",
-		syntaxFile,
-	)
 	var formatter = gra.Formatter()
 	var source = formatter.FormatSyntax(syntax)
 	var bytes = []byte(source)
