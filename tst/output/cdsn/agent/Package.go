@@ -64,11 +64,11 @@ concrete formatter-like class.
 */
 type FormatterClassLike interface {
 	// Constants
-	DefaultMaximum() int
+	DefaultMaximum() uint
 
 	// Constructors
 	Make() FormatterLike
-	MakeWithMaximum(maximum int) FormatterLike
+	MakeWithMaximum(maximum uint) FormatterLike
 }
 
 /*
@@ -143,8 +143,8 @@ instance of a concrete formatter-like class.
 type FormatterLike interface {
 	// Attributes
 	GetClass() FormatterClassLike
-	GetDepth() int
-	GetMaximum() int
+	GetDepth() uint
+	GetMaximum() uint
 
 	// Methods
 	FormatSyntax(syntax ast.SyntaxLike) string
