@@ -21,10 +21,16 @@ import (
 
 func main() {
 	var directory, name, copyright = retrieveArguments()
-	if !directoryExists(directory) {
-		var syntax = createSyntax(name, copyright)
-		saveSyntax(directory, syntax)
+	var syntaxFile = directory + "Syntax.cdsn"
+	if pathExists(syntaxFile) {
+		fmt.Printf(
+			"The syntax file %v already exists, so aborting...",
+			syntaxFile,
+		)
+		return
 	}
+	var syntax = createSyntax(name, copyright)
+	saveSyntax(directory, syntax)
 }
 
 func createSyntax(
@@ -36,8 +42,8 @@ func createSyntax(
 	return syntax
 }
 
-func directoryExists(directory string) bool {
-	var _, err = osx.Stat(directory)
+func pathExists(path string) bool {
+	var _, err = osx.Stat(path)
 	if err == nil {
 		return true
 	}

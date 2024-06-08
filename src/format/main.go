@@ -20,18 +20,16 @@ import (
 
 func main() {
 	var syntaxFile = retrieveArguments()
+	if !pathExists(syntaxFile) {
+		fmt.Printf(
+			"The syntax file %v does not exist, so aborting...",
+			syntaxFile,
+		)
+		return
+	}
 	var syntax = parseSyntax(syntaxFile)
 	validateSyntax(syntax)
 	reformatSyntax(syntaxFile, syntax)
-}
-
-func retrieveArguments() (syntaxFile string) {
-	if len(osx.Args) < 2 {
-		fmt.Println("Usage: format <syntax-file>")
-		osx.Exit(1)
-	}
-	syntaxFile = osx.Args[1]
-	return syntaxFile
 }
 
 func parseSyntax(syntaxFile string) gra.SyntaxLike {
@@ -45,9 +43,15 @@ func parseSyntax(syntaxFile string) gra.SyntaxLike {
 	return syntax
 }
 
-func validateSyntax(syntax gra.SyntaxLike) {
-	var validator = gra.Validator()
-	validator.ValidateSyntax(syntax)
+func pathExists(path string) bool {
+	var _, err = osx.Stat(path)
+	if err == nil {
+		return true
+	}
+	if osx.IsNotExist(err) {
+		return false
+	}
+	panic(err)
 }
 
 func reformatSyntax(
@@ -61,4 +65,18 @@ func reformatSyntax(
 	if err != nil {
 		panic(err)
 	}
+}
+
+func retrieveArguments() (syntaxFile string) {
+	if len(osx.Args) < 2 {
+		fmt.Println("Usage: format <syntax-file>")
+		osx.Exit(1)
+	}
+	syntaxFile = osx.Args[1]
+	return syntaxFile
+}
+
+func validateSyntax(syntax gra.SyntaxLike) {
+	var validator = gra.Validator()
+	validator.ValidateSyntax(syntax)
 }

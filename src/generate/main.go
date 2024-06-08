@@ -22,14 +22,22 @@ import (
 
 func main() {
 	var module, directory = retrieveArguments()
+	var syntaxFile = directory + "Syntax.cdsn"
+	if !pathExists(syntaxFile) {
+		fmt.Printf(
+			"The syntax file %v does not exist, so aborting...",
+			syntaxFile,
+		)
+		return
+	}
 	var syntax = parseSyntax(directory)
 	validateSyntax(syntax)
-	if !directoryExists(directory + "ast") {
+	if !pathExists(directory + "ast") {
 		var astModel = generateAST(module, directory, syntax)
 		validateModel(astModel)
 		generateClasses(module, directory, astModel)
 	}
-	if !directoryExists(directory + "agent") {
+	if !pathExists(directory + "agent") {
 		var agentModel = generateAgent(module, directory, syntax)
 		validateModel(agentModel)
 		generateFormatter(module, directory, syntax, agentModel)
@@ -38,17 +46,6 @@ func main() {
 		generateToken(module, directory, syntax, agentModel)
 		generateValidator(module, directory, syntax, agentModel)
 	}
-}
-
-func directoryExists(directory string) bool {
-	var _, err = osx.Stat(directory)
-	if err == nil {
-		return true
-	}
-	if osx.IsNotExist(err) {
-		return false
-	}
-	panic(err)
 }
 
 func generateAgent(
@@ -214,6 +211,17 @@ func parseSyntax(directory string) gra.SyntaxLike {
 	var parser = gra.Parser()
 	var syntax = parser.ParseSource(source)
 	return syntax
+}
+
+func pathExists(path string) bool {
+	var _, err = osx.Stat(path)
+	if err == nil {
+		return true
+	}
+	if osx.IsNotExist(err) {
+		return false
+	}
+	panic(err)
 }
 
 func retrieveArguments() (
