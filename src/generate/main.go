@@ -24,74 +24,31 @@ func main() {
 	var module, directory = retrieveArguments()
 	var syntax = parseSyntax(directory)
 	validateSyntax(syntax)
-	var astModel = generateAST(module, directory, syntax)
-	validateModel(astModel)
-	generateClasses(module, directory, astModel)
-	var agentModel = generateAgent(module, directory, syntax)
-	validateModel(agentModel)
-	generateFormatter(module, directory, syntax, agentModel)
-	generateParser(module, directory, syntax, agentModel)
-	generateScanner(module, directory, syntax, agentModel)
-	generateToken(module, directory, syntax, agentModel)
-	generateValidator(module, directory, syntax, agentModel)
+	if !directoryExists(directory + "ast") {
+		var astModel = generateAST(module, directory, syntax)
+		validateModel(astModel)
+		generateClasses(module, directory, astModel)
+	}
+	if !directoryExists(directory + "agent") {
+		var agentModel = generateAgent(module, directory, syntax)
+		validateModel(agentModel)
+		generateFormatter(module, directory, syntax, agentModel)
+		generateParser(module, directory, syntax, agentModel)
+		generateScanner(module, directory, syntax, agentModel)
+		generateToken(module, directory, syntax, agentModel)
+		generateValidator(module, directory, syntax, agentModel)
+	}
 }
 
-func retrieveArguments() (
-	module string,
-	directory string,
-) {
-	if len(osx.Args) < 3 {
-		fmt.Println("Usage: generate <module> <directory>")
-		osx.Exit(1)
+func directoryExists(directory string) bool {
+	var _, err = osx.Stat(directory)
+	if err == nil {
+		return true
 	}
-	module = osx.Args[1]
-	directory = osx.Args[2]
-	if !sts.HasSuffix(directory, "/") {
-		directory += "/"
+	if osx.IsNotExist(err) {
+		return false
 	}
-	return module, directory
-}
-
-func validateSyntax(syntax gra.SyntaxLike) {
-	var validator = gra.Validator()
-	validator.ValidateSyntax(syntax)
-}
-
-func parseSyntax(directory string) gra.SyntaxLike {
-	var syntaxFile = directory + "Syntax.cdsn"
-	var bytes, err = osx.ReadFile(syntaxFile)
-	if err != nil {
-		panic(err)
-	}
-	var source = string(bytes)
-	var parser = gra.Parser()
-	var syntax = parser.ParseSource(source)
-	return syntax
-}
-
-func generateAST(
-	module string,
-	directory string,
-	syntax gra.SyntaxLike,
-) mod.ModelLike {
-	var astDirectory = directory + "ast/"
-	var err = osx.MkdirAll(astDirectory, 0755)
-	if err != nil {
-		panic(err)
-	}
-	var astFile = astDirectory + "Package.go"
-	var generator = gra.Generator()
-	var astModel = generator.GenerateAST(module, syntax)
-	var validator = mod.Validator()
-	validator.ValidateModel(astModel)
-	var formatter = mod.Formatter()
-	var source = formatter.FormatModel(astModel)
-	var bytes = []byte(source)
-	err = osx.WriteFile(astFile, bytes, 0644)
-	if err != nil {
-		panic(err)
-	}
-	return astModel
+	panic(err)
 }
 
 func generateAgent(
@@ -119,9 +76,29 @@ func generateAgent(
 	return agentModel
 }
 
-func validateModel(model mod.ModelLike) {
+func generateAST(
+	module string,
+	directory string,
+	syntax gra.SyntaxLike,
+) mod.ModelLike {
+	var astDirectory = directory + "ast/"
+	var err = osx.MkdirAll(astDirectory, 0755)
+	if err != nil {
+		panic(err)
+	}
+	var astFile = astDirectory + "Package.go"
+	var generator = gra.Generator()
+	var astModel = generator.GenerateAST(module, syntax)
 	var validator = mod.Validator()
-	validator.ValidateModel(model)
+	validator.ValidateModel(astModel)
+	var formatter = mod.Formatter()
+	var source = formatter.FormatModel(astModel)
+	var bytes = []byte(source)
+	err = osx.WriteFile(astFile, bytes, 0644)
+	if err != nil {
+		panic(err)
+	}
+	return astModel
 }
 
 func generateClasses(
@@ -225,4 +202,42 @@ func generateValidator(
 	if err != nil {
 		panic(err)
 	}
+}
+
+func parseSyntax(directory string) gra.SyntaxLike {
+	var syntaxFile = directory + "Syntax.cdsn"
+	var bytes, err = osx.ReadFile(syntaxFile)
+	if err != nil {
+		panic(err)
+	}
+	var source = string(bytes)
+	var parser = gra.Parser()
+	var syntax = parser.ParseSource(source)
+	return syntax
+}
+
+func retrieveArguments() (
+	module string,
+	directory string,
+) {
+	if len(osx.Args) < 3 {
+		fmt.Println("Usage: generate <module> <directory>")
+		osx.Exit(1)
+	}
+	module = osx.Args[1]
+	directory = osx.Args[2]
+	if !sts.HasSuffix(directory, "/") {
+		directory += "/"
+	}
+	return module, directory
+}
+
+func validateModel(model mod.ModelLike) {
+	var validator = mod.Validator()
+	validator.ValidateModel(model)
+}
+
+func validateSyntax(syntax gra.SyntaxLike) {
+	var validator = gra.Validator()
+	validator.ValidateSyntax(syntax)
 }

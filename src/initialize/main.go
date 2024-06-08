@@ -21,8 +21,30 @@ import (
 
 func main() {
 	var directory, name, copyright = retrieveArguments()
-	var syntax = createSyntax(name, copyright)
-	saveSyntax(directory, syntax)
+	if !directoryExists(directory) {
+		var syntax = createSyntax(name, copyright)
+		saveSyntax(directory, syntax)
+	}
+}
+
+func createSyntax(
+	name string,
+	copyright string,
+) gra.SyntaxLike {
+	var generator = gra.Generator()
+	var syntax = generator.CreateSyntax(name, copyright)
+	return syntax
+}
+
+func directoryExists(directory string) bool {
+	var _, err = osx.Stat(directory)
+	if err == nil {
+		return true
+	}
+	if osx.IsNotExist(err) {
+		return false
+	}
+	panic(err)
 }
 
 func retrieveArguments() (
@@ -43,15 +65,6 @@ func retrieveArguments() (
 	name = osx.Args[2]
 	copyright = osx.Args[3]
 	return directory, name, copyright
-}
-
-func createSyntax(
-	name string,
-	copyright string,
-) gra.SyntaxLike {
-	var generator = gra.Generator()
-	var syntax = generator.CreateSyntax(name, copyright)
-	return syntax
 }
 
 func saveSyntax(directory string, syntax gra.SyntaxLike) {

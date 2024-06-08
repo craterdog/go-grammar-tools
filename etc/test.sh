@@ -14,7 +14,6 @@ echo
 
 echo "Creating the new language syntax:"
 echo "    example"
-mkdir $output/example
 bin/initialize $output/example/ example ""
 echo
 
