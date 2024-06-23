@@ -13,6 +13,7 @@
 package agent
 
 import (
+	fmt "fmt"
 	ast "github.com/craterdog/example/cdsn/ast"
 )
 
@@ -21,7 +22,7 @@ import (
 // Reference
 
 var validatorClass = &validatorClass_{
-	// This class does not initialize any private class constants.
+	// Initialize the class constants.
 }
 
 // Function
@@ -35,14 +36,15 @@ func Validator() ValidatorClassLike {
 // Target
 
 type validatorClass_ struct {
-	// This class does not define any private class constants.
+	// Define the class constants.
 }
 
 // Constructors
 
 func (c *validatorClass_) Make() ValidatorLike {
 	return &validator_{
-		// TBA - Initialize private instance attributes.
+		// Initialize the instance attributes.
+		class_: c,
 	}
 }
 
@@ -51,6 +53,7 @@ func (c *validatorClass_) Make() ValidatorLike {
 // Target
 
 type validator_ struct {
+	// Define the instance attributes.
 	class_    ValidatorClassLike
 }
 
@@ -63,7 +66,26 @@ func (v *validator_) GetClass() ValidatorClassLike {
 // Public
 
 func (v *validator_) ValidateSyntax(syntax ast.SyntaxLike) {
-	// TBA - Add method implementation.
+	// TBA - Add a real method implementation.
+	var name = "foobar"
+	if !v.matchesToken(ErrorToken, name) {
+		var message = v.formatError(name, "Oops!")
+		panic(message)
+	}
 }
 
 // Private
+
+func (v *validator_) formatError(name, message string) string {
+	message = fmt.Sprintf(
+		"The definition for %v is invalid:\n%v\n",
+		name,
+		message,
+	)
+	return message
+}
+
+func (v *validator_) matchesToken(type_ TokenType, value string) bool {
+	var matches = Scanner().MatchToken(type_, value)
+	return !matches.IsEmpty()
+}

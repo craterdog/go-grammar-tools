@@ -12,7 +12,9 @@
 
 package ast
 
-import ()
+import (
+	col "github.com/craterdog/go-collection-framework/v4/collection"
+)
 
 // CLASS ACCESS
 
@@ -39,14 +41,14 @@ type lineClass_ struct {
 // Constructors
 
 func (c *lineClass_) MakeWithAttributes(
-	alternative AlternativeLike,
-	note string,
+	identifier IdentifierLike,
+	notes col.ListLike[string],
 ) LineLike {
 	return &line_{
 		// Initialize instance attributes.
 		class_: c,
-		alternative_: alternative,
-		note_: note,
+		identifier_: identifier,
+		notes_: notes,
 	}
 }
 
@@ -57,8 +59,8 @@ func (c *lineClass_) MakeWithAttributes(
 type line_ struct {
 	// Define instance attributes.
 	class_ LineClassLike
-	alternative_ AlternativeLike
-	note_ string
+	identifier_ IdentifierLike
+	notes_ col.ListLike[string]
 }
 
 // Attributes
@@ -67,12 +69,12 @@ func (v *line_) GetClass() LineClassLike {
 	return v.class_
 }
 
-func (v *line_) GetAlternative() AlternativeLike {
-	return v.alternative_
+func (v *line_) GetIdentifier() IdentifierLike {
+	return v.identifier_
 }
 
-func (v *line_) GetNote() string {
-	return v.note_
+func (v *line_) GetNotes() col.ListLike[string] {
+	return v.notes_
 }
 
 // Private

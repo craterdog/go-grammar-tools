@@ -12,42 +12,44 @@
 
 package ast
 
-import ()
+import (
+	col "github.com/craterdog/go-collection-framework/v4/collection"
+)
 
 // CLASS ACCESS
 
 // Reference
 
-var definitionClass = &definitionClass_{
+var ruleClass = &ruleClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func Definition() DefinitionClassLike {
-	return definitionClass
+func Rule() RuleClassLike {
+	return ruleClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type definitionClass_ struct {
+type ruleClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *definitionClass_) MakeWithAttributes(
-	comment string,
-	name string,
+func (c *ruleClass_) MakeWithAttributes(
+	comments col.ListLike[string],
+	uppercase string,
 	expression ExpressionLike,
-) DefinitionLike {
-	return &definition_{
+) RuleLike {
+	return &rule_{
 		// Initialize instance attributes.
 		class_: c,
-		comment_: comment,
-		name_: name,
+		comments_: comments,
+		uppercase_: uppercase,
 		expression_: expression,
 	}
 }
@@ -56,29 +58,29 @@ func (c *definitionClass_) MakeWithAttributes(
 
 // Target
 
-type definition_ struct {
+type rule_ struct {
 	// Define instance attributes.
-	class_ DefinitionClassLike
-	comment_ string
-	name_ string
+	class_ RuleClassLike
+	comments_ col.ListLike[string]
+	uppercase_ string
 	expression_ ExpressionLike
 }
 
 // Attributes
 
-func (v *definition_) GetClass() DefinitionClassLike {
+func (v *rule_) GetClass() RuleClassLike {
 	return v.class_
 }
 
-func (v *definition_) GetComment() string {
-	return v.comment_
+func (v *rule_) GetComments() col.ListLike[string] {
+	return v.comments_
 }
 
-func (v *definition_) GetName() string {
-	return v.name_
+func (v *rule_) GetUppercase() string {
+	return v.uppercase_
 }
 
-func (v *definition_) GetExpression() ExpressionLike {
+func (v *rule_) GetExpression() ExpressionLike {
 	return v.expression_
 }
 

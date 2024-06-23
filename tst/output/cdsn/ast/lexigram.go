@@ -20,37 +20,39 @@ import (
 
 // Reference
 
-var typeClass = &typeClass_{
+var lexigramClass = &lexigramClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func Type() TypeClassLike {
-	return typeClass
+func Lexigram() LexigramClassLike {
+	return lexigramClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type typeClass_ struct {
+type lexigramClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *typeClass_) MakeWithAttributes(
-	declaration DeclarationLike,
-	abstraction AbstractionLike,
-	enumerations col.ListLike[EnumerationLike],
-) TypeLike {
-	return &type_{
+func (c *lexigramClass_) MakeWithAttributes(
+	comments col.ListLike[string],
+	lowercase string,
+	pattern PatternLike,
+	notes col.ListLike[string],
+) LexigramLike {
+	return &lexigram_{
 		// Initialize instance attributes.
 		class_: c,
-		declaration_: declaration,
-		abstraction_: abstraction,
-		enumerations_: enumerations,
+		comments_: comments,
+		lowercase_: lowercase,
+		pattern_: pattern,
+		notes_: notes,
 	}
 }
 
@@ -58,30 +60,35 @@ func (c *typeClass_) MakeWithAttributes(
 
 // Target
 
-type type_ struct {
+type lexigram_ struct {
 	// Define instance attributes.
-	class_ TypeClassLike
-	declaration_ DeclarationLike
-	abstraction_ AbstractionLike
-	enumerations_ col.ListLike[EnumerationLike]
+	class_ LexigramClassLike
+	comments_ col.ListLike[string]
+	lowercase_ string
+	pattern_ PatternLike
+	notes_ col.ListLike[string]
 }
 
 // Attributes
 
-func (v *type_) GetClass() TypeClassLike {
+func (v *lexigram_) GetClass() LexigramClassLike {
 	return v.class_
 }
 
-func (v *type_) GetDeclaration() DeclarationLike {
-	return v.declaration_
+func (v *lexigram_) GetComments() col.ListLike[string] {
+	return v.comments_
 }
 
-func (v *type_) GetAbstraction() AbstractionLike {
-	return v.abstraction_
+func (v *lexigram_) GetLowercase() string {
+	return v.lowercase_
 }
 
-func (v *type_) GetEnumerations() col.ListLike[EnumerationLike] {
-	return v.enumerations_
+func (v *lexigram_) GetPattern() PatternLike {
+	return v.pattern_
+}
+
+func (v *lexigram_) GetNotes() col.ListLike[string] {
+	return v.notes_
 }
 
 // Private

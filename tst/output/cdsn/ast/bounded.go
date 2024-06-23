@@ -10,39 +10,45 @@
 ................................................................................
 */
 
-package agent
+package ast
 
 import (
-	ast "github.com/craterdog/example/full/ast"
+	col "github.com/craterdog/go-collection-framework/v4/collection"
 )
 
 // CLASS ACCESS
 
 // Reference
 
-var validatorClass = &validatorClass_{
-	// This class does not initialize any private class constants.
+var boundedClass = &boundedClass_{
+	// Initialize class constants.
 }
 
 // Function
 
-func Validator() ValidatorClassLike {
-	return validatorClass
+func Bounded() BoundedClassLike {
+	return boundedClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type validatorClass_ struct {
-	// This class does not define any private class constants.
+type boundedClass_ struct {
+	// Define class constants.
 }
 
 // Constructors
 
-func (c *validatorClass_) Make() ValidatorLike {
-	return &validator_{
-		// TBA - Initialize private instance attributes.
+func (c *boundedClass_) MakeWithAttributes(
+	initial InitialLike,
+	extents col.ListLike[ExtentLike],
+) BoundedLike {
+	return &bounded_{
+		// Initialize instance attributes.
+		class_: c,
+		initial_: initial,
+		extents_: extents,
 	}
 }
 
@@ -50,20 +56,25 @@ func (c *validatorClass_) Make() ValidatorLike {
 
 // Target
 
-type validator_ struct {
-	class_    ValidatorClassLike
+type bounded_ struct {
+	// Define instance attributes.
+	class_ BoundedClassLike
+	initial_ InitialLike
+	extents_ col.ListLike[ExtentLike]
 }
 
 // Attributes
 
-func (v *validator_) GetClass() ValidatorClassLike {
+func (v *bounded_) GetClass() BoundedClassLike {
 	return v.class_
 }
 
-// Public
+func (v *bounded_) GetInitial() InitialLike {
+	return v.initial_
+}
 
-func (v *validator_) ValidateExample(example ast.ExampleLike) {
-	// TBA - Add method implementation.
+func (v *bounded_) GetExtents() col.ListLike[ExtentLike] {
+	return v.extents_
 }
 
 // Private

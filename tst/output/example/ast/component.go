@@ -12,9 +12,7 @@
 
 package ast
 
-import (
-	col "github.com/craterdog/go-collection-framework/v4/collection"
-)
+import ()
 
 // CLASS ACCESS
 
@@ -56,11 +54,11 @@ func (c *componentClass_) MakeWithPrimitive(primitive PrimitiveLike) ComponentLi
 	}
 }
 
-func (c *componentClass_) MakeWithLists(lists col.ListLike[ListLike]) ComponentLike {
+func (c *componentClass_) MakeWithList(list ListLike) ComponentLike {
 	return &component_{
 		// Initialize instance attributes.
 		class_: c,
-		lists_: lists,
+		list_: list,
 	}
 }
 
@@ -71,9 +69,10 @@ func (c *componentClass_) MakeWithLists(lists col.ListLike[ListLike]) ComponentL
 type component_ struct {
 	// Define instance attributes.
 	class_ ComponentClassLike
+	any_ any
 	default_ DefaultLike
 	primitive_ PrimitiveLike
-	lists_ col.ListLike[ListLike]
+	list_ ListLike
 }
 
 // Attributes
@@ -82,16 +81,8 @@ func (v *component_) GetClass() ComponentClassLike {
 	return v.class_
 }
 
-func (v *component_) GetDefault() DefaultLike {
-	return v.default_
-}
-
-func (v *component_) GetPrimitive() PrimitiveLike {
-	return v.primitive_
-}
-
-func (v *component_) GetLists() col.ListLike[ListLike] {
-	return v.lists_
+func (v *component_) GetAny() any {
+	return v.any_
 }
 
 // Private

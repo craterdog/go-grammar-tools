@@ -43,11 +43,11 @@ type TokenType uint8
 const (
 	ErrorToken TokenType = iota
 	AnythingToken
-	CharacterToken
 	DelimiterToken
 	EOFToken
 	EOLToken
 	IntegerToken
+	RuneToken
 	SpaceToken
 	TextToken
 )
@@ -144,7 +144,7 @@ type FormatterLike interface {
 	GetMaximum() uint
 
 	// Methods
-	FormatComponent(component ast.ComponentLike) string
+	FormatDocument(document ast.DocumentLike) string
 }
 
 /*
@@ -157,7 +157,7 @@ type ParserLike interface {
 	GetClass() ParserClassLike
 
 	// Methods
-	ParseSource(source string) ast.ComponentLike
+	ParseSource(source string) ast.DocumentLike
 }
 
 /*
@@ -194,5 +194,5 @@ type ValidatorLike interface {
 	GetClass() ValidatorClassLike
 
 	// Methods
-	ValidateComponent(component ast.ComponentLike)
+	ValidateDocument(document ast.DocumentLike)
 }

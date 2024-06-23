@@ -34,6 +34,16 @@ import (
 // Classes
 
 /*
+AdditionalClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete additional-like class.
+*/
+type AdditionalClassLike interface {
+	// Constructors
+	MakeWithComponent(component ComponentLike) AdditionalLike
+}
+
+/*
 ComponentClassLike is a class interface that defines the complete set of
 class constants, constructors and functions that must be supported by each
 concrete component-like class.
@@ -42,7 +52,7 @@ type ComponentClassLike interface {
 	// Constructors
 	MakeWithDefault(default_ DefaultLike) ComponentLike
 	MakeWithPrimitive(primitive PrimitiveLike) ComponentLike
-	MakeWithLists(lists col.ListLike[ListLike]) ComponentLike
+	MakeWithList(list ListLike) ComponentLike
 }
 
 /*
@@ -56,13 +66,26 @@ type DefaultClassLike interface {
 }
 
 /*
+DocumentClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete document-like class.
+*/
+type DocumentClassLike interface {
+	// Constructors
+	MakeWithComponent(component ComponentLike) DocumentLike
+}
+
+/*
 ListClassLike is a class interface that defines the complete set of
 class constants, constructors and functions that must be supported by each
 concrete list-like class.
 */
 type ListClassLike interface {
 	// Constructors
-	MakeWithComponents(components col.ListLike[ComponentLike]) ListLike
+	MakeWithAttributes(
+		components col.ListLike[ComponentLike],
+		additionals col.ListLike[AdditionalLike],
+	) ListLike
 }
 
 /*
@@ -72,13 +95,24 @@ concrete primitive-like class.
 */
 type PrimitiveClassLike interface {
 	// Constructors
-	MakeWithCharacter(character string) PrimitiveLike
+	MakeWithRune(rune_ string) PrimitiveLike
 	MakeWithText(text string) PrimitiveLike
 	MakeWithInteger(integer string) PrimitiveLike
 	MakeWithAnything(anything string) PrimitiveLike
 }
 
 // Instances
+
+/*
+AdditionalLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete additional-like class.
+*/
+type AdditionalLike interface {
+	// Attributes
+	GetClass() AdditionalClassLike
+	GetComponent() ComponentLike
+}
 
 /*
 ComponentLike is an instance interface that defines the complete set of
@@ -88,9 +122,7 @@ instance of a concrete component-like class.
 type ComponentLike interface {
 	// Attributes
 	GetClass() ComponentClassLike
-	GetDefault() DefaultLike
-	GetPrimitive() PrimitiveLike
-	GetLists() col.ListLike[ListLike]
+	GetAny() any
 }
 
 /*
@@ -104,6 +136,17 @@ type DefaultLike interface {
 }
 
 /*
+DocumentLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete document-like class.
+*/
+type DocumentLike interface {
+	// Attributes
+	GetClass() DocumentClassLike
+	GetComponent() ComponentLike
+}
+
+/*
 ListLike is an instance interface that defines the complete set of
 instance attributes, abstractions and methods that must be supported by each
 instance of a concrete list-like class.
@@ -112,6 +155,7 @@ type ListLike interface {
 	// Attributes
 	GetClass() ListClassLike
 	GetComponents() col.ListLike[ComponentLike]
+	GetAdditionals() col.ListLike[AdditionalLike]
 }
 
 /*
@@ -122,8 +166,5 @@ instance of a concrete primitive-like class.
 type PrimitiveLike interface {
 	// Attributes
 	GetClass() PrimitiveClassLike
-	GetCharacter() string
-	GetText() string
-	GetInteger() string
-	GetAnything() string
+	GetAny() any
 }

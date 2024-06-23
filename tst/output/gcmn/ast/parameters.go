@@ -40,11 +40,15 @@ type parametersClass_ struct {
 
 // Constructors
 
-func (c *parametersClass_) MakeWithParameters(parameters col.ListLike[ParameterLike]) ParametersLike {
+func (c *parametersClass_) MakeWithAttributes(
+	parameter ParameterLike,
+	additionalParameters col.ListLike[AdditionalParameterLike],
+) ParametersLike {
 	return &parameters_{
 		// Initialize instance attributes.
 		class_: c,
-		parameters_: parameters,
+		parameter_: parameter,
+		additionalParameters_: additionalParameters,
 	}
 }
 
@@ -55,7 +59,8 @@ func (c *parametersClass_) MakeWithParameters(parameters col.ListLike[ParameterL
 type parameters_ struct {
 	// Define instance attributes.
 	class_ ParametersClassLike
-	parameters_ col.ListLike[ParameterLike]
+	parameter_ ParameterLike
+	additionalParameters_ col.ListLike[AdditionalParameterLike]
 }
 
 // Attributes
@@ -64,8 +69,12 @@ func (v *parameters_) GetClass() ParametersClassLike {
 	return v.class_
 }
 
-func (v *parameters_) GetParameters() col.ListLike[ParameterLike] {
-	return v.parameters_
+func (v *parameters_) GetParameter() ParameterLike {
+	return v.parameter_
+}
+
+func (v *parameters_) GetAdditionalParameters() col.ListLike[AdditionalParameterLike] {
+	return v.additionalParameters_
 }
 
 // Private

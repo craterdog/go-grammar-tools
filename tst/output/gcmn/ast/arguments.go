@@ -40,11 +40,15 @@ type argumentsClass_ struct {
 
 // Constructors
 
-func (c *argumentsClass_) MakeWithAbstractions(abstractions col.ListLike[AbstractionLike]) ArgumentsLike {
+func (c *argumentsClass_) MakeWithAttributes(
+	argument ArgumentLike,
+	additionalArguments col.ListLike[AdditionalArgumentLike],
+) ArgumentsLike {
 	return &arguments_{
 		// Initialize instance attributes.
 		class_: c,
-		abstractions_: abstractions,
+		argument_: argument,
+		additionalArguments_: additionalArguments,
 	}
 }
 
@@ -55,7 +59,8 @@ func (c *argumentsClass_) MakeWithAbstractions(abstractions col.ListLike[Abstrac
 type arguments_ struct {
 	// Define instance attributes.
 	class_ ArgumentsClassLike
-	abstractions_ col.ListLike[AbstractionLike]
+	argument_ ArgumentLike
+	additionalArguments_ col.ListLike[AdditionalArgumentLike]
 }
 
 // Attributes
@@ -64,8 +69,12 @@ func (v *arguments_) GetClass() ArgumentsClassLike {
 	return v.class_
 }
 
-func (v *arguments_) GetAbstractions() col.ListLike[AbstractionLike] {
-	return v.abstractions_
+func (v *arguments_) GetArgument() ArgumentLike {
+	return v.argument_
+}
+
+func (v *arguments_) GetAdditionalArguments() col.ListLike[AdditionalArgumentLike] {
+	return v.additionalArguments_
 }
 
 // Private

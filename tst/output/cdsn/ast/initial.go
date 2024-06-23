@@ -12,45 +12,37 @@
 
 package ast
 
-import (
-	col "github.com/craterdog/go-collection-framework/v4/collection"
-)
+import ()
 
 // CLASS ACCESS
 
 // Reference
 
-var typeClass = &typeClass_{
+var initialClass = &initialClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func Type() TypeClassLike {
-	return typeClass
+func Initial() InitialClassLike {
+	return initialClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type typeClass_ struct {
+type initialClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *typeClass_) MakeWithAttributes(
-	declaration DeclarationLike,
-	abstraction AbstractionLike,
-	enumerations col.ListLike[EnumerationLike],
-) TypeLike {
-	return &type_{
+func (c *initialClass_) MakeWithRune(rune_ string) InitialLike {
+	return &initial_{
 		// Initialize instance attributes.
 		class_: c,
-		declaration_: declaration,
-		abstraction_: abstraction,
-		enumerations_: enumerations,
+		rune_: rune_,
 	}
 }
 
@@ -58,30 +50,20 @@ func (c *typeClass_) MakeWithAttributes(
 
 // Target
 
-type type_ struct {
+type initial_ struct {
 	// Define instance attributes.
-	class_ TypeClassLike
-	declaration_ DeclarationLike
-	abstraction_ AbstractionLike
-	enumerations_ col.ListLike[EnumerationLike]
+	class_ InitialClassLike
+	rune_ string
 }
 
 // Attributes
 
-func (v *type_) GetClass() TypeClassLike {
+func (v *initial_) GetClass() InitialClassLike {
 	return v.class_
 }
 
-func (v *type_) GetDeclaration() DeclarationLike {
-	return v.declaration_
-}
-
-func (v *type_) GetAbstraction() AbstractionLike {
-	return v.abstraction_
-}
-
-func (v *type_) GetEnumerations() col.ListLike[EnumerationLike] {
-	return v.enumerations_
+func (v *initial_) GetRune() string {
+	return v.rune_
 }
 
 // Private

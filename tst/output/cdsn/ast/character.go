@@ -18,55 +18,39 @@ import ()
 
 // Reference
 
-var primitiveClass = &primitiveClass_{
+var characterClass = &characterClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func Primitive() PrimitiveClassLike {
-	return primitiveClass
+func Character() CharacterClassLike {
+	return characterClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type primitiveClass_ struct {
+type characterClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *primitiveClass_) MakeWithCharacter(character string) PrimitiveLike {
-	return &primitive_{
+func (c *characterClass_) MakeWithBounded(bounded BoundedLike) CharacterLike {
+	return &character_{
 		// Initialize instance attributes.
 		class_: c,
-		character_: character,
+		bounded_: bounded,
 	}
 }
 
-func (c *primitiveClass_) MakeWithText(text string) PrimitiveLike {
-	return &primitive_{
+func (c *characterClass_) MakeWithIntrinsic(intrinsic string) CharacterLike {
+	return &character_{
 		// Initialize instance attributes.
 		class_: c,
-		text_: text,
-	}
-}
-
-func (c *primitiveClass_) MakeWithInteger(integer string) PrimitiveLike {
-	return &primitive_{
-		// Initialize instance attributes.
-		class_: c,
-		integer_: integer,
-	}
-}
-
-func (c *primitiveClass_) MakeWithAnything(anything string) PrimitiveLike {
-	return &primitive_{
-		// Initialize instance attributes.
-		class_: c,
-		anything_: anything,
+		intrinsic_: intrinsic,
 	}
 }
 
@@ -74,35 +58,22 @@ func (c *primitiveClass_) MakeWithAnything(anything string) PrimitiveLike {
 
 // Target
 
-type primitive_ struct {
+type character_ struct {
 	// Define instance attributes.
-	class_ PrimitiveClassLike
-	character_ string
-	text_ string
-	integer_ string
-	anything_ string
+	class_ CharacterClassLike
+	any_ any
+	bounded_ BoundedLike
+	intrinsic_ string
 }
 
 // Attributes
 
-func (v *primitive_) GetClass() PrimitiveClassLike {
+func (v *character_) GetClass() CharacterClassLike {
 	return v.class_
 }
 
-func (v *primitive_) GetCharacter() string {
-	return v.character_
-}
-
-func (v *primitive_) GetText() string {
-	return v.text_
-}
-
-func (v *primitive_) GetInteger() string {
-	return v.integer_
-}
-
-func (v *primitive_) GetAnything() string {
-	return v.anything_
+func (v *character_) GetAny() any {
+	return v.any_
 }
 
 // Private

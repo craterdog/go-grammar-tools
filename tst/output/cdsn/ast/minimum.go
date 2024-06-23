@@ -12,39 +12,37 @@
 
 package ast
 
-import (
-	col "github.com/craterdog/go-collection-framework/v4/collection"
-)
+import ()
 
 // CLASS ACCESS
 
 // Reference
 
-var constraintClass = &constraintClass_{
+var minimumClass = &minimumClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func Constraint() ConstraintClassLike {
-	return constraintClass
+func Minimum() MinimumClassLike {
+	return minimumClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type constraintClass_ struct {
+type minimumClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *constraintClass_) MakeWithNumbers(numbers col.ListLike[string]) ConstraintLike {
-	return &constraint_{
+func (c *minimumClass_) MakeWithNumber(number string) MinimumLike {
+	return &minimum_{
 		// Initialize instance attributes.
 		class_: c,
-		numbers_: numbers,
+		number_: number,
 	}
 }
 
@@ -52,20 +50,20 @@ func (c *constraintClass_) MakeWithNumbers(numbers col.ListLike[string]) Constra
 
 // Target
 
-type constraint_ struct {
+type minimum_ struct {
 	// Define instance attributes.
-	class_ ConstraintClassLike
-	numbers_ col.ListLike[string]
+	class_ MinimumClassLike
+	number_ string
 }
 
 // Attributes
 
-func (v *constraint_) GetClass() ConstraintClassLike {
+func (v *minimum_) GetClass() MinimumClassLike {
 	return v.class_
 }
 
-func (v *constraint_) GetNumbers() col.ListLike[string] {
-	return v.numbers_
+func (v *minimum_) GetNumber() string {
+	return v.number_
 }
 
 // Private

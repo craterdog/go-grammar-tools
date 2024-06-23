@@ -25,6 +25,7 @@ import (
 // Reference
 
 var parserClass = &parserClass_{
+	// Initialize the class constants.
 	queueSize_: 16,
 	stackSize_: 4,
 }
@@ -40,6 +41,7 @@ func Parser() ParserClassLike {
 // Target
 
 type parserClass_ struct {
+	// Define the class constants.
 	queueSize_ uint
 	stackSize_ uint
 }
@@ -48,6 +50,7 @@ type parserClass_ struct {
 
 func (c *parserClass_) Make() ParserLike {
 	return &parser_{
+		// Initialize the instance attributes.
 		class_: c,
 	}
 }
@@ -57,6 +60,7 @@ func (c *parserClass_) Make() ParserLike {
 // Target
 
 type parser_ struct {
+	// Define the instance attributes.
 	class_  ParserClassLike
 	source_ string                   // The original source code.
 	tokens_ col.QueueLike[TokenLike] // A queue of unread tokens from the scanner.
@@ -85,7 +89,6 @@ func (v *parser_) ParseSource(source string) ast.ModelLike {
 	if !ok {
 		var message = v.formatError(token)
 		message += v.generateSyntax("Model",
-			"AST",
 			"Model",
 		)
 		panic(message)
@@ -101,7 +104,6 @@ func (v *parser_) ParseSource(source string) ast.ModelLike {
 	if !ok {
 		var message = v.formatError(token)
 		message += v.generateSyntax("EOF",
-			"AST",
 			"Model",
 		)
 		panic(message)
@@ -215,5 +217,5 @@ func (v *parser_) putBack(token TokenLike) {
 }
 
 var syntax = map[string]string{
-	"AST": "Model EOL* EOF  ! Terminated with an end-of-file marker.",
+	"Model": "uppercase+ EOL* EOF  ! Terminated with an end-of-file marker.",
 }

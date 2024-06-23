@@ -20,37 +20,31 @@ import (
 
 // Reference
 
-var typeClass = &typeClass_{
+var multilinedClass = &multilinedClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func Type() TypeClassLike {
-	return typeClass
+func Multilined() MultilinedClassLike {
+	return multilinedClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type typeClass_ struct {
+type multilinedClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *typeClass_) MakeWithAttributes(
-	declaration DeclarationLike,
-	abstraction AbstractionLike,
-	enumerations col.ListLike[EnumerationLike],
-) TypeLike {
-	return &type_{
+func (c *multilinedClass_) MakeWithLines(lines col.ListLike[LineLike]) MultilinedLike {
+	return &multilined_{
 		// Initialize instance attributes.
 		class_: c,
-		declaration_: declaration,
-		abstraction_: abstraction,
-		enumerations_: enumerations,
+		lines_: lines,
 	}
 }
 
@@ -58,30 +52,20 @@ func (c *typeClass_) MakeWithAttributes(
 
 // Target
 
-type type_ struct {
+type multilined_ struct {
 	// Define instance attributes.
-	class_ TypeClassLike
-	declaration_ DeclarationLike
-	abstraction_ AbstractionLike
-	enumerations_ col.ListLike[EnumerationLike]
+	class_ MultilinedClassLike
+	lines_ col.ListLike[LineLike]
 }
 
 // Attributes
 
-func (v *type_) GetClass() TypeClassLike {
+func (v *multilined_) GetClass() MultilinedClassLike {
 	return v.class_
 }
 
-func (v *type_) GetDeclaration() DeclarationLike {
-	return v.declaration_
-}
-
-func (v *type_) GetAbstraction() AbstractionLike {
-	return v.abstraction_
-}
-
-func (v *type_) GetEnumerations() col.ListLike[EnumerationLike] {
-	return v.enumerations_
+func (v *multilined_) GetLines() col.ListLike[LineLike] {
+	return v.lines_
 }
 
 // Private

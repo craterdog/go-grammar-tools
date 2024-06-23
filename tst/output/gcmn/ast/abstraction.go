@@ -12,7 +12,9 @@
 
 package ast
 
-import ()
+import (
+	col "github.com/craterdog/go-collection-framework/v4/collection"
+)
 
 // CLASS ACCESS
 
@@ -39,16 +41,16 @@ type abstractionClass_ struct {
 // Constructors
 
 func (c *abstractionClass_) MakeWithAttributes(
-	prefix PrefixLike,
+	prefixs col.ListLike[PrefixLike],
 	identifier string,
-	arguments ArgumentsLike,
+	genericArgumentses col.ListLike[GenericArgumentsLike],
 ) AbstractionLike {
 	return &abstraction_{
 		// Initialize instance attributes.
 		class_: c,
-		prefix_: prefix,
+		prefixs_: prefixs,
 		identifier_: identifier,
-		arguments_: arguments,
+		genericArgumentses_: genericArgumentses,
 	}
 }
 
@@ -59,9 +61,9 @@ func (c *abstractionClass_) MakeWithAttributes(
 type abstraction_ struct {
 	// Define instance attributes.
 	class_ AbstractionClassLike
-	prefix_ PrefixLike
+	prefixs_ col.ListLike[PrefixLike]
 	identifier_ string
-	arguments_ ArgumentsLike
+	genericArgumentses_ col.ListLike[GenericArgumentsLike]
 }
 
 // Attributes
@@ -70,16 +72,16 @@ func (v *abstraction_) GetClass() AbstractionClassLike {
 	return v.class_
 }
 
-func (v *abstraction_) GetPrefix() PrefixLike {
-	return v.prefix_
+func (v *abstraction_) GetPrefixs() col.ListLike[PrefixLike] {
+	return v.prefixs_
 }
 
 func (v *abstraction_) GetIdentifier() string {
 	return v.identifier_
 }
 
-func (v *abstraction_) GetArguments() ArgumentsLike {
-	return v.arguments_
+func (v *abstraction_) GetGenericArgumentses() col.ListLike[GenericArgumentsLike] {
+	return v.genericArgumentses_
 }
 
 // Private

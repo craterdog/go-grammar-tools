@@ -12,39 +12,37 @@
 
 package ast
 
-import (
-	col "github.com/craterdog/go-collection-framework/v4/collection"
-)
+import ()
 
 // CLASS ACCESS
 
 // Reference
 
-var filterClass = &filterClass_{
+var namedClass = &namedClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func Filter() FilterClassLike {
-	return filterClass
+func Named() NamedClassLike {
+	return namedClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type filterClass_ struct {
+type namedClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *filterClass_) MakeWithAtoms(atoms col.ListLike[AtomLike]) FilterLike {
-	return &filter_{
+func (c *namedClass_) MakeWithParameters(parameters ParametersLike) NamedLike {
+	return &named_{
 		// Initialize instance attributes.
 		class_: c,
-		atoms_: atoms,
+		parameters_: parameters,
 	}
 }
 
@@ -52,20 +50,20 @@ func (c *filterClass_) MakeWithAtoms(atoms col.ListLike[AtomLike]) FilterLike {
 
 // Target
 
-type filter_ struct {
+type named_ struct {
 	// Define instance attributes.
-	class_ FilterClassLike
-	atoms_ col.ListLike[AtomLike]
+	class_ NamedClassLike
+	parameters_ ParametersLike
 }
 
 // Attributes
 
-func (v *filter_) GetClass() FilterClassLike {
+func (v *named_) GetClass() NamedClassLike {
 	return v.class_
 }
 
-func (v *filter_) GetAtoms() col.ListLike[AtomLike] {
-	return v.atoms_
+func (v *named_) GetParameters() ParametersLike {
+	return v.parameters_
 }
 
 // Private

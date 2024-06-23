@@ -12,7 +12,9 @@
 
 package ast
 
-import ()
+import (
+	col "github.com/craterdog/go-collection-framework/v4/collection"
+)
 
 // CLASS ACCESS
 
@@ -41,14 +43,14 @@ type declarationClass_ struct {
 func (c *declarationClass_) MakeWithAttributes(
 	comment string,
 	identifier string,
-	parameters ParametersLike,
+	genericParameterses col.ListLike[GenericParametersLike],
 ) DeclarationLike {
 	return &declaration_{
 		// Initialize instance attributes.
 		class_: c,
 		comment_: comment,
 		identifier_: identifier,
-		parameters_: parameters,
+		genericParameterses_: genericParameterses,
 	}
 }
 
@@ -61,7 +63,7 @@ type declaration_ struct {
 	class_ DeclarationClassLike
 	comment_ string
 	identifier_ string
-	parameters_ ParametersLike
+	genericParameterses_ col.ListLike[GenericParametersLike]
 }
 
 // Attributes
@@ -78,8 +80,8 @@ func (v *declaration_) GetIdentifier() string {
 	return v.identifier_
 }
 
-func (v *declaration_) GetParameters() ParametersLike {
-	return v.parameters_
+func (v *declaration_) GetGenericParameterses() col.ListLike[GenericParametersLike] {
+	return v.genericParameterses_
 }
 
 // Private

@@ -20,37 +20,31 @@ import (
 
 // Reference
 
-var typeClass = &typeClass_{
+var maximumClass = &maximumClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func Type() TypeClassLike {
-	return typeClass
+func Maximum() MaximumClassLike {
+	return maximumClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type typeClass_ struct {
+type maximumClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *typeClass_) MakeWithAttributes(
-	declaration DeclarationLike,
-	abstraction AbstractionLike,
-	enumerations col.ListLike[EnumerationLike],
-) TypeLike {
-	return &type_{
+func (c *maximumClass_) MakeWithNumbers(numbers col.ListLike[string]) MaximumLike {
+	return &maximum_{
 		// Initialize instance attributes.
 		class_: c,
-		declaration_: declaration,
-		abstraction_: abstraction,
-		enumerations_: enumerations,
+		numbers_: numbers,
 	}
 }
 
@@ -58,30 +52,20 @@ func (c *typeClass_) MakeWithAttributes(
 
 // Target
 
-type type_ struct {
+type maximum_ struct {
 	// Define instance attributes.
-	class_ TypeClassLike
-	declaration_ DeclarationLike
-	abstraction_ AbstractionLike
-	enumerations_ col.ListLike[EnumerationLike]
+	class_ MaximumClassLike
+	numbers_ col.ListLike[string]
 }
 
 // Attributes
 
-func (v *type_) GetClass() TypeClassLike {
+func (v *maximum_) GetClass() MaximumClassLike {
 	return v.class_
 }
 
-func (v *type_) GetDeclaration() DeclarationLike {
-	return v.declaration_
-}
-
-func (v *type_) GetAbstraction() AbstractionLike {
-	return v.abstraction_
-}
-
-func (v *type_) GetEnumerations() col.ListLike[EnumerationLike] {
-	return v.enumerations_
+func (v *maximum_) GetNumbers() col.ListLike[string] {
+	return v.numbers_
 }
 
 // Private

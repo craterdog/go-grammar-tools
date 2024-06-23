@@ -38,11 +38,35 @@ type prefixClass_ struct {
 
 // Constructors
 
-func (c *prefixClass_) MakeWithIdentifier(identifier string) PrefixLike {
+func (c *prefixClass_) MakeWithArray(array ArrayLike) PrefixLike {
 	return &prefix_{
 		// Initialize instance attributes.
 		class_: c,
-		identifier_: identifier,
+		array_: array,
+	}
+}
+
+func (c *prefixClass_) MakeWithMap(map_ MapLike) PrefixLike {
+	return &prefix_{
+		// Initialize instance attributes.
+		class_: c,
+		map_: map_,
+	}
+}
+
+func (c *prefixClass_) MakeWithChannel(channel ChannelLike) PrefixLike {
+	return &prefix_{
+		// Initialize instance attributes.
+		class_: c,
+		channel_: channel,
+	}
+}
+
+func (c *prefixClass_) MakeWithAlias(alias AliasLike) PrefixLike {
+	return &prefix_{
+		// Initialize instance attributes.
+		class_: c,
+		alias_: alias,
 	}
 }
 
@@ -53,7 +77,11 @@ func (c *prefixClass_) MakeWithIdentifier(identifier string) PrefixLike {
 type prefix_ struct {
 	// Define instance attributes.
 	class_ PrefixClassLike
-	identifier_ string
+	any_ any
+	array_ ArrayLike
+	map_ MapLike
+	channel_ ChannelLike
+	alias_ AliasLike
 }
 
 // Attributes
@@ -62,8 +90,8 @@ func (v *prefix_) GetClass() PrefixClassLike {
 	return v.class_
 }
 
-func (v *prefix_) GetIdentifier() string {
-	return v.identifier_
+func (v *prefix_) GetAny() any {
+	return v.any_
 }
 
 // Private

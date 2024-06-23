@@ -20,37 +20,35 @@ import (
 
 // Reference
 
-var typeClass = &typeClass_{
+var inlinedClass = &inlinedClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func Type() TypeClassLike {
-	return typeClass
+func Inlined() InlinedClassLike {
+	return inlinedClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type typeClass_ struct {
+type inlinedClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *typeClass_) MakeWithAttributes(
-	declaration DeclarationLike,
-	abstraction AbstractionLike,
-	enumerations col.ListLike[EnumerationLike],
-) TypeLike {
-	return &type_{
+func (c *inlinedClass_) MakeWithAttributes(
+	factors col.ListLike[FactorLike],
+	notes col.ListLike[string],
+) InlinedLike {
+	return &inlined_{
 		// Initialize instance attributes.
 		class_: c,
-		declaration_: declaration,
-		abstraction_: abstraction,
-		enumerations_: enumerations,
+		factors_: factors,
+		notes_: notes,
 	}
 }
 
@@ -58,30 +56,25 @@ func (c *typeClass_) MakeWithAttributes(
 
 // Target
 
-type type_ struct {
+type inlined_ struct {
 	// Define instance attributes.
-	class_ TypeClassLike
-	declaration_ DeclarationLike
-	abstraction_ AbstractionLike
-	enumerations_ col.ListLike[EnumerationLike]
+	class_ InlinedClassLike
+	factors_ col.ListLike[FactorLike]
+	notes_ col.ListLike[string]
 }
 
 // Attributes
 
-func (v *type_) GetClass() TypeClassLike {
+func (v *inlined_) GetClass() InlinedClassLike {
 	return v.class_
 }
 
-func (v *type_) GetDeclaration() DeclarationLike {
-	return v.declaration_
+func (v *inlined_) GetFactors() col.ListLike[FactorLike] {
+	return v.factors_
 }
 
-func (v *type_) GetAbstraction() AbstractionLike {
-	return v.abstraction_
-}
-
-func (v *type_) GetEnumerations() col.ListLike[EnumerationLike] {
-	return v.enumerations_
+func (v *inlined_) GetNotes() col.ListLike[string] {
+	return v.notes_
 }
 
 // Private

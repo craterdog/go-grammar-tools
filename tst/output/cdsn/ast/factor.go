@@ -12,7 +12,9 @@
 
 package ast
 
-import ()
+import (
+	col "github.com/craterdog/go-collection-framework/v4/collection"
+)
 
 // CLASS ACCESS
 
@@ -40,13 +42,13 @@ type factorClass_ struct {
 
 func (c *factorClass_) MakeWithAttributes(
 	predicate PredicateLike,
-	cardinality CardinalityLike,
+	cardinalitys col.ListLike[CardinalityLike],
 ) FactorLike {
 	return &factor_{
 		// Initialize instance attributes.
 		class_: c,
 		predicate_: predicate,
-		cardinality_: cardinality,
+		cardinalitys_: cardinalitys,
 	}
 }
 
@@ -58,7 +60,7 @@ type factor_ struct {
 	// Define instance attributes.
 	class_ FactorClassLike
 	predicate_ PredicateLike
-	cardinality_ CardinalityLike
+	cardinalitys_ col.ListLike[CardinalityLike]
 }
 
 // Attributes
@@ -71,8 +73,8 @@ func (v *factor_) GetPredicate() PredicateLike {
 	return v.predicate_
 }
 
-func (v *factor_) GetCardinality() CardinalityLike {
-	return v.cardinality_
+func (v *factor_) GetCardinalitys() col.ListLike[CardinalityLike] {
+	return v.cardinalitys_
 }
 
 // Private

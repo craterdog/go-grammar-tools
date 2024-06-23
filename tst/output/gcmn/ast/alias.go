@@ -18,30 +18,31 @@ import ()
 
 // Reference
 
-var defaultClass = &defaultClass_{
+var aliasClass = &aliasClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func Default() DefaultClassLike {
-	return defaultClass
+func Alias() AliasClassLike {
+	return aliasClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type defaultClass_ struct {
+type aliasClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *defaultClass_) Make() DefaultLike {
-	return &default_{
+func (c *aliasClass_) MakeWithIdentifier(identifier string) AliasLike {
+	return &alias_{
 		// Initialize instance attributes.
 		class_: c,
+		identifier_: identifier,
 	}
 }
 
@@ -49,15 +50,20 @@ func (c *defaultClass_) Make() DefaultLike {
 
 // Target
 
-type default_ struct {
+type alias_ struct {
 	// Define instance attributes.
-	class_ DefaultClassLike
+	class_ AliasClassLike
+	identifier_ string
 }
 
 // Attributes
 
-func (v *default_) GetClass() DefaultClassLike {
+func (v *alias_) GetClass() AliasClassLike {
 	return v.class_
+}
+
+func (v *alias_) GetIdentifier() string {
+	return v.identifier_
 }
 
 // Private

@@ -10,44 +10,39 @@
 ................................................................................
 */
 
-package agent
+package ast
+
+import ()
 
 // CLASS ACCESS
 
 // Reference
 
-var tokenClass = &tokenClass_{
+var mapClass = &mapClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func Token() TokenClassLike {
-	return tokenClass
+func Map() MapClassLike {
+	return mapClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type tokenClass_ struct {
+type mapClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *tokenClass_) MakeWithAttributes(
-	line int,
-	position int,
-	type_ TokenType,
-	value string,
-) TokenLike {
-	return &token_{
-		class_:    c,
-		line_:     line,
-		position_: position,
-		type_:     type_,
-		value_:    value,
+func (c *mapClass_) MakeWithIdentifier(identifier string) MapLike {
+	return &map_{
+		// Initialize instance attributes.
+		class_: c,
+		identifier_: identifier,
 	}
 }
 
@@ -55,32 +50,20 @@ func (c *tokenClass_) MakeWithAttributes(
 
 // Target
 
-type token_ struct {
-	class_    TokenClassLike
-	line_     int
-	position_ int
-	type_     TokenType
-	value_    string
+type map_ struct {
+	// Define instance attributes.
+	class_ MapClassLike
+	identifier_ string
 }
 
 // Attributes
 
-func (v *token_) GetClass() TokenClassLike {
+func (v *map_) GetClass() MapClassLike {
 	return v.class_
 }
 
-func (v *token_) GetLine() int {
-	return v.line_
+func (v *map_) GetIdentifier() string {
+	return v.identifier_
 }
 
-func (v *token_) GetPosition() int {
-	return v.position_
-}
-
-func (v *token_) GetType() TokenType {
-	return v.type_
-}
-
-func (v *token_) GetValue() string {
-	return v.value_
-}
+// Private

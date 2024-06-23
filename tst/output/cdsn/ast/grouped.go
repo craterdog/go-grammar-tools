@@ -12,39 +12,37 @@
 
 package ast
 
-import (
-	col "github.com/craterdog/go-collection-framework/v4/collection"
-)
+import ()
 
 // CLASS ACCESS
 
 // Reference
 
-var listClass = &listClass_{
+var groupedClass = &groupedClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func List() ListClassLike {
-	return listClass
+func Grouped() GroupedClassLike {
+	return groupedClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type listClass_ struct {
+type groupedClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *listClass_) MakeWithExamples(examples col.ListLike[ExampleLike]) ListLike {
-	return &list_{
+func (c *groupedClass_) MakeWithPattern(pattern PatternLike) GroupedLike {
+	return &grouped_{
 		// Initialize instance attributes.
 		class_: c,
-		examples_: examples,
+		pattern_: pattern,
 	}
 }
 
@@ -52,20 +50,20 @@ func (c *listClass_) MakeWithExamples(examples col.ListLike[ExampleLike]) ListLi
 
 // Target
 
-type list_ struct {
+type grouped_ struct {
 	// Define instance attributes.
-	class_ ListClassLike
-	examples_ col.ListLike[ExampleLike]
+	class_ GroupedClassLike
+	pattern_ PatternLike
 }
 
 // Attributes
 
-func (v *list_) GetClass() ListClassLike {
+func (v *grouped_) GetClass() GroupedClassLike {
 	return v.class_
 }
 
-func (v *list_) GetExamples() col.ListLike[ExampleLike] {
-	return v.examples_
+func (v *grouped_) GetPattern() PatternLike {
+	return v.pattern_
 }
 
 // Private

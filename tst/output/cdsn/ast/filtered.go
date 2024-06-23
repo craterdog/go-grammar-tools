@@ -20,37 +20,35 @@ import (
 
 // Reference
 
-var typeClass = &typeClass_{
+var filteredClass = &filteredClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func Type() TypeClassLike {
-	return typeClass
+func Filtered() FilteredClassLike {
+	return filteredClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type typeClass_ struct {
+type filteredClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *typeClass_) MakeWithAttributes(
-	declaration DeclarationLike,
-	abstraction AbstractionLike,
-	enumerations col.ListLike[EnumerationLike],
-) TypeLike {
-	return &type_{
+func (c *filteredClass_) MakeWithAttributes(
+	negations col.ListLike[string],
+	characters col.ListLike[CharacterLike],
+) FilteredLike {
+	return &filtered_{
 		// Initialize instance attributes.
 		class_: c,
-		declaration_: declaration,
-		abstraction_: abstraction,
-		enumerations_: enumerations,
+		negations_: negations,
+		characters_: characters,
 	}
 }
 
@@ -58,30 +56,25 @@ func (c *typeClass_) MakeWithAttributes(
 
 // Target
 
-type type_ struct {
+type filtered_ struct {
 	// Define instance attributes.
-	class_ TypeClassLike
-	declaration_ DeclarationLike
-	abstraction_ AbstractionLike
-	enumerations_ col.ListLike[EnumerationLike]
+	class_ FilteredClassLike
+	negations_ col.ListLike[string]
+	characters_ col.ListLike[CharacterLike]
 }
 
 // Attributes
 
-func (v *type_) GetClass() TypeClassLike {
+func (v *filtered_) GetClass() FilteredClassLike {
 	return v.class_
 }
 
-func (v *type_) GetDeclaration() DeclarationLike {
-	return v.declaration_
+func (v *filtered_) GetNegations() col.ListLike[string] {
+	return v.negations_
 }
 
-func (v *type_) GetAbstraction() AbstractionLike {
-	return v.abstraction_
-}
-
-func (v *type_) GetEnumerations() col.ListLike[EnumerationLike] {
-	return v.enumerations_
+func (v *filtered_) GetCharacters() col.ListLike[CharacterLike] {
+	return v.characters_
 }
 
 // Private

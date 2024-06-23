@@ -9,7 +9,6 @@
 .  Initiative. (See https://opensource.org/license/MIT)                        .
 ................................................................................
 */
-
 package agent
 
 import (
@@ -25,15 +24,17 @@ import (
 // Reference
 
 var scannerClass = &scannerClass_{
+	// Initialize the class constants.
 	tokens_: map[TokenType]string{
+		// TBA - Add additional token types.
 		ErrorToken:     "error",
 		DelimiterToken: "delimiter",
 		EOFToken:       "EOF",
 		EOLToken:       "EOL",
 		SpaceToken:     "space",
-		// TBA - Add additional token types.
 	},
 	matchers_: map[TokenType]*reg.Regexp{
+		// TBA - Add additional token types.
 		DelimiterToken: reg.MustCompile("^(?:" + delimiter_ + ")"),
 		EOLToken:       reg.MustCompile("^(?:" + eol_ + ")"),
 		SpaceToken:     reg.MustCompile("^(?:" + space_ + ")"),
@@ -51,6 +52,7 @@ func Scanner() ScannerClassLike {
 // Target
 
 type scannerClass_ struct {
+	// Define the class constants.
 	tokens_   map[TokenType]string
 	matchers_ map[TokenType]*reg.Regexp
 }
@@ -62,6 +64,7 @@ func (c *scannerClass_) Make(
 	tokens col.QueueLike[TokenLike],
 ) ScannerLike {
 	var scanner = &scanner_{
+		// Initialize the instance attributes.
 		class_:    c,
 		line_:     1,
 		position_: 1,
@@ -73,6 +76,10 @@ func (c *scannerClass_) Make(
 }
 
 // Functions
+
+func (c *scannerClass_) AsString(type_ TokenType) string {
+	return c.tokens_[type_]
+}
 
 func (c *scannerClass_) FormatToken(token TokenLike) string {
 	var value = token.GetValue()
@@ -104,6 +111,7 @@ func (c *scannerClass_) MatchToken(
 // Target
 
 type scanner_ struct {
+	// Define the instance attributes.
 	class_    ScannerClassLike
 	first_    int // A zero based index of the first possible rune in the next token.
 	next_     int // A zero based index of the next possible rune in the next token.
@@ -162,6 +170,8 @@ func (v *scanner_) foundToken(type_ TokenType) bool {
 		var match = matches.GetValue(1)
 		var token = []rune(match)
 		var length = len(token)
+
+		// Found the requested token type.
 		v.next_ += length
 		if type_ != SpaceToken {
 			v.emitToken(type_)
@@ -176,6 +186,8 @@ func (v *scanner_) foundToken(type_ TokenType) bool {
 		v.first_ = v.next_
 		return true
 	}
+
+	// The next token is not the requested token type.
 	return false
 }
 
@@ -214,17 +226,21 @@ way.  We append an underscore to each name to lessen the chance of a name
 collision with other private Go class constants in this package.
 */
 const (
+	// TBA - Add additional token types.
 	any_       = `.|` + eol_
 	base16_    = `[0-9a-f]`
 	control_   = `\p{Cc}`
-	delimiter_ = `[:;,\.=]`
+	delimiter_ = `[:;,\.=]` // TBA - Replace with the actual delimeters.
 	digit_     = `\p{Nd}`
 	eof_       = `\z`
 	eol_       = `\n`
 	escape_    = `\\(?:(?:` + unicode_ + `)|[abfnrtv'"\\])`
+	letter_    = lower_ + `|` + upper_
 	lower_     = `\p{Ll}`
+	number_    = `(?:` + digit_ + `)+`
+	rune_      = `['][^` + control_ + `][']`
 	space_     = `[ \t]+`
+	string_    = `["](?:` + escape_ + `|[^"` + control_ + `])+?["]`
 	unicode_   = `x` + base16_ + `{2}|u` + base16_ + `{4}|U` + base16_ + `{8}`
 	upper_     = `\p{Lu}`
-	// TBA - Add additional regular expression definitions.
 )

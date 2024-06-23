@@ -46,11 +46,11 @@ func (c *resultClass_) MakeWithAbstraction(abstraction AbstractionLike) ResultLi
 	}
 }
 
-func (c *resultClass_) MakeWithParameters(parameters ParametersLike) ResultLike {
+func (c *resultClass_) MakeWithNamed(named NamedLike) ResultLike {
 	return &result_{
 		// Initialize instance attributes.
 		class_: c,
-		parameters_: parameters,
+		named_: named,
 	}
 }
 
@@ -61,8 +61,9 @@ func (c *resultClass_) MakeWithParameters(parameters ParametersLike) ResultLike 
 type result_ struct {
 	// Define instance attributes.
 	class_ ResultClassLike
+	any_ any
 	abstraction_ AbstractionLike
-	parameters_ ParametersLike
+	named_ NamedLike
 }
 
 // Attributes
@@ -71,12 +72,8 @@ func (v *result_) GetClass() ResultClassLike {
 	return v.class_
 }
 
-func (v *result_) GetAbstraction() AbstractionLike {
-	return v.abstraction_
-}
-
-func (v *result_) GetParameters() ParametersLike {
-	return v.parameters_
+func (v *result_) GetAny() any {
+	return v.any_
 }
 
 // Private

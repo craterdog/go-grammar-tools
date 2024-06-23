@@ -18,31 +18,39 @@ import ()
 
 // Reference
 
-var precedenceClass = &precedenceClass_{
+var identifierClass = &identifierClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func Precedence() PrecedenceClassLike {
-	return precedenceClass
+func Identifier() IdentifierClassLike {
+	return identifierClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type precedenceClass_ struct {
+type identifierClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *precedenceClass_) MakeWithExpression(expression ExpressionLike) PrecedenceLike {
-	return &precedence_{
+func (c *identifierClass_) MakeWithLowercase(lowercase string) IdentifierLike {
+	return &identifier_{
 		// Initialize instance attributes.
 		class_: c,
-		expression_: expression,
+		lowercase_: lowercase,
+	}
+}
+
+func (c *identifierClass_) MakeWithUppercase(uppercase string) IdentifierLike {
+	return &identifier_{
+		// Initialize instance attributes.
+		class_: c,
+		uppercase_: uppercase,
 	}
 }
 
@@ -50,20 +58,22 @@ func (c *precedenceClass_) MakeWithExpression(expression ExpressionLike) Precede
 
 // Target
 
-type precedence_ struct {
+type identifier_ struct {
 	// Define instance attributes.
-	class_ PrecedenceClassLike
-	expression_ ExpressionLike
+	class_ IdentifierClassLike
+	any_ any
+	lowercase_ string
+	uppercase_ string
 }
 
 // Attributes
 
-func (v *precedence_) GetClass() PrecedenceClassLike {
+func (v *identifier_) GetClass() IdentifierClassLike {
 	return v.class_
 }
 
-func (v *precedence_) GetExpression() ExpressionLike {
-	return v.expression_
+func (v *identifier_) GetAny() any {
+	return v.any_
 }
 
 // Private

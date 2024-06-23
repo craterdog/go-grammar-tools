@@ -12,43 +12,37 @@
 
 package ast
 
-import (
-	col "github.com/craterdog/go-collection-framework/v4/collection"
-)
+import ()
 
 // CLASS ACCESS
 
 // Reference
 
-var inlineClass = &inlineClass_{
+var genericParametersClass = &genericParametersClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func Inline() InlineClassLike {
-	return inlineClass
+func GenericParameters() GenericParametersClassLike {
+	return genericParametersClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type inlineClass_ struct {
+type genericParametersClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *inlineClass_) MakeWithAttributes(
-	alternatives col.ListLike[AlternativeLike],
-	note string,
-) InlineLike {
-	return &inline_{
+func (c *genericParametersClass_) MakeWithParameters(parameters ParametersLike) GenericParametersLike {
+	return &genericParameters_{
 		// Initialize instance attributes.
 		class_: c,
-		alternatives_: alternatives,
-		note_: note,
+		parameters_: parameters,
 	}
 }
 
@@ -56,25 +50,20 @@ func (c *inlineClass_) MakeWithAttributes(
 
 // Target
 
-type inline_ struct {
+type genericParameters_ struct {
 	// Define instance attributes.
-	class_ InlineClassLike
-	alternatives_ col.ListLike[AlternativeLike]
-	note_ string
+	class_ GenericParametersClassLike
+	parameters_ ParametersLike
 }
 
 // Attributes
 
-func (v *inline_) GetClass() InlineClassLike {
+func (v *genericParameters_) GetClass() GenericParametersClassLike {
 	return v.class_
 }
 
-func (v *inline_) GetAlternatives() col.ListLike[AlternativeLike] {
-	return v.alternatives_
-}
-
-func (v *inline_) GetNote() string {
-	return v.note_
+func (v *genericParameters_) GetParameters() ParametersLike {
+	return v.parameters_
 }
 
 // Private

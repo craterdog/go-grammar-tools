@@ -13,8 +13,8 @@
 package agent
 
 import (
-	sts "strings"
 	ast "github.com/craterdog/example/example/ast"
+	sts "strings"
 )
 
 // CLASS ACCESS
@@ -22,6 +22,7 @@ import (
 // Reference
 
 var formatterClass = &formatterClass_{
+	// Initialize the class constants.
 	defaultMaximum_: 8,
 }
 
@@ -36,6 +37,7 @@ func Formatter() FormatterClassLike {
 // Target
 
 type formatterClass_ struct {
+	// Define the class constants.
 	defaultMaximum_ uint
 }
 
@@ -49,6 +51,8 @@ func (c *formatterClass_) DefaultMaximum() uint {
 
 func (c *formatterClass_) Make() FormatterLike {
 	return &formatter_{
+		// Initialize the instance attributes.
+		class_:   c,
 		maximum_: c.defaultMaximum_,
 	}
 }
@@ -58,6 +62,7 @@ func (c *formatterClass_) MakeWithMaximum(maximum uint) FormatterLike {
 		maximum = c.defaultMaximum_
 	}
 	return &formatter_{
+		// Initialize the instance attributes.
 		class_:   c,
 		maximum_: maximum,
 	}
@@ -68,6 +73,7 @@ func (c *formatterClass_) MakeWithMaximum(maximum uint) FormatterLike {
 // Target
 
 type formatter_ struct {
+	// Define the instance attributes.
 	class_   FormatterClassLike
 	depth_   uint
 	maximum_ uint
@@ -90,28 +96,28 @@ func (v *formatter_) GetMaximum() uint {
 
 // Public
 
-func (v *formatter_) FormatComponent(component ast.ComponentLike) string {
-	v.formatComponent(component)
+func (v *formatter_) FormatDocument(document ast.DocumentLike) string {
+	v.formatDocument(document)
 	return v.getResult()
 }
 
 // Private
 
 func (v *formatter_) appendNewline() {
-	var separator = "\n"
+	var newline = "\n"
 	var indentation = "\t"
 	var level uint
 	for ; level < v.depth_; level++ {
-		separator += indentation
+		newline += indentation
 	}
-	v.appendString(separator)
+	v.appendString(newline)
 }
 
 func (v *formatter_) appendString(s string) {
 	v.result_.WriteString(s)
 }
 
-func (v *formatter_) formatComponent(component ast.ComponentLike) {
+func (v *formatter_) formatDocument(document ast.DocumentLike) {
 	// TBA - Add real method implementation.
 	v.depth_++
 	v.appendString("test")

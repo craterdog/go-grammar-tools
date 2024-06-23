@@ -38,35 +38,35 @@ type predicateClass_ struct {
 
 // Constructors
 
-func (c *predicateClass_) MakeWithAtom(atom AtomLike) PredicateLike {
+func (c *predicateClass_) MakeWithLowercase(lowercase string) PredicateLike {
 	return &predicate_{
 		// Initialize instance attributes.
 		class_: c,
-		atom_: atom,
+		lowercase_: lowercase,
 	}
 }
 
-func (c *predicateClass_) MakeWithElement(element ElementLike) PredicateLike {
+func (c *predicateClass_) MakeWithUppercase(uppercase string) PredicateLike {
 	return &predicate_{
 		// Initialize instance attributes.
 		class_: c,
-		element_: element,
+		uppercase_: uppercase,
 	}
 }
 
-func (c *predicateClass_) MakeWithFilter(filter FilterLike) PredicateLike {
+func (c *predicateClass_) MakeWithIntrinsic(intrinsic string) PredicateLike {
 	return &predicate_{
 		// Initialize instance attributes.
 		class_: c,
-		filter_: filter,
+		intrinsic_: intrinsic,
 	}
 }
 
-func (c *predicateClass_) MakeWithPrecedence(precedence PrecedenceLike) PredicateLike {
+func (c *predicateClass_) MakeWithLiteral(literal string) PredicateLike {
 	return &predicate_{
 		// Initialize instance attributes.
 		class_: c,
-		precedence_: precedence,
+		literal_: literal,
 	}
 }
 
@@ -77,10 +77,11 @@ func (c *predicateClass_) MakeWithPrecedence(precedence PrecedenceLike) Predicat
 type predicate_ struct {
 	// Define instance attributes.
 	class_ PredicateClassLike
-	atom_ AtomLike
-	element_ ElementLike
-	filter_ FilterLike
-	precedence_ PrecedenceLike
+	any_ any
+	lowercase_ string
+	uppercase_ string
+	intrinsic_ string
+	literal_ string
 }
 
 // Attributes
@@ -89,20 +90,8 @@ func (v *predicate_) GetClass() PredicateClassLike {
 	return v.class_
 }
 
-func (v *predicate_) GetAtom() AtomLike {
-	return v.atom_
-}
-
-func (v *predicate_) GetElement() ElementLike {
-	return v.element_
-}
-
-func (v *predicate_) GetFilter() FilterLike {
-	return v.filter_
-}
-
-func (v *predicate_) GetPrecedence() PrecedenceLike {
-	return v.precedence_
+func (v *predicate_) GetAny() any {
+	return v.any_
 }
 
 // Private

@@ -1,6 +1,6 @@
 /*
 ................................................................................
-.    Copyright (c) 2009-2024 Crater Dog Technologies.  All Rights Reserved.    .
+.                   Copyright (c) 2024.  All Rights Reserved.                  .
 ................................................................................
 .  DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.               .
 .                                                                              .
@@ -12,39 +12,37 @@
 
 package ast
 
-import (
-	col "github.com/craterdog/go-collection-framework/v4/collection"
-)
+import ()
 
 // CLASS ACCESS
 
 // Reference
 
-var glyphClass = &glyphClass_{
+var additionalClass = &additionalClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func Glyph() GlyphClassLike {
-	return glyphClass
+func Additional() AdditionalClassLike {
+	return additionalClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type glyphClass_ struct {
+type additionalClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *glyphClass_) MakeWithCharacters(characters col.ListLike[string]) GlyphLike {
-	return &glyph_{
+func (c *additionalClass_) MakeWithComponent(component ComponentLike) AdditionalLike {
+	return &additional_{
 		// Initialize instance attributes.
 		class_: c,
-		characters_: characters,
+		component_: component,
 	}
 }
 
@@ -52,20 +50,20 @@ func (c *glyphClass_) MakeWithCharacters(characters col.ListLike[string]) GlyphL
 
 // Target
 
-type glyph_ struct {
+type additional_ struct {
 	// Define instance attributes.
-	class_ GlyphClassLike
-	characters_ col.ListLike[string]
+	class_ AdditionalClassLike
+	component_ ComponentLike
 }
 
 // Attributes
 
-func (v *glyph_) GetClass() GlyphClassLike {
+func (v *additional_) GetClass() AdditionalClassLike {
 	return v.class_
 }
 
-func (v *glyph_) GetCharacters() col.ListLike[string] {
-	return v.characters_
+func (v *additional_) GetComponent() ComponentLike {
+	return v.component_
 }
 
 // Private

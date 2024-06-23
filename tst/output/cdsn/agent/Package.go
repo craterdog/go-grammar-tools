@@ -42,17 +42,20 @@ type TokenType uint8
 
 const (
 	ErrorToken TokenType = iota
-	CharacterToken
 	CommentToken
 	DelimiterToken
 	EOFToken
 	EOLToken
 	IntrinsicToken
 	LiteralToken
-	NameToken
+	LowercaseToken
+	NegationToken
 	NoteToken
 	NumberToken
+	QuantifiedToken
+	RuneToken
 	SpaceToken
+	UppercaseToken
 )
 
 // Classes

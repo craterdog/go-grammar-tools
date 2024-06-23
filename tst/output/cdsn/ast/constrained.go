@@ -20,47 +20,35 @@ import (
 
 // Reference
 
-var exampleClass = &exampleClass_{
+var constrainedClass = &constrainedClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func Example() ExampleClassLike {
-	return exampleClass
+func Constrained() ConstrainedClassLike {
+	return constrainedClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type exampleClass_ struct {
+type constrainedClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *exampleClass_) MakeWithDefault(default_ DefaultLike) ExampleLike {
-	return &example_{
+func (c *constrainedClass_) MakeWithAttributes(
+	minimum MinimumLike,
+	maximums col.ListLike[MaximumLike],
+) ConstrainedLike {
+	return &constrained_{
 		// Initialize instance attributes.
 		class_: c,
-		default_: default_,
-	}
-}
-
-func (c *exampleClass_) MakeWithPrimitive(primitive PrimitiveLike) ExampleLike {
-	return &example_{
-		// Initialize instance attributes.
-		class_: c,
-		primitive_: primitive,
-	}
-}
-
-func (c *exampleClass_) MakeWithLists(lists col.ListLike[ListLike]) ExampleLike {
-	return &example_{
-		// Initialize instance attributes.
-		class_: c,
-		lists_: lists,
+		minimum_: minimum,
+		maximums_: maximums,
 	}
 }
 
@@ -68,30 +56,25 @@ func (c *exampleClass_) MakeWithLists(lists col.ListLike[ListLike]) ExampleLike 
 
 // Target
 
-type example_ struct {
+type constrained_ struct {
 	// Define instance attributes.
-	class_ ExampleClassLike
-	default_ DefaultLike
-	primitive_ PrimitiveLike
-	lists_ col.ListLike[ListLike]
+	class_ ConstrainedClassLike
+	minimum_ MinimumLike
+	maximums_ col.ListLike[MaximumLike]
 }
 
 // Attributes
 
-func (v *example_) GetClass() ExampleClassLike {
+func (v *constrained_) GetClass() ConstrainedClassLike {
 	return v.class_
 }
 
-func (v *example_) GetDefault() DefaultLike {
-	return v.default_
+func (v *constrained_) GetMinimum() MinimumLike {
+	return v.minimum_
 }
 
-func (v *example_) GetPrimitive() PrimitiveLike {
-	return v.primitive_
-}
-
-func (v *example_) GetLists() col.ListLike[ListLike] {
-	return v.lists_
+func (v *constrained_) GetMaximums() col.ListLike[MaximumLike] {
+	return v.maximums_
 }
 
 // Private

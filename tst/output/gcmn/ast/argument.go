@@ -18,39 +18,31 @@ import ()
 
 // Reference
 
-var atomClass = &atomClass_{
+var argumentClass = &argumentClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func Atom() AtomClassLike {
-	return atomClass
+func Argument() ArgumentClassLike {
+	return argumentClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type atomClass_ struct {
+type argumentClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *atomClass_) MakeWithGlyph(glyph GlyphLike) AtomLike {
-	return &atom_{
+func (c *argumentClass_) MakeWithAbstraction(abstraction AbstractionLike) ArgumentLike {
+	return &argument_{
 		// Initialize instance attributes.
 		class_: c,
-		glyph_: glyph,
-	}
-}
-
-func (c *atomClass_) MakeWithIntrinsic(intrinsic string) AtomLike {
-	return &atom_{
-		// Initialize instance attributes.
-		class_: c,
-		intrinsic_: intrinsic,
+		abstraction_: abstraction,
 	}
 }
 
@@ -58,25 +50,20 @@ func (c *atomClass_) MakeWithIntrinsic(intrinsic string) AtomLike {
 
 // Target
 
-type atom_ struct {
+type argument_ struct {
 	// Define instance attributes.
-	class_ AtomClassLike
-	glyph_ GlyphLike
-	intrinsic_ string
+	class_ ArgumentClassLike
+	abstraction_ AbstractionLike
 }
 
 // Attributes
 
-func (v *atom_) GetClass() AtomClassLike {
+func (v *argument_) GetClass() ArgumentClassLike {
 	return v.class_
 }
 
-func (v *atom_) GetGlyph() GlyphLike {
-	return v.glyph_
-}
-
-func (v *atom_) GetIntrinsic() string {
-	return v.intrinsic_
+func (v *argument_) GetAbstraction() AbstractionLike {
+	return v.abstraction_
 }
 
 // Private

@@ -25,6 +25,7 @@ import (
 // Reference
 
 var parserClass = &parserClass_{
+	// Initialize the class constants.
 	queueSize_: 16,
 	stackSize_: 4,
 }
@@ -40,6 +41,7 @@ func Parser() ParserClassLike {
 // Target
 
 type parserClass_ struct {
+	// Define the class constants.
 	queueSize_ uint
 	stackSize_ uint
 }
@@ -48,6 +50,7 @@ type parserClass_ struct {
 
 func (c *parserClass_) Make() ParserLike {
 	return &parser_{
+		// Initialize the instance attributes.
 		class_: c,
 	}
 }
@@ -57,6 +60,7 @@ func (c *parserClass_) Make() ParserLike {
 // Target
 
 type parser_ struct {
+	// Define the instance attributes.
 	class_  ParserClassLike
 	source_ string                   // The original source code.
 	tokens_ col.QueueLike[TokenLike] // A queue of unread tokens from the scanner.
@@ -71,7 +75,7 @@ func (v *parser_) GetClass() ParserClassLike {
 
 // Public
 
-func (v *parser_) ParseSource(source string) ast.ComponentLike {
+func (v *parser_) ParseSource(source string) ast.DocumentLike {
 	v.source_ = source
 	var notation = cdc.Notation().Make()
 	v.tokens_ = col.Queue[TokenLike](notation).MakeWithCapacity(parserClass.queueSize_)
@@ -80,13 +84,12 @@ func (v *parser_) ParseSource(source string) ast.ComponentLike {
 	// The scanner runs in a separate Go routine.
 	Scanner().Make(v.source_, v.tokens_)
 
-	// Attempt to parse the component.
-	var component, token, ok = v.parseComponent()
+	// Attempt to parse the document.
+	var document, token, ok = v.parseDocument()
 	if !ok {
 		var message = v.formatError(token)
-		message += v.generateSyntax("Component",
-			"AST",
-			"Component",
+		message += v.generateSyntax("Document",
+			"Document",
 		)
 		panic(message)
 	}
@@ -101,14 +104,13 @@ func (v *parser_) ParseSource(source string) ast.ComponentLike {
 	if !ok {
 		var message = v.formatError(token)
 		message += v.generateSyntax("EOF",
-			"AST",
-			"Component",
+			"Document",
 		)
 		panic(message)
 	}
 
-	// Found the component.
-	return component
+	// Found the document.
+	return document
 }
 
 // Private
@@ -180,13 +182,13 @@ func (v *parser_) getNextToken() TokenLike {
 	return token
 }
 
-func (v *parser_) parseComponent() (
-	component ast.ComponentLike,
+func (v *parser_) parseDocument() (
+	document ast.DocumentLike,
 	token TokenLike,
 	ok bool,
 ) {
 	// TBA - Add real method implementation.
-	return component, token, ok
+	return document, token, ok
 }
 
 func (v *parser_) parseToken(expectedType TokenType, expectedValue string) (
@@ -215,5 +217,5 @@ func (v *parser_) putBack(token TokenLike) {
 }
 
 var syntax = map[string]string{
-	"AST": "Component EOL* EOF  ! Terminated with an end-of-file marker.",
+	"Document": "uppercase+ EOL* EOF  ! Terminated with an end-of-file marker.",
 }

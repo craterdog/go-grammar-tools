@@ -12,45 +12,36 @@
 
 package ast
 
-import (
-	col "github.com/craterdog/go-collection-framework/v4/collection"
-)
+import ()
 
 // CLASS ACCESS
 
 // Reference
 
-var typeClass = &typeClass_{
+var arrayClass = &arrayClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func Type() TypeClassLike {
-	return typeClass
+func Array() ArrayClassLike {
+	return arrayClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type typeClass_ struct {
+type arrayClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *typeClass_) MakeWithAttributes(
-	declaration DeclarationLike,
-	abstraction AbstractionLike,
-	enumerations col.ListLike[EnumerationLike],
-) TypeLike {
-	return &type_{
+func (c *arrayClass_) Make() ArrayLike {
+	return &array_{
 		// Initialize instance attributes.
 		class_: c,
-		declaration_: declaration,
-		abstraction_: abstraction,
-		enumerations_: enumerations,
 	}
 }
 
@@ -58,30 +49,15 @@ func (c *typeClass_) MakeWithAttributes(
 
 // Target
 
-type type_ struct {
+type array_ struct {
 	// Define instance attributes.
-	class_ TypeClassLike
-	declaration_ DeclarationLike
-	abstraction_ AbstractionLike
-	enumerations_ col.ListLike[EnumerationLike]
+	class_ ArrayClassLike
 }
 
 // Attributes
 
-func (v *type_) GetClass() TypeClassLike {
+func (v *array_) GetClass() ArrayClassLike {
 	return v.class_
-}
-
-func (v *type_) GetDeclaration() DeclarationLike {
-	return v.declaration_
-}
-
-func (v *type_) GetAbstraction() AbstractionLike {
-	return v.abstraction_
-}
-
-func (v *type_) GetEnumerations() col.ListLike[EnumerationLike] {
-	return v.enumerations_
 }
 
 // Private
