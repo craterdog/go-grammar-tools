@@ -40,11 +40,10 @@ type functionalsClass_ struct {
 
 // Constructors
 
-func (c *functionalsClass_) MakeWithFunctionals(functionals col.ListLike[FunctionalLike]) FunctionalsLike {
+func (c *functionalsClass_) Make(functionals col.ListLike[FunctionalLike]) FunctionalsLike {
 	return &functionals_{
 		// Initialize instance attributes.
 		class_: c,
-		functionals_: functionals,
 	}
 }
 

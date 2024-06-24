@@ -40,11 +40,10 @@ type modulesClass_ struct {
 
 // Constructors
 
-func (c *modulesClass_) MakeWithModules(modules col.ListLike[ModuleLike]) ModulesLike {
+func (c *modulesClass_) Make(modules col.ListLike[ModuleLike]) ModulesLike {
 	return &modules_{
 		// Initialize instance attributes.
 		class_: c,
-		modules_: modules,
 	}
 }
 

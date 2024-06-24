@@ -40,11 +40,10 @@ type constantsClass_ struct {
 
 // Constructors
 
-func (c *constantsClass_) MakeWithConstants(constants col.ListLike[ConstantLike]) ConstantsLike {
+func (c *constantsClass_) Make(constants col.ListLike[ConstantLike]) ConstantsLike {
 	return &constants_{
 		// Initialize instance attributes.
 		class_: c,
-		constants_: constants,
 	}
 }
 

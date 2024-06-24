@@ -38,11 +38,10 @@ type aliasClass_ struct {
 
 // Constructors
 
-func (c *aliasClass_) MakeWithIdentifier(identifier string) AliasLike {
+func (c *aliasClass_) Make(identifier string) AliasLike {
 	return &alias_{
 		// Initialize instance attributes.
 		class_: c,
-		identifier_: identifier,
 	}
 }
 

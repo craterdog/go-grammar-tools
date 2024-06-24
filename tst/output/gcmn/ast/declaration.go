@@ -38,7 +38,7 @@ type declarationClass_ struct {
 
 // Constructors
 
-func (c *declarationClass_) MakeWithAttributes(
+func (c *declarationClass_) Make(
 	comment string,
 	identifier string,
 	genericParameters GenericParametersLike,
@@ -46,9 +46,6 @@ func (c *declarationClass_) MakeWithAttributes(
 	return &declaration_{
 		// Initialize instance attributes.
 		class_: c,
-		comment_: comment,
-		identifier_: identifier,
-		genericParameters_: genericParameters,
 	}
 }
 

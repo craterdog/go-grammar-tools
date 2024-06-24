@@ -38,15 +38,13 @@ type constrainedClass_ struct {
 
 // Constructors
 
-func (c *constrainedClass_) MakeWithAttributes(
+func (c *constrainedClass_) Make(
 	minimum MinimumLike,
 	maximum MaximumLike,
 ) ConstrainedLike {
 	return &constrained_{
 		// Initialize instance attributes.
 		class_: c,
-		minimum_: minimum,
-		maximum_: maximum,
 	}
 }
 

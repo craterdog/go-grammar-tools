@@ -38,15 +38,13 @@ type lineClass_ struct {
 
 // Constructors
 
-func (c *lineClass_) MakeWithAttributes(
+func (c *lineClass_) Make(
 	identifier IdentifierLike,
 	note string,
 ) LineLike {
 	return &line_{
 		// Initialize instance attributes.
 		class_: c,
-		identifier_: identifier,
-		note_: note,
 	}
 }
 

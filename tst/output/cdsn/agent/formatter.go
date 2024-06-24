@@ -23,7 +23,6 @@ import (
 
 var formatterClass = &formatterClass_{
 	// Initialize the class constants.
-	defaultMaximum_: 8,
 }
 
 // Function
@@ -38,13 +37,6 @@ func Formatter() FormatterClassLike {
 
 type formatterClass_ struct {
 	// Define the class constants.
-	defaultMaximum_ uint
-}
-
-// Constants
-
-func (c *formatterClass_) DefaultMaximum() uint {
-	return c.defaultMaximum_
 }
 
 // Constructors
@@ -53,18 +45,6 @@ func (c *formatterClass_) Make() FormatterLike {
 	return &formatter_{
 		// Initialize the instance attributes.
 		class_:   c,
-		maximum_: c.defaultMaximum_,
-	}
-}
-
-func (c *formatterClass_) MakeWithMaximum(maximum uint) FormatterLike {
-	if maximum == 0 {
-		maximum = c.defaultMaximum_
-	}
-	return &formatter_{
-		// Initialize the instance attributes.
-		class_:   c,
-		maximum_: maximum,
 	}
 }
 
@@ -76,7 +56,6 @@ type formatter_ struct {
 	// Define the instance attributes.
 	class_   FormatterClassLike
 	depth_   uint
-	maximum_ uint
 	result_  sts.Builder
 }
 
@@ -88,10 +67,6 @@ func (v *formatter_) GetClass() FormatterClassLike {
 
 func (v *formatter_) GetDepth() uint {
 	return v.depth_
-}
-
-func (v *formatter_) GetMaximum() uint {
-	return v.maximum_
 }
 
 // Public

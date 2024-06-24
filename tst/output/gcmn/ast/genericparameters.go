@@ -38,11 +38,10 @@ type genericParametersClass_ struct {
 
 // Constructors
 
-func (c *genericParametersClass_) MakeWithParameters(parameters ParametersLike) GenericParametersLike {
+func (c *genericParametersClass_) Make(parameters ParametersLike) GenericParametersLike {
 	return &genericParameters_{
 		// Initialize instance attributes.
 		class_: c,
-		parameters_: parameters,
 	}
 }
 

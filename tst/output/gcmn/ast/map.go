@@ -38,11 +38,10 @@ type mapClass_ struct {
 
 // Constructors
 
-func (c *mapClass_) MakeWithIdentifier(identifier string) MapLike {
+func (c *mapClass_) Make(identifier string) MapLike {
 	return &map_{
 		// Initialize instance attributes.
 		class_: c,
-		identifier_: identifier,
 	}
 }
 

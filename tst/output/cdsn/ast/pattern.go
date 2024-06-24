@@ -40,15 +40,13 @@ type patternClass_ struct {
 
 // Constructors
 
-func (c *patternClass_) MakeWithAttributes(
+func (c *patternClass_) Make(
 	parts col.ListLike[PartLike],
 	alternatives col.ListLike[AlternativeLike],
 ) PatternLike {
 	return &pattern_{
 		// Initialize instance attributes.
 		class_: c,
-		parts_: parts,
-		alternatives_: alternatives,
 	}
 }
 

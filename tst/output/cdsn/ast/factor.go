@@ -38,15 +38,13 @@ type factorClass_ struct {
 
 // Constructors
 
-func (c *factorClass_) MakeWithAttributes(
+func (c *factorClass_) Make(
 	predicate PredicateLike,
 	cardinality CardinalityLike,
 ) FactorLike {
 	return &factor_{
 		// Initialize instance attributes.
 		class_: c,
-		predicate_: predicate,
-		cardinality_: cardinality,
 	}
 }
 

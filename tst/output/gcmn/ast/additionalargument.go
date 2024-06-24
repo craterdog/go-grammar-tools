@@ -38,11 +38,10 @@ type additionalArgumentClass_ struct {
 
 // Constructors
 
-func (c *additionalArgumentClass_) MakeWithArgument(argument ArgumentLike) AdditionalArgumentLike {
+func (c *additionalArgumentClass_) Make(argument ArgumentLike) AdditionalArgumentLike {
 	return &additionalArgument_{
 		// Initialize instance attributes.
 		class_: c,
-		argument_: argument,
 	}
 }
 

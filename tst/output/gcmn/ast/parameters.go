@@ -40,15 +40,13 @@ type parametersClass_ struct {
 
 // Constructors
 
-func (c *parametersClass_) MakeWithAttributes(
+func (c *parametersClass_) Make(
 	parameter ParameterLike,
 	additionalParameters col.ListLike[AdditionalParameterLike],
 ) ParametersLike {
 	return &parameters_{
 		// Initialize instance attributes.
 		class_: c,
-		parameter_: parameter,
-		additionalParameters_: additionalParameters,
 	}
 }
 

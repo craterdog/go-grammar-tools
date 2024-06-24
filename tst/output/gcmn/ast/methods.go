@@ -40,11 +40,10 @@ type methodsClass_ struct {
 
 // Constructors
 
-func (c *methodsClass_) MakeWithMethods(methods col.ListLike[MethodLike]) MethodsLike {
+func (c *methodsClass_) Make(methods col.ListLike[MethodLike]) MethodsLike {
 	return &methods_{
 		// Initialize instance attributes.
 		class_: c,
-		methods_: methods,
 	}
 }
 

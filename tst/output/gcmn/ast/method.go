@@ -38,7 +38,7 @@ type methodClass_ struct {
 
 // Constructors
 
-func (c *methodClass_) MakeWithAttributes(
+func (c *methodClass_) Make(
 	identifier string,
 	parameters ParametersLike,
 	result ResultLike,
@@ -46,9 +46,6 @@ func (c *methodClass_) MakeWithAttributes(
 	return &method_{
 		// Initialize instance attributes.
 		class_: c,
-		identifier_: identifier,
-		parameters_: parameters,
-		result_: result,
 	}
 }
 

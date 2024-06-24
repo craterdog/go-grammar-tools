@@ -38,19 +38,10 @@ type characterClass_ struct {
 
 // Constructors
 
-func (c *characterClass_) MakeWithBounded(bounded BoundedLike) CharacterLike {
+func (c *characterClass_) Make(any any) CharacterLike {
 	return &character_{
 		// Initialize instance attributes.
 		class_: c,
-		bounded_: bounded,
-	}
-}
-
-func (c *characterClass_) MakeWithIntrinsic(intrinsic string) CharacterLike {
-	return &character_{
-		// Initialize instance attributes.
-		class_: c,
-		intrinsic_: intrinsic,
 	}
 }
 
@@ -62,8 +53,6 @@ type character_ struct {
 	// Define instance attributes.
 	class_ CharacterClassLike
 	any_ any
-	bounded_ BoundedLike
-	intrinsic_ string
 }
 
 // Attributes

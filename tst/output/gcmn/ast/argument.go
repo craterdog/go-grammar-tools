@@ -38,11 +38,10 @@ type argumentClass_ struct {
 
 // Constructors
 
-func (c *argumentClass_) MakeWithAbstraction(abstraction AbstractionLike) ArgumentLike {
+func (c *argumentClass_) Make(abstraction AbstractionLike) ArgumentLike {
 	return &argument_{
 		// Initialize instance attributes.
 		class_: c,
-		abstraction_: abstraction,
 	}
 }
 

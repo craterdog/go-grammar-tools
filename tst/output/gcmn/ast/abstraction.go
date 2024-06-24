@@ -38,7 +38,7 @@ type abstractionClass_ struct {
 
 // Constructors
 
-func (c *abstractionClass_) MakeWithAttributes(
+func (c *abstractionClass_) Make(
 	prefix PrefixLike,
 	identifier string,
 	genericArguments GenericArgumentsLike,
@@ -46,9 +46,6 @@ func (c *abstractionClass_) MakeWithAttributes(
 	return &abstraction_{
 		// Initialize instance attributes.
 		class_: c,
-		prefix_: prefix,
-		identifier_: identifier,
-		genericArguments_: genericArguments,
 	}
 }
 

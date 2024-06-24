@@ -38,11 +38,10 @@ type namedClass_ struct {
 
 // Constructors
 
-func (c *namedClass_) MakeWithParameters(parameters ParametersLike) NamedLike {
+func (c *namedClass_) Make(parameters ParametersLike) NamedLike {
 	return &named_{
 		// Initialize instance attributes.
 		class_: c,
-		parameters_: parameters,
 	}
 }
 

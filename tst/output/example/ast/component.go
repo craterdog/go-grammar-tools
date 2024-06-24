@@ -38,19 +38,10 @@ type componentClass_ struct {
 
 // Constructors
 
-func (c *componentClass_) MakeWithPrimitive(primitive PrimitiveLike) ComponentLike {
+func (c *componentClass_) Make(any any) ComponentLike {
 	return &component_{
 		// Initialize instance attributes.
 		class_: c,
-		primitive_: primitive,
-	}
-}
-
-func (c *componentClass_) MakeWithList(list ListLike) ComponentLike {
-	return &component_{
-		// Initialize instance attributes.
-		class_: c,
-		list_: list,
 	}
 }
 
@@ -62,8 +53,6 @@ type component_ struct {
 	// Define instance attributes.
 	class_ ComponentClassLike
 	any_ any
-	primitive_ PrimitiveLike
-	list_ ListLike
 }
 
 // Attributes

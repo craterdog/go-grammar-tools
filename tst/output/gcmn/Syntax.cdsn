@@ -80,16 +80,10 @@ Parameter: identifier Abstraction
 Abstraction: Prefix? identifier GenericArguments?
 
 Prefix:
-    Array
     Map
-    Channel
     Alias
 
-Array: "[" "]"
-
 Map: "map" "[" identifier "]"
-
-Channel: "chan"
 
 Alias: identifier "."
 

@@ -38,11 +38,10 @@ type documentClass_ struct {
 
 // Constructors
 
-func (c *documentClass_) MakeWithComponent(component ComponentLike) DocumentLike {
+func (c *documentClass_) Make(component ComponentLike) DocumentLike {
 	return &document_{
 		// Initialize instance attributes.
 		class_: c,
-		component_: component,
 	}
 }
 

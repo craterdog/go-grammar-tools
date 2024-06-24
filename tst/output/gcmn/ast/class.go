@@ -38,7 +38,7 @@ type classClass_ struct {
 
 // Constructors
 
-func (c *classClass_) MakeWithAttributes(
+func (c *classClass_) Make(
 	declaration DeclarationLike,
 	constants ConstantsLike,
 	constructors ConstructorsLike,
@@ -47,10 +47,6 @@ func (c *classClass_) MakeWithAttributes(
 	return &class_{
 		// Initialize instance attributes.
 		class_: c,
-		declaration_: declaration,
-		constants_: constants,
-		constructors_: constructors,
-		functions_: functions,
 	}
 }
 

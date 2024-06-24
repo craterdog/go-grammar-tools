@@ -40,11 +40,10 @@ type abstractionsClass_ struct {
 
 // Constructors
 
-func (c *abstractionsClass_) MakeWithAbstractions(abstractions col.ListLike[AbstractionLike]) AbstractionsLike {
+func (c *abstractionsClass_) Make(abstractions col.ListLike[AbstractionLike]) AbstractionsLike {
 	return &abstractions_{
 		// Initialize instance attributes.
 		class_: c,
-		abstractions_: abstractions,
 	}
 }
 

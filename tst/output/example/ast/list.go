@@ -40,15 +40,13 @@ type listClass_ struct {
 
 // Constructors
 
-func (c *listClass_) MakeWithAttributes(
+func (c *listClass_) Make(
 	component ComponentLike,
 	additionals col.ListLike[AdditionalLike],
 ) ListLike {
 	return &list_{
 		// Initialize instance attributes.
 		class_: c,
-		component_: component,
-		additionals_: additionals,
 	}
 }
 

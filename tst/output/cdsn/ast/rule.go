@@ -38,7 +38,7 @@ type ruleClass_ struct {
 
 // Constructors
 
-func (c *ruleClass_) MakeWithAttributes(
+func (c *ruleClass_) Make(
 	comment string,
 	uppercase string,
 	expression ExpressionLike,
@@ -46,9 +46,6 @@ func (c *ruleClass_) MakeWithAttributes(
 	return &rule_{
 		// Initialize instance attributes.
 		class_: c,
-		comment_: comment,
-		uppercase_: uppercase,
-		expression_: expression,
 	}
 }
 

@@ -38,15 +38,13 @@ type aspectClass_ struct {
 
 // Constructors
 
-func (c *aspectClass_) MakeWithAttributes(
+func (c *aspectClass_) Make(
 	declaration DeclarationLike,
 	methods MethodsLike,
 ) AspectLike {
 	return &aspect_{
 		// Initialize instance attributes.
 		class_: c,
-		declaration_: declaration,
-		methods_: methods,
 	}
 }
 

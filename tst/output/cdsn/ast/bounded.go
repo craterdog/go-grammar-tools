@@ -38,15 +38,13 @@ type boundedClass_ struct {
 
 // Constructors
 
-func (c *boundedClass_) MakeWithAttributes(
+func (c *boundedClass_) Make(
 	initial InitialLike,
 	extent ExtentLike,
 ) BoundedLike {
 	return &bounded_{
 		// Initialize instance attributes.
 		class_: c,
-		initial_: initial,
-		extent_: extent,
 	}
 }
 

@@ -40,11 +40,10 @@ type alternativeClass_ struct {
 
 // Constructors
 
-func (c *alternativeClass_) MakeWithParts(parts col.ListLike[PartLike]) AlternativeLike {
+func (c *alternativeClass_) Make(parts col.ListLike[PartLike]) AlternativeLike {
 	return &alternative_{
 		// Initialize instance attributes.
 		class_: c,
-		parts_: parts,
 	}
 }
 

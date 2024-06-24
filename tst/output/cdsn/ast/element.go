@@ -38,51 +38,10 @@ type elementClass_ struct {
 
 // Constructors
 
-func (c *elementClass_) MakeWithGrouped(grouped GroupedLike) ElementLike {
+func (c *elementClass_) Make(any any) ElementLike {
 	return &element_{
 		// Initialize instance attributes.
 		class_: c,
-		grouped_: grouped,
-	}
-}
-
-func (c *elementClass_) MakeWithFiltered(filtered FilteredLike) ElementLike {
-	return &element_{
-		// Initialize instance attributes.
-		class_: c,
-		filtered_: filtered,
-	}
-}
-
-func (c *elementClass_) MakeWithBounded(bounded BoundedLike) ElementLike {
-	return &element_{
-		// Initialize instance attributes.
-		class_: c,
-		bounded_: bounded,
-	}
-}
-
-func (c *elementClass_) MakeWithIntrinsic(intrinsic string) ElementLike {
-	return &element_{
-		// Initialize instance attributes.
-		class_: c,
-		intrinsic_: intrinsic,
-	}
-}
-
-func (c *elementClass_) MakeWithLowercase(lowercase string) ElementLike {
-	return &element_{
-		// Initialize instance attributes.
-		class_: c,
-		lowercase_: lowercase,
-	}
-}
-
-func (c *elementClass_) MakeWithLiteral(literal string) ElementLike {
-	return &element_{
-		// Initialize instance attributes.
-		class_: c,
-		literal_: literal,
 	}
 }
 
@@ -94,12 +53,6 @@ type element_ struct {
 	// Define instance attributes.
 	class_ ElementClassLike
 	any_ any
-	grouped_ GroupedLike
-	filtered_ FilteredLike
-	bounded_ BoundedLike
-	intrinsic_ string
-	lowercase_ string
-	literal_ string
 }
 
 // Attributes

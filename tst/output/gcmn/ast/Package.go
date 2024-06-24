@@ -40,7 +40,7 @@ concrete abstraction-like class.
 */
 type AbstractionClassLike interface {
 	// Constructors
-	MakeWithAttributes(
+	Make(
 		prefix PrefixLike,
 		identifier string,
 		genericArguments GenericArgumentsLike,
@@ -54,7 +54,7 @@ concrete abstractions-like class.
 */
 type AbstractionsClassLike interface {
 	// Constructors
-	MakeWithAbstractions(abstractions col.ListLike[AbstractionLike]) AbstractionsLike
+	Make(abstractions col.ListLike[AbstractionLike]) AbstractionsLike
 }
 
 /*
@@ -64,7 +64,7 @@ concrete additionalargument-like class.
 */
 type AdditionalArgumentClassLike interface {
 	// Constructors
-	MakeWithArgument(argument ArgumentLike) AdditionalArgumentLike
+	Make(argument ArgumentLike) AdditionalArgumentLike
 }
 
 /*
@@ -74,7 +74,7 @@ concrete additionalparameter-like class.
 */
 type AdditionalParameterClassLike interface {
 	// Constructors
-	MakeWithParameter(parameter ParameterLike) AdditionalParameterLike
+	Make(parameter ParameterLike) AdditionalParameterLike
 }
 
 /*
@@ -84,7 +84,7 @@ concrete alias-like class.
 */
 type AliasClassLike interface {
 	// Constructors
-	MakeWithIdentifier(identifier string) AliasLike
+	Make(identifier string) AliasLike
 }
 
 /*
@@ -94,7 +94,7 @@ concrete argument-like class.
 */
 type ArgumentClassLike interface {
 	// Constructors
-	MakeWithAbstraction(abstraction AbstractionLike) ArgumentLike
+	Make(abstraction AbstractionLike) ArgumentLike
 }
 
 /*
@@ -104,20 +104,10 @@ concrete arguments-like class.
 */
 type ArgumentsClassLike interface {
 	// Constructors
-	MakeWithAttributes(
+	Make(
 		argument ArgumentLike,
 		additionalArguments col.ListLike[AdditionalArgumentLike],
 	) ArgumentsLike
-}
-
-/*
-ArrayClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete array-like class.
-*/
-type ArrayClassLike interface {
-	// Constructors
-	Make() ArrayLike
 }
 
 /*
@@ -127,7 +117,7 @@ concrete aspect-like class.
 */
 type AspectClassLike interface {
 	// Constructors
-	MakeWithAttributes(
+	Make(
 		declaration DeclarationLike,
 		methods MethodsLike,
 	) AspectLike
@@ -140,7 +130,7 @@ concrete aspects-like class.
 */
 type AspectsClassLike interface {
 	// Constructors
-	MakeWithAspects(aspects col.ListLike[AspectLike]) AspectsLike
+	Make(aspects col.ListLike[AspectLike]) AspectsLike
 }
 
 /*
@@ -150,7 +140,7 @@ concrete attribute-like class.
 */
 type AttributeClassLike interface {
 	// Constructors
-	MakeWithAttributes(
+	Make(
 		identifier string,
 		parameter ParameterLike,
 		abstraction AbstractionLike,
@@ -164,17 +154,7 @@ concrete attributes-like class.
 */
 type AttributesClassLike interface {
 	// Constructors
-	MakeWithAttributes(attributes col.ListLike[AttributeLike]) AttributesLike
-}
-
-/*
-ChannelClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete channel-like class.
-*/
-type ChannelClassLike interface {
-	// Constructors
-	Make() ChannelLike
+	Make(attributes col.ListLike[AttributeLike]) AttributesLike
 }
 
 /*
@@ -184,7 +164,7 @@ concrete class-like class.
 */
 type ClassClassLike interface {
 	// Constructors
-	MakeWithAttributes(
+	Make(
 		declaration DeclarationLike,
 		constants ConstantsLike,
 		constructors ConstructorsLike,
@@ -199,7 +179,7 @@ concrete classes-like class.
 */
 type ClassesClassLike interface {
 	// Constructors
-	MakeWithClasses(classes col.ListLike[ClassLike]) ClassesLike
+	Make(classes col.ListLike[ClassLike]) ClassesLike
 }
 
 /*
@@ -209,7 +189,7 @@ concrete constant-like class.
 */
 type ConstantClassLike interface {
 	// Constructors
-	MakeWithAttributes(
+	Make(
 		identifier string,
 		abstraction AbstractionLike,
 	) ConstantLike
@@ -222,7 +202,7 @@ concrete constants-like class.
 */
 type ConstantsClassLike interface {
 	// Constructors
-	MakeWithConstants(constants col.ListLike[ConstantLike]) ConstantsLike
+	Make(constants col.ListLike[ConstantLike]) ConstantsLike
 }
 
 /*
@@ -232,7 +212,7 @@ concrete constructor-like class.
 */
 type ConstructorClassLike interface {
 	// Constructors
-	MakeWithAttributes(
+	Make(
 		identifier string,
 		parameters ParametersLike,
 		abstraction AbstractionLike,
@@ -246,7 +226,7 @@ concrete constructors-like class.
 */
 type ConstructorsClassLike interface {
 	// Constructors
-	MakeWithConstructors(constructors col.ListLike[ConstructorLike]) ConstructorsLike
+	Make(constructors col.ListLike[ConstructorLike]) ConstructorsLike
 }
 
 /*
@@ -256,7 +236,7 @@ concrete declaration-like class.
 */
 type DeclarationClassLike interface {
 	// Constructors
-	MakeWithAttributes(
+	Make(
 		comment string,
 		identifier string,
 		genericParameters GenericParametersLike,
@@ -270,7 +250,7 @@ concrete enumeration-like class.
 */
 type EnumerationClassLike interface {
 	// Constructors
-	MakeWithAttributes(
+	Make(
 		parameter ParameterLike,
 		identifiers col.ListLike[string],
 	) EnumerationLike
@@ -283,7 +263,7 @@ concrete function-like class.
 */
 type FunctionClassLike interface {
 	// Constructors
-	MakeWithAttributes(
+	Make(
 		identifier string,
 		parameters ParametersLike,
 		result ResultLike,
@@ -297,7 +277,7 @@ concrete functional-like class.
 */
 type FunctionalClassLike interface {
 	// Constructors
-	MakeWithAttributes(
+	Make(
 		declaration DeclarationLike,
 		parameters ParametersLike,
 		result ResultLike,
@@ -311,7 +291,7 @@ concrete functionals-like class.
 */
 type FunctionalsClassLike interface {
 	// Constructors
-	MakeWithFunctionals(functionals col.ListLike[FunctionalLike]) FunctionalsLike
+	Make(functionals col.ListLike[FunctionalLike]) FunctionalsLike
 }
 
 /*
@@ -321,7 +301,7 @@ concrete functions-like class.
 */
 type FunctionsClassLike interface {
 	// Constructors
-	MakeWithFunctions(functions col.ListLike[FunctionLike]) FunctionsLike
+	Make(functions col.ListLike[FunctionLike]) FunctionsLike
 }
 
 /*
@@ -331,7 +311,7 @@ concrete genericarguments-like class.
 */
 type GenericArgumentsClassLike interface {
 	// Constructors
-	MakeWithArguments(arguments ArgumentsLike) GenericArgumentsLike
+	Make(arguments ArgumentsLike) GenericArgumentsLike
 }
 
 /*
@@ -341,7 +321,7 @@ concrete genericparameters-like class.
 */
 type GenericParametersClassLike interface {
 	// Constructors
-	MakeWithParameters(parameters ParametersLike) GenericParametersLike
+	Make(parameters ParametersLike) GenericParametersLike
 }
 
 /*
@@ -351,7 +331,7 @@ concrete header-like class.
 */
 type HeaderClassLike interface {
 	// Constructors
-	MakeWithAttributes(
+	Make(
 		comment string,
 		identifier string,
 	) HeaderLike
@@ -364,7 +344,7 @@ concrete instance-like class.
 */
 type InstanceClassLike interface {
 	// Constructors
-	MakeWithAttributes(
+	Make(
 		declaration DeclarationLike,
 		attributes AttributesLike,
 		abstractions AbstractionsLike,
@@ -379,7 +359,7 @@ concrete instances-like class.
 */
 type InstancesClassLike interface {
 	// Constructors
-	MakeWithInstances(instances col.ListLike[InstanceLike]) InstancesLike
+	Make(instances col.ListLike[InstanceLike]) InstancesLike
 }
 
 /*
@@ -389,7 +369,7 @@ concrete map-like class.
 */
 type MapClassLike interface {
 	// Constructors
-	MakeWithIdentifier(identifier string) MapLike
+	Make(identifier string) MapLike
 }
 
 /*
@@ -399,7 +379,7 @@ concrete method-like class.
 */
 type MethodClassLike interface {
 	// Constructors
-	MakeWithAttributes(
+	Make(
 		identifier string,
 		parameters ParametersLike,
 		result ResultLike,
@@ -413,7 +393,7 @@ concrete methods-like class.
 */
 type MethodsClassLike interface {
 	// Constructors
-	MakeWithMethods(methods col.ListLike[MethodLike]) MethodsLike
+	Make(methods col.ListLike[MethodLike]) MethodsLike
 }
 
 /*
@@ -423,7 +403,7 @@ concrete model-like class.
 */
 type ModelClassLike interface {
 	// Constructors
-	MakeWithAttributes(
+	Make(
 		notice NoticeLike,
 		header HeaderLike,
 		modules ModulesLike,
@@ -442,7 +422,7 @@ concrete module-like class.
 */
 type ModuleClassLike interface {
 	// Constructors
-	MakeWithAttributes(
+	Make(
 		identifier string,
 		text string,
 	) ModuleLike
@@ -455,7 +435,7 @@ concrete modules-like class.
 */
 type ModulesClassLike interface {
 	// Constructors
-	MakeWithModules(modules col.ListLike[ModuleLike]) ModulesLike
+	Make(modules col.ListLike[ModuleLike]) ModulesLike
 }
 
 /*
@@ -465,7 +445,7 @@ concrete named-like class.
 */
 type NamedClassLike interface {
 	// Constructors
-	MakeWithParameters(parameters ParametersLike) NamedLike
+	Make(parameters ParametersLike) NamedLike
 }
 
 /*
@@ -475,7 +455,7 @@ concrete notice-like class.
 */
 type NoticeClassLike interface {
 	// Constructors
-	MakeWithComment(comment string) NoticeLike
+	Make(comment string) NoticeLike
 }
 
 /*
@@ -485,7 +465,7 @@ concrete parameter-like class.
 */
 type ParameterClassLike interface {
 	// Constructors
-	MakeWithAttributes(
+	Make(
 		identifier string,
 		abstraction AbstractionLike,
 	) ParameterLike
@@ -498,7 +478,7 @@ concrete parameters-like class.
 */
 type ParametersClassLike interface {
 	// Constructors
-	MakeWithAttributes(
+	Make(
 		parameter ParameterLike,
 		additionalParameters col.ListLike[AdditionalParameterLike],
 	) ParametersLike
@@ -511,10 +491,7 @@ concrete prefix-like class.
 */
 type PrefixClassLike interface {
 	// Constructors
-	MakeWithArray(array ArrayLike) PrefixLike
-	MakeWithMap(map_ MapLike) PrefixLike
-	MakeWithChannel(channel ChannelLike) PrefixLike
-	MakeWithAlias(alias AliasLike) PrefixLike
+	Make(any any) PrefixLike
 }
 
 /*
@@ -524,8 +501,7 @@ concrete result-like class.
 */
 type ResultClassLike interface {
 	// Constructors
-	MakeWithAbstraction(abstraction AbstractionLike) ResultLike
-	MakeWithNamed(named NamedLike) ResultLike
+	Make(any any) ResultLike
 }
 
 /*
@@ -535,7 +511,7 @@ concrete type-like class.
 */
 type TypeClassLike interface {
 	// Constructors
-	MakeWithAttributes(
+	Make(
 		declaration DeclarationLike,
 		abstraction AbstractionLike,
 		enumeration EnumerationLike,
@@ -549,7 +525,7 @@ concrete types-like class.
 */
 type TypesClassLike interface {
 	// Constructors
-	MakeWithTypes(types col.ListLike[TypeLike]) TypesLike
+	Make(types col.ListLike[TypeLike]) TypesLike
 }
 
 // Instances
@@ -635,16 +611,6 @@ type ArgumentsLike interface {
 }
 
 /*
-ArrayLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete array-like class.
-*/
-type ArrayLike interface {
-	// Attributes
-	GetClass() ArrayClassLike
-}
-
-/*
 AspectLike is an instance interface that defines the complete set of
 instance attributes, abstractions and methods that must be supported by each
 instance of a concrete aspect-like class.
@@ -689,16 +655,6 @@ type AttributesLike interface {
 	// Attributes
 	GetClass() AttributesClassLike
 	GetAttributes() col.ListLike[AttributeLike]
-}
-
-/*
-ChannelLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete channel-like class.
-*/
-type ChannelLike interface {
-	// Attributes
-	GetClass() ChannelClassLike
 }
 
 /*

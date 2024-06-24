@@ -38,11 +38,10 @@ type additionalParameterClass_ struct {
 
 // Constructors
 
-func (c *additionalParameterClass_) MakeWithParameter(parameter ParameterLike) AdditionalParameterLike {
+func (c *additionalParameterClass_) Make(parameter ParameterLike) AdditionalParameterLike {
 	return &additionalParameter_{
 		// Initialize instance attributes.
 		class_: c,
-		parameter_: parameter,
 	}
 }
 

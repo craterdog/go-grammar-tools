@@ -38,11 +38,10 @@ type extentClass_ struct {
 
 // Constructors
 
-func (c *extentClass_) MakeWithRune(rune_ string) ExtentLike {
+func (c *extentClass_) Make(rune_ string) ExtentLike {
 	return &extent_{
 		// Initialize instance attributes.
 		class_: c,
-		rune_: rune_,
 	}
 }
 

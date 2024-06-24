@@ -59,12 +59,8 @@ class constants, constructors and functions that must be supported by each
 concrete formatter-like class.
 */
 type FormatterClassLike interface {
-	// Constants
-	DefaultMaximum() uint
-
 	// Constructors
 	Make() FormatterLike
-	MakeWithMaximum(maximum uint) FormatterLike
 }
 
 /*
@@ -111,7 +107,7 @@ concrete token-like class.
 */
 type TokenClassLike interface {
 	// Constructors
-	MakeWithAttributes(
+	Make(
 		line int,
 		position int,
 		type_ TokenType,
@@ -140,7 +136,6 @@ type FormatterLike interface {
 	// Attributes
 	GetClass() FormatterClassLike
 	GetDepth() uint
-	GetMaximum() uint
 
 	// Methods
 	FormatModel(model ast.ModelLike) string

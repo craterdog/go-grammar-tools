@@ -38,19 +38,10 @@ type resultClass_ struct {
 
 // Constructors
 
-func (c *resultClass_) MakeWithAbstraction(abstraction AbstractionLike) ResultLike {
+func (c *resultClass_) Make(any any) ResultLike {
 	return &result_{
 		// Initialize instance attributes.
 		class_: c,
-		abstraction_: abstraction,
-	}
-}
-
-func (c *resultClass_) MakeWithNamed(named NamedLike) ResultLike {
-	return &result_{
-		// Initialize instance attributes.
-		class_: c,
-		named_: named,
 	}
 }
 
@@ -62,8 +53,6 @@ type result_ struct {
 	// Define instance attributes.
 	class_ ResultClassLike
 	any_ any
-	abstraction_ AbstractionLike
-	named_ NamedLike
 }
 
 // Attributes

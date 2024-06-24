@@ -38,11 +38,10 @@ type headerClass_ struct {
 
 // Constructors
 
-func (c *headerClass_) MakeWithComment(comment string) HeaderLike {
+func (c *headerClass_) Make(comment string) HeaderLike {
 	return &header_{
 		// Initialize instance attributes.
 		class_: c,
-		comment_: comment,
 	}
 }
 

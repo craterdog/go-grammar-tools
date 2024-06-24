@@ -40,15 +40,13 @@ type enumerationClass_ struct {
 
 // Constructors
 
-func (c *enumerationClass_) MakeWithAttributes(
+func (c *enumerationClass_) Make(
 	parameter ParameterLike,
 	identifiers col.ListLike[string],
 ) EnumerationLike {
 	return &enumeration_{
 		// Initialize instance attributes.
 		class_: c,
-		parameter_: parameter,
-		identifiers_: identifiers,
 	}
 }
 

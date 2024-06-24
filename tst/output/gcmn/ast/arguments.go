@@ -40,15 +40,13 @@ type argumentsClass_ struct {
 
 // Constructors
 
-func (c *argumentsClass_) MakeWithAttributes(
+func (c *argumentsClass_) Make(
 	argument ArgumentLike,
 	additionalArguments col.ListLike[AdditionalArgumentLike],
 ) ArgumentsLike {
 	return &arguments_{
 		// Initialize instance attributes.
 		class_: c,
-		argument_: argument,
-		additionalArguments_: additionalArguments,
 	}
 }
 

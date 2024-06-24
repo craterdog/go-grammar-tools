@@ -38,7 +38,7 @@ type modelClass_ struct {
 
 // Constructors
 
-func (c *modelClass_) MakeWithAttributes(
+func (c *modelClass_) Make(
 	notice NoticeLike,
 	header HeaderLike,
 	modules ModulesLike,
@@ -51,14 +51,6 @@ func (c *modelClass_) MakeWithAttributes(
 	return &model_{
 		// Initialize instance attributes.
 		class_: c,
-		notice_: notice,
-		header_: header,
-		modules_: modules,
-		types_: types,
-		functionals_: functionals,
-		aspects_: aspects,
-		classes_: classes,
-		instances_: instances,
 	}
 }
 

@@ -38,11 +38,10 @@ type genericArgumentsClass_ struct {
 
 // Constructors
 
-func (c *genericArgumentsClass_) MakeWithArguments(arguments ArgumentsLike) GenericArgumentsLike {
+func (c *genericArgumentsClass_) Make(arguments ArgumentsLike) GenericArgumentsLike {
 	return &genericArguments_{
 		// Initialize instance attributes.
 		class_: c,
-		arguments_: arguments,
 	}
 }
 

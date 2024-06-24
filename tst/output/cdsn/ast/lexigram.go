@@ -38,7 +38,7 @@ type lexigramClass_ struct {
 
 // Constructors
 
-func (c *lexigramClass_) MakeWithAttributes(
+func (c *lexigramClass_) Make(
 	comment string,
 	lowercase string,
 	pattern PatternLike,
@@ -47,10 +47,6 @@ func (c *lexigramClass_) MakeWithAttributes(
 	return &lexigram_{
 		// Initialize instance attributes.
 		class_: c,
-		comment_: comment,
-		lowercase_: lowercase,
-		pattern_: pattern,
-		note_: note,
 	}
 }
 

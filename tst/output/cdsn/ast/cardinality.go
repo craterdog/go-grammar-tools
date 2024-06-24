@@ -38,19 +38,10 @@ type cardinalityClass_ struct {
 
 // Constructors
 
-func (c *cardinalityClass_) MakeWithConstrained(constrained ConstrainedLike) CardinalityLike {
+func (c *cardinalityClass_) Make(any any) CardinalityLike {
 	return &cardinality_{
 		// Initialize instance attributes.
 		class_: c,
-		constrained_: constrained,
-	}
-}
-
-func (c *cardinalityClass_) MakeWithQuantified(quantified string) CardinalityLike {
-	return &cardinality_{
-		// Initialize instance attributes.
-		class_: c,
-		quantified_: quantified,
 	}
 }
 
@@ -62,8 +53,6 @@ type cardinality_ struct {
 	// Define instance attributes.
 	class_ CardinalityClassLike
 	any_ any
-	constrained_ ConstrainedLike
-	quantified_ string
 }
 
 // Attributes

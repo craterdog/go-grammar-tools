@@ -40,15 +40,13 @@ type filteredClass_ struct {
 
 // Constructors
 
-func (c *filteredClass_) MakeWithAttributes(
+func (c *filteredClass_) Make(
 	negation string,
 	characters col.ListLike[CharacterLike],
 ) FilteredLike {
 	return &filtered_{
 		// Initialize instance attributes.
 		class_: c,
-		negation_: negation,
-		characters_: characters,
 	}
 }
 

@@ -40,7 +40,7 @@ concrete additional-like class.
 */
 type AdditionalClassLike interface {
 	// Constructors
-	MakeWithComponent(component ComponentLike) AdditionalLike
+	Make(component ComponentLike) AdditionalLike
 }
 
 /*
@@ -50,8 +50,7 @@ concrete component-like class.
 */
 type ComponentClassLike interface {
 	// Constructors
-	MakeWithPrimitive(primitive PrimitiveLike) ComponentLike
-	MakeWithList(list ListLike) ComponentLike
+	Make(any any) ComponentLike
 }
 
 /*
@@ -61,7 +60,7 @@ concrete document-like class.
 */
 type DocumentClassLike interface {
 	// Constructors
-	MakeWithComponent(component ComponentLike) DocumentLike
+	Make(component ComponentLike) DocumentLike
 }
 
 /*
@@ -71,7 +70,7 @@ concrete list-like class.
 */
 type ListClassLike interface {
 	// Constructors
-	MakeWithAttributes(
+	Make(
 		component ComponentLike,
 		additionals col.ListLike[AdditionalLike],
 	) ListLike
@@ -84,9 +83,7 @@ concrete primitive-like class.
 */
 type PrimitiveClassLike interface {
 	// Constructors
-	MakeWithInteger(integer string) PrimitiveLike
-	MakeWithRune(rune_ string) PrimitiveLike
-	MakeWithText(text string) PrimitiveLike
+	Make(any any) PrimitiveLike
 }
 
 // Instances

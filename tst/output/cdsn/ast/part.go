@@ -38,15 +38,13 @@ type partClass_ struct {
 
 // Constructors
 
-func (c *partClass_) MakeWithAttributes(
+func (c *partClass_) Make(
 	element ElementLike,
 	cardinality CardinalityLike,
 ) PartLike {
 	return &part_{
 		// Initialize instance attributes.
 		class_: c,
-		element_: element,
-		cardinality_: cardinality,
 	}
 }
 

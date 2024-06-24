@@ -38,11 +38,10 @@ type additionalClass_ struct {
 
 // Constructors
 
-func (c *additionalClass_) MakeWithComponent(component ComponentLike) AdditionalLike {
+func (c *additionalClass_) Make(component ComponentLike) AdditionalLike {
 	return &additional_{
 		// Initialize instance attributes.
 		class_: c,
-		component_: component,
 	}
 }
 

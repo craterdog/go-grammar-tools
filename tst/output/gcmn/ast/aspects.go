@@ -40,11 +40,10 @@ type aspectsClass_ struct {
 
 // Constructors
 
-func (c *aspectsClass_) MakeWithAspects(aspects col.ListLike[AspectLike]) AspectsLike {
+func (c *aspectsClass_) Make(aspects col.ListLike[AspectLike]) AspectsLike {
 	return &aspects_{
 		// Initialize instance attributes.
 		class_: c,
-		aspects_: aspects,
 	}
 }
 

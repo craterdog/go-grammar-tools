@@ -38,7 +38,7 @@ type functionClass_ struct {
 
 // Constructors
 
-func (c *functionClass_) MakeWithAttributes(
+func (c *functionClass_) Make(
 	identifier string,
 	parameters ParametersLike,
 	result ResultLike,
@@ -46,9 +46,6 @@ func (c *functionClass_) MakeWithAttributes(
 	return &function_{
 		// Initialize instance attributes.
 		class_: c,
-		identifier_: identifier,
-		parameters_: parameters,
-		result_: result,
 	}
 }
 
