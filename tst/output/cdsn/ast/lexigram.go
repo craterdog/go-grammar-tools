@@ -12,9 +12,7 @@
 
 package ast
 
-import (
-	col "github.com/craterdog/go-collection-framework/v4/collection"
-)
+import ()
 
 // CLASS ACCESS
 
@@ -41,18 +39,18 @@ type lexigramClass_ struct {
 // Constructors
 
 func (c *lexigramClass_) MakeWithAttributes(
-	comments col.ListLike[string],
+	comment string,
 	lowercase string,
 	pattern PatternLike,
-	notes col.ListLike[string],
+	note string,
 ) LexigramLike {
 	return &lexigram_{
 		// Initialize instance attributes.
 		class_: c,
-		comments_: comments,
+		comment_: comment,
 		lowercase_: lowercase,
 		pattern_: pattern,
-		notes_: notes,
+		note_: note,
 	}
 }
 
@@ -63,10 +61,10 @@ func (c *lexigramClass_) MakeWithAttributes(
 type lexigram_ struct {
 	// Define instance attributes.
 	class_ LexigramClassLike
-	comments_ col.ListLike[string]
+	comment_ string
 	lowercase_ string
 	pattern_ PatternLike
-	notes_ col.ListLike[string]
+	note_ string
 }
 
 // Attributes
@@ -75,8 +73,8 @@ func (v *lexigram_) GetClass() LexigramClassLike {
 	return v.class_
 }
 
-func (v *lexigram_) GetComments() col.ListLike[string] {
-	return v.comments_
+func (v *lexigram_) GetComment() string {
+	return v.comment_
 }
 
 func (v *lexigram_) GetLowercase() string {
@@ -87,8 +85,8 @@ func (v *lexigram_) GetPattern() PatternLike {
 	return v.pattern_
 }
 
-func (v *lexigram_) GetNotes() col.ListLike[string] {
-	return v.notes_
+func (v *lexigram_) GetNote() string {
+	return v.note_
 }
 
 // Private

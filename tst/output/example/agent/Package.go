@@ -42,7 +42,6 @@ type TokenType uint8
 
 const (
 	ErrorToken TokenType = iota
-	AnythingToken
 	DelimiterToken
 	EOFToken
 	EOLToken

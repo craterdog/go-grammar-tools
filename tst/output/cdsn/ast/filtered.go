@@ -41,13 +41,13 @@ type filteredClass_ struct {
 // Constructors
 
 func (c *filteredClass_) MakeWithAttributes(
-	negations col.ListLike[string],
+	negation string,
 	characters col.ListLike[CharacterLike],
 ) FilteredLike {
 	return &filtered_{
 		// Initialize instance attributes.
 		class_: c,
-		negations_: negations,
+		negation_: negation,
 		characters_: characters,
 	}
 }
@@ -59,7 +59,7 @@ func (c *filteredClass_) MakeWithAttributes(
 type filtered_ struct {
 	// Define instance attributes.
 	class_ FilteredClassLike
-	negations_ col.ListLike[string]
+	negation_ string
 	characters_ col.ListLike[CharacterLike]
 }
 
@@ -69,8 +69,8 @@ func (v *filtered_) GetClass() FilteredClassLike {
 	return v.class_
 }
 
-func (v *filtered_) GetNegations() col.ListLike[string] {
-	return v.negations_
+func (v *filtered_) GetNegation() string {
+	return v.negation_
 }
 
 func (v *filtered_) GetCharacters() col.ListLike[CharacterLike] {

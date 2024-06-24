@@ -12,9 +12,7 @@
 
 package ast
 
-import (
-	col "github.com/craterdog/go-collection-framework/v4/collection"
-)
+import ()
 
 // CLASS ACCESS
 
@@ -42,13 +40,13 @@ type boundedClass_ struct {
 
 func (c *boundedClass_) MakeWithAttributes(
 	initial InitialLike,
-	extents col.ListLike[ExtentLike],
+	extent ExtentLike,
 ) BoundedLike {
 	return &bounded_{
 		// Initialize instance attributes.
 		class_: c,
 		initial_: initial,
-		extents_: extents,
+		extent_: extent,
 	}
 }
 
@@ -60,7 +58,7 @@ type bounded_ struct {
 	// Define instance attributes.
 	class_ BoundedClassLike
 	initial_ InitialLike
-	extents_ col.ListLike[ExtentLike]
+	extent_ ExtentLike
 }
 
 // Attributes
@@ -73,8 +71,8 @@ func (v *bounded_) GetInitial() InitialLike {
 	return v.initial_
 }
 
-func (v *bounded_) GetExtents() col.ListLike[ExtentLike] {
-	return v.extents_
+func (v *bounded_) GetExtent() ExtentLike {
+	return v.extent_
 }
 
 // Private

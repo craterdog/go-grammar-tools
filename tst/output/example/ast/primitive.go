@@ -38,6 +38,14 @@ type primitiveClass_ struct {
 
 // Constructors
 
+func (c *primitiveClass_) MakeWithInteger(integer string) PrimitiveLike {
+	return &primitive_{
+		// Initialize instance attributes.
+		class_: c,
+		integer_: integer,
+	}
+}
+
 func (c *primitiveClass_) MakeWithRune(rune_ string) PrimitiveLike {
 	return &primitive_{
 		// Initialize instance attributes.
@@ -54,22 +62,6 @@ func (c *primitiveClass_) MakeWithText(text string) PrimitiveLike {
 	}
 }
 
-func (c *primitiveClass_) MakeWithInteger(integer string) PrimitiveLike {
-	return &primitive_{
-		// Initialize instance attributes.
-		class_: c,
-		integer_: integer,
-	}
-}
-
-func (c *primitiveClass_) MakeWithAnything(anything string) PrimitiveLike {
-	return &primitive_{
-		// Initialize instance attributes.
-		class_: c,
-		anything_: anything,
-	}
-}
-
 // INSTANCE METHODS
 
 // Target
@@ -78,10 +70,9 @@ type primitive_ struct {
 	// Define instance attributes.
 	class_ PrimitiveClassLike
 	any_ any
+	integer_ string
 	rune_ string
 	text_ string
-	integer_ string
-	anything_ string
 }
 
 // Attributes

@@ -12,9 +12,7 @@
 
 package ast
 
-import (
-	col "github.com/craterdog/go-collection-framework/v4/collection"
-)
+import ()
 
 // CLASS ACCESS
 
@@ -42,13 +40,13 @@ type constrainedClass_ struct {
 
 func (c *constrainedClass_) MakeWithAttributes(
 	minimum MinimumLike,
-	maximums col.ListLike[MaximumLike],
+	maximum MaximumLike,
 ) ConstrainedLike {
 	return &constrained_{
 		// Initialize instance attributes.
 		class_: c,
 		minimum_: minimum,
-		maximums_: maximums,
+		maximum_: maximum,
 	}
 }
 
@@ -60,7 +58,7 @@ type constrained_ struct {
 	// Define instance attributes.
 	class_ ConstrainedClassLike
 	minimum_ MinimumLike
-	maximums_ col.ListLike[MaximumLike]
+	maximum_ MaximumLike
 }
 
 // Attributes
@@ -73,8 +71,8 @@ func (v *constrained_) GetMinimum() MinimumLike {
 	return v.minimum_
 }
 
-func (v *constrained_) GetMaximums() col.ListLike[MaximumLike] {
-	return v.maximums_
+func (v *constrained_) GetMaximum() MaximumLike {
+	return v.maximum_
 }
 
 // Private

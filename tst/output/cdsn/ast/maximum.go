@@ -12,9 +12,7 @@
 
 package ast
 
-import (
-	col "github.com/craterdog/go-collection-framework/v4/collection"
-)
+import ()
 
 // CLASS ACCESS
 
@@ -40,11 +38,11 @@ type maximumClass_ struct {
 
 // Constructors
 
-func (c *maximumClass_) MakeWithNumbers(numbers col.ListLike[string]) MaximumLike {
+func (c *maximumClass_) MakeWithNumber(number string) MaximumLike {
 	return &maximum_{
 		// Initialize instance attributes.
 		class_: c,
-		numbers_: numbers,
+		number_: number,
 	}
 }
 
@@ -55,7 +53,7 @@ func (c *maximumClass_) MakeWithNumbers(numbers col.ListLike[string]) MaximumLik
 type maximum_ struct {
 	// Define instance attributes.
 	class_ MaximumClassLike
-	numbers_ col.ListLike[string]
+	number_ string
 }
 
 // Attributes
@@ -64,8 +62,8 @@ func (v *maximum_) GetClass() MaximumClassLike {
 	return v.class_
 }
 
-func (v *maximum_) GetNumbers() col.ListLike[string] {
-	return v.numbers_
+func (v *maximum_) GetNumber() string {
+	return v.number_
 }
 
 // Private

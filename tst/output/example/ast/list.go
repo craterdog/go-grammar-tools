@@ -41,13 +41,13 @@ type listClass_ struct {
 // Constructors
 
 func (c *listClass_) MakeWithAttributes(
-	components col.ListLike[ComponentLike],
+	component ComponentLike,
 	additionals col.ListLike[AdditionalLike],
 ) ListLike {
 	return &list_{
 		// Initialize instance attributes.
 		class_: c,
-		components_: components,
+		component_: component,
 		additionals_: additionals,
 	}
 }
@@ -59,7 +59,7 @@ func (c *listClass_) MakeWithAttributes(
 type list_ struct {
 	// Define instance attributes.
 	class_ ListClassLike
-	components_ col.ListLike[ComponentLike]
+	component_ ComponentLike
 	additionals_ col.ListLike[AdditionalLike]
 }
 
@@ -69,8 +69,8 @@ func (v *list_) GetClass() ListClassLike {
 	return v.class_
 }
 
-func (v *list_) GetComponents() col.ListLike[ComponentLike] {
-	return v.components_
+func (v *list_) GetComponent() ComponentLike {
+	return v.component_
 }
 
 func (v *list_) GetAdditionals() col.ListLike[AdditionalLike] {

@@ -41,9 +41,9 @@ concrete abstraction-like class.
 type AbstractionClassLike interface {
 	// Constructors
 	MakeWithAttributes(
-		prefixs col.ListLike[PrefixLike],
+		prefix PrefixLike,
 		identifier string,
-		genericArgumentses col.ListLike[GenericArgumentsLike],
+		genericArguments GenericArgumentsLike,
 	) AbstractionLike
 }
 
@@ -152,8 +152,8 @@ type AttributeClassLike interface {
 	// Constructors
 	MakeWithAttributes(
 		identifier string,
-		parameters col.ListLike[ParameterLike],
-		abstractions col.ListLike[AbstractionLike],
+		parameter ParameterLike,
+		abstraction AbstractionLike,
 	) AttributeLike
 }
 
@@ -186,9 +186,9 @@ type ClassClassLike interface {
 	// Constructors
 	MakeWithAttributes(
 		declaration DeclarationLike,
-		constantses col.ListLike[ConstantsLike],
-		constructorses col.ListLike[ConstructorsLike],
-		functionses col.ListLike[FunctionsLike],
+		constants ConstantsLike,
+		constructors ConstructorsLike,
+		functions FunctionsLike,
 	) ClassLike
 }
 
@@ -234,7 +234,7 @@ type ConstructorClassLike interface {
 	// Constructors
 	MakeWithAttributes(
 		identifier string,
-		parameterses col.ListLike[ParametersLike],
+		parameters ParametersLike,
 		abstraction AbstractionLike,
 	) ConstructorLike
 }
@@ -259,7 +259,7 @@ type DeclarationClassLike interface {
 	MakeWithAttributes(
 		comment string,
 		identifier string,
-		genericParameterses col.ListLike[GenericParametersLike],
+		genericParameters GenericParametersLike,
 	) DeclarationLike
 }
 
@@ -285,7 +285,7 @@ type FunctionClassLike interface {
 	// Constructors
 	MakeWithAttributes(
 		identifier string,
-		parameterses col.ListLike[ParametersLike],
+		parameters ParametersLike,
 		result ResultLike,
 	) FunctionLike
 }
@@ -299,7 +299,7 @@ type FunctionalClassLike interface {
 	// Constructors
 	MakeWithAttributes(
 		declaration DeclarationLike,
-		parameterses col.ListLike[ParametersLike],
+		parameters ParametersLike,
 		result ResultLike,
 	) FunctionalLike
 }
@@ -366,9 +366,9 @@ type InstanceClassLike interface {
 	// Constructors
 	MakeWithAttributes(
 		declaration DeclarationLike,
-		attributeses col.ListLike[AttributesLike],
-		abstractionses col.ListLike[AbstractionsLike],
-		methodses col.ListLike[MethodsLike],
+		attributes AttributesLike,
+		abstractions AbstractionsLike,
+		methods MethodsLike,
 	) InstanceLike
 }
 
@@ -401,8 +401,8 @@ type MethodClassLike interface {
 	// Constructors
 	MakeWithAttributes(
 		identifier string,
-		parameterses col.ListLike[ParametersLike],
-		results col.ListLike[ResultLike],
+		parameters ParametersLike,
+		result ResultLike,
 	) MethodLike
 }
 
@@ -426,12 +426,12 @@ type ModelClassLike interface {
 	MakeWithAttributes(
 		notice NoticeLike,
 		header HeaderLike,
-		moduleses col.ListLike[ModulesLike],
-		typeses col.ListLike[TypesLike],
-		functionalses col.ListLike[FunctionalsLike],
-		aspectses col.ListLike[AspectsLike],
-		classeses col.ListLike[ClassesLike],
-		instanceses col.ListLike[InstancesLike],
+		modules ModulesLike,
+		types TypesLike,
+		functionals FunctionalsLike,
+		aspects AspectsLike,
+		classes ClassesLike,
+		instances InstancesLike,
 	) ModelLike
 }
 
@@ -538,7 +538,7 @@ type TypeClassLike interface {
 	MakeWithAttributes(
 		declaration DeclarationLike,
 		abstraction AbstractionLike,
-		enumerations col.ListLike[EnumerationLike],
+		enumeration EnumerationLike,
 	) TypeLike
 }
 
@@ -562,9 +562,9 @@ instance of a concrete abstraction-like class.
 type AbstractionLike interface {
 	// Attributes
 	GetClass() AbstractionClassLike
-	GetPrefixs() col.ListLike[PrefixLike]
+	GetPrefix() PrefixLike
 	GetIdentifier() string
-	GetGenericArgumentses() col.ListLike[GenericArgumentsLike]
+	GetGenericArguments() GenericArgumentsLike
 }
 
 /*
@@ -676,8 +676,8 @@ type AttributeLike interface {
 	// Attributes
 	GetClass() AttributeClassLike
 	GetIdentifier() string
-	GetParameters() col.ListLike[ParameterLike]
-	GetAbstractions() col.ListLike[AbstractionLike]
+	GetParameter() ParameterLike
+	GetAbstraction() AbstractionLike
 }
 
 /*
@@ -710,9 +710,9 @@ type ClassLike interface {
 	// Attributes
 	GetClass() ClassClassLike
 	GetDeclaration() DeclarationLike
-	GetConstantses() col.ListLike[ConstantsLike]
-	GetConstructorses() col.ListLike[ConstructorsLike]
-	GetFunctionses() col.ListLike[FunctionsLike]
+	GetConstants() ConstantsLike
+	GetConstructors() ConstructorsLike
+	GetFunctions() FunctionsLike
 }
 
 /*
@@ -758,7 +758,7 @@ type ConstructorLike interface {
 	// Attributes
 	GetClass() ConstructorClassLike
 	GetIdentifier() string
-	GetParameterses() col.ListLike[ParametersLike]
+	GetParameters() ParametersLike
 	GetAbstraction() AbstractionLike
 }
 
@@ -783,7 +783,7 @@ type DeclarationLike interface {
 	GetClass() DeclarationClassLike
 	GetComment() string
 	GetIdentifier() string
-	GetGenericParameterses() col.ListLike[GenericParametersLike]
+	GetGenericParameters() GenericParametersLike
 }
 
 /*
@@ -807,7 +807,7 @@ type FunctionLike interface {
 	// Attributes
 	GetClass() FunctionClassLike
 	GetIdentifier() string
-	GetParameterses() col.ListLike[ParametersLike]
+	GetParameters() ParametersLike
 	GetResult() ResultLike
 }
 
@@ -820,7 +820,7 @@ type FunctionalLike interface {
 	// Attributes
 	GetClass() FunctionalClassLike
 	GetDeclaration() DeclarationLike
-	GetParameterses() col.ListLike[ParametersLike]
+	GetParameters() ParametersLike
 	GetResult() ResultLike
 }
 
@@ -889,9 +889,9 @@ type InstanceLike interface {
 	// Attributes
 	GetClass() InstanceClassLike
 	GetDeclaration() DeclarationLike
-	GetAttributeses() col.ListLike[AttributesLike]
-	GetAbstractionses() col.ListLike[AbstractionsLike]
-	GetMethodses() col.ListLike[MethodsLike]
+	GetAttributes() AttributesLike
+	GetAbstractions() AbstractionsLike
+	GetMethods() MethodsLike
 }
 
 /*
@@ -925,8 +925,8 @@ type MethodLike interface {
 	// Attributes
 	GetClass() MethodClassLike
 	GetIdentifier() string
-	GetParameterses() col.ListLike[ParametersLike]
-	GetResults() col.ListLike[ResultLike]
+	GetParameters() ParametersLike
+	GetResult() ResultLike
 }
 
 /*
@@ -950,12 +950,12 @@ type ModelLike interface {
 	GetClass() ModelClassLike
 	GetNotice() NoticeLike
 	GetHeader() HeaderLike
-	GetModuleses() col.ListLike[ModulesLike]
-	GetTypeses() col.ListLike[TypesLike]
-	GetFunctionalses() col.ListLike[FunctionalsLike]
-	GetAspectses() col.ListLike[AspectsLike]
-	GetClasseses() col.ListLike[ClassesLike]
-	GetInstanceses() col.ListLike[InstancesLike]
+	GetModules() ModulesLike
+	GetTypes() TypesLike
+	GetFunctionals() FunctionalsLike
+	GetAspects() AspectsLike
+	GetClasses() ClassesLike
+	GetInstances() InstancesLike
 }
 
 /*
@@ -1059,7 +1059,7 @@ type TypeLike interface {
 	GetClass() TypeClassLike
 	GetDeclaration() DeclarationLike
 	GetAbstraction() AbstractionLike
-	GetEnumerations() col.ListLike[EnumerationLike]
+	GetEnumeration() EnumerationLike
 }
 
 /*

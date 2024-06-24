@@ -12,9 +12,7 @@
 
 package ast
 
-import (
-	col "github.com/craterdog/go-collection-framework/v4/collection"
-)
+import ()
 
 // CLASS ACCESS
 
@@ -42,13 +40,13 @@ type partClass_ struct {
 
 func (c *partClass_) MakeWithAttributes(
 	element ElementLike,
-	cardinalitys col.ListLike[CardinalityLike],
+	cardinality CardinalityLike,
 ) PartLike {
 	return &part_{
 		// Initialize instance attributes.
 		class_: c,
 		element_: element,
-		cardinalitys_: cardinalitys,
+		cardinality_: cardinality,
 	}
 }
 
@@ -60,7 +58,7 @@ type part_ struct {
 	// Define instance attributes.
 	class_ PartClassLike
 	element_ ElementLike
-	cardinalitys_ col.ListLike[CardinalityLike]
+	cardinality_ CardinalityLike
 }
 
 // Attributes
@@ -73,8 +71,8 @@ func (v *part_) GetElement() ElementLike {
 	return v.element_
 }
 
-func (v *part_) GetCardinalitys() col.ListLike[CardinalityLike] {
-	return v.cardinalitys_
+func (v *part_) GetCardinality() CardinalityLike {
+	return v.cardinality_
 }
 
 // Private

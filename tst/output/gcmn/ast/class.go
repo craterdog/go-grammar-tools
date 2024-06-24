@@ -12,9 +12,7 @@
 
 package ast
 
-import (
-	col "github.com/craterdog/go-collection-framework/v4/collection"
-)
+import ()
 
 // CLASS ACCESS
 
@@ -42,17 +40,17 @@ type classClass_ struct {
 
 func (c *classClass_) MakeWithAttributes(
 	declaration DeclarationLike,
-	constantses col.ListLike[ConstantsLike],
-	constructorses col.ListLike[ConstructorsLike],
-	functionses col.ListLike[FunctionsLike],
+	constants ConstantsLike,
+	constructors ConstructorsLike,
+	functions FunctionsLike,
 ) ClassLike {
 	return &class_{
 		// Initialize instance attributes.
 		class_: c,
 		declaration_: declaration,
-		constantses_: constantses,
-		constructorses_: constructorses,
-		functionses_: functionses,
+		constants_: constants,
+		constructors_: constructors,
+		functions_: functions,
 	}
 }
 
@@ -64,9 +62,9 @@ type class_ struct {
 	// Define instance attributes.
 	class_ ClassClassLike
 	declaration_ DeclarationLike
-	constantses_ col.ListLike[ConstantsLike]
-	constructorses_ col.ListLike[ConstructorsLike]
-	functionses_ col.ListLike[FunctionsLike]
+	constants_ ConstantsLike
+	constructors_ ConstructorsLike
+	functions_ FunctionsLike
 }
 
 // Attributes
@@ -79,16 +77,16 @@ func (v *class_) GetDeclaration() DeclarationLike {
 	return v.declaration_
 }
 
-func (v *class_) GetConstantses() col.ListLike[ConstantsLike] {
-	return v.constantses_
+func (v *class_) GetConstants() ConstantsLike {
+	return v.constants_
 }
 
-func (v *class_) GetConstructorses() col.ListLike[ConstructorsLike] {
-	return v.constructorses_
+func (v *class_) GetConstructors() ConstructorsLike {
+	return v.constructors_
 }
 
-func (v *class_) GetFunctionses() col.ListLike[FunctionsLike] {
-	return v.functionses_
+func (v *class_) GetFunctions() FunctionsLike {
+	return v.functions_
 }
 
 // Private

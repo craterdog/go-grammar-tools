@@ -50,19 +50,8 @@ concrete component-like class.
 */
 type ComponentClassLike interface {
 	// Constructors
-	MakeWithDefault(default_ DefaultLike) ComponentLike
 	MakeWithPrimitive(primitive PrimitiveLike) ComponentLike
 	MakeWithList(list ListLike) ComponentLike
-}
-
-/*
-DefaultClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete default-like class.
-*/
-type DefaultClassLike interface {
-	// Constructors
-	Make() DefaultLike
 }
 
 /*
@@ -83,7 +72,7 @@ concrete list-like class.
 type ListClassLike interface {
 	// Constructors
 	MakeWithAttributes(
-		components col.ListLike[ComponentLike],
+		component ComponentLike,
 		additionals col.ListLike[AdditionalLike],
 	) ListLike
 }
@@ -95,10 +84,9 @@ concrete primitive-like class.
 */
 type PrimitiveClassLike interface {
 	// Constructors
+	MakeWithInteger(integer string) PrimitiveLike
 	MakeWithRune(rune_ string) PrimitiveLike
 	MakeWithText(text string) PrimitiveLike
-	MakeWithInteger(integer string) PrimitiveLike
-	MakeWithAnything(anything string) PrimitiveLike
 }
 
 // Instances
@@ -126,16 +114,6 @@ type ComponentLike interface {
 }
 
 /*
-DefaultLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete default-like class.
-*/
-type DefaultLike interface {
-	// Attributes
-	GetClass() DefaultClassLike
-}
-
-/*
 DocumentLike is an instance interface that defines the complete set of
 instance attributes, abstractions and methods that must be supported by each
 instance of a concrete document-like class.
@@ -154,7 +132,7 @@ instance of a concrete list-like class.
 type ListLike interface {
 	// Attributes
 	GetClass() ListClassLike
-	GetComponents() col.ListLike[ComponentLike]
+	GetComponent() ComponentLike
 	GetAdditionals() col.ListLike[AdditionalLike]
 }
 

@@ -42,13 +42,13 @@ type inlinedClass_ struct {
 
 func (c *inlinedClass_) MakeWithAttributes(
 	factors col.ListLike[FactorLike],
-	notes col.ListLike[string],
+	note string,
 ) InlinedLike {
 	return &inlined_{
 		// Initialize instance attributes.
 		class_: c,
 		factors_: factors,
-		notes_: notes,
+		note_: note,
 	}
 }
 
@@ -60,7 +60,7 @@ type inlined_ struct {
 	// Define instance attributes.
 	class_ InlinedClassLike
 	factors_ col.ListLike[FactorLike]
-	notes_ col.ListLike[string]
+	note_ string
 }
 
 // Attributes
@@ -73,8 +73,8 @@ func (v *inlined_) GetFactors() col.ListLike[FactorLike] {
 	return v.factors_
 }
 
-func (v *inlined_) GetNotes() col.ListLike[string] {
-	return v.notes_
+func (v *inlined_) GetNote() string {
+	return v.note_
 }
 
 // Private

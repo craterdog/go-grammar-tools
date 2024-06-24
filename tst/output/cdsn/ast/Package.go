@@ -52,7 +52,7 @@ type BoundedClassLike interface {
 	// Constructors
 	MakeWithAttributes(
 		initial InitialLike,
-		extents col.ListLike[ExtentLike],
+		extent ExtentLike,
 	) BoundedLike
 }
 
@@ -87,7 +87,7 @@ type ConstrainedClassLike interface {
 	// Constructors
 	MakeWithAttributes(
 		minimum MinimumLike,
-		maximums col.ListLike[MaximumLike],
+		maximum MaximumLike,
 	) ConstrainedLike
 }
 
@@ -136,7 +136,7 @@ type FactorClassLike interface {
 	// Constructors
 	MakeWithAttributes(
 		predicate PredicateLike,
-		cardinalitys col.ListLike[CardinalityLike],
+		cardinality CardinalityLike,
 	) FactorLike
 }
 
@@ -148,7 +148,7 @@ concrete filtered-like class.
 type FilteredClassLike interface {
 	// Constructors
 	MakeWithAttributes(
-		negations col.ListLike[string],
+		negation string,
 		characters col.ListLike[CharacterLike],
 	) FilteredLike
 }
@@ -203,7 +203,7 @@ type InlinedClassLike interface {
 	// Constructors
 	MakeWithAttributes(
 		factors col.ListLike[FactorLike],
-		notes col.ListLike[string],
+		note string,
 	) InlinedLike
 }
 
@@ -215,10 +215,10 @@ concrete lexigram-like class.
 type LexigramClassLike interface {
 	// Constructors
 	MakeWithAttributes(
-		comments col.ListLike[string],
+		comment string,
 		lowercase string,
 		pattern PatternLike,
-		notes col.ListLike[string],
+		note string,
 	) LexigramLike
 }
 
@@ -231,7 +231,7 @@ type LineClassLike interface {
 	// Constructors
 	MakeWithAttributes(
 		identifier IdentifierLike,
-		notes col.ListLike[string],
+		note string,
 	) LineLike
 }
 
@@ -242,7 +242,7 @@ concrete maximum-like class.
 */
 type MaximumClassLike interface {
 	// Constructors
-	MakeWithNumbers(numbers col.ListLike[string]) MaximumLike
+	MakeWithNumber(number string) MaximumLike
 }
 
 /*
@@ -274,7 +274,7 @@ type PartClassLike interface {
 	// Constructors
 	MakeWithAttributes(
 		element ElementLike,
-		cardinalitys col.ListLike[CardinalityLike],
+		cardinality CardinalityLike,
 	) PartLike
 }
 
@@ -312,7 +312,7 @@ concrete rule-like class.
 type RuleClassLike interface {
 	// Constructors
 	MakeWithAttributes(
-		comments col.ListLike[string],
+		comment string,
 		uppercase string,
 		expression ExpressionLike,
 	) RuleLike
@@ -354,7 +354,7 @@ type BoundedLike interface {
 	// Attributes
 	GetClass() BoundedClassLike
 	GetInitial() InitialLike
-	GetExtents() col.ListLike[ExtentLike]
+	GetExtent() ExtentLike
 }
 
 /*
@@ -388,7 +388,7 @@ type ConstrainedLike interface {
 	// Attributes
 	GetClass() ConstrainedClassLike
 	GetMinimum() MinimumLike
-	GetMaximums() col.ListLike[MaximumLike]
+	GetMaximum() MaximumLike
 }
 
 /*
@@ -433,7 +433,7 @@ type FactorLike interface {
 	// Attributes
 	GetClass() FactorClassLike
 	GetPredicate() PredicateLike
-	GetCardinalitys() col.ListLike[CardinalityLike]
+	GetCardinality() CardinalityLike
 }
 
 /*
@@ -444,7 +444,7 @@ instance of a concrete filtered-like class.
 type FilteredLike interface {
 	// Attributes
 	GetClass() FilteredClassLike
-	GetNegations() col.ListLike[string]
+	GetNegation() string
 	GetCharacters() col.ListLike[CharacterLike]
 }
 
@@ -501,7 +501,7 @@ type InlinedLike interface {
 	// Attributes
 	GetClass() InlinedClassLike
 	GetFactors() col.ListLike[FactorLike]
-	GetNotes() col.ListLike[string]
+	GetNote() string
 }
 
 /*
@@ -512,10 +512,10 @@ instance of a concrete lexigram-like class.
 type LexigramLike interface {
 	// Attributes
 	GetClass() LexigramClassLike
-	GetComments() col.ListLike[string]
+	GetComment() string
 	GetLowercase() string
 	GetPattern() PatternLike
-	GetNotes() col.ListLike[string]
+	GetNote() string
 }
 
 /*
@@ -527,7 +527,7 @@ type LineLike interface {
 	// Attributes
 	GetClass() LineClassLike
 	GetIdentifier() IdentifierLike
-	GetNotes() col.ListLike[string]
+	GetNote() string
 }
 
 /*
@@ -538,7 +538,7 @@ instance of a concrete maximum-like class.
 type MaximumLike interface {
 	// Attributes
 	GetClass() MaximumClassLike
-	GetNumbers() col.ListLike[string]
+	GetNumber() string
 }
 
 /*
@@ -572,7 +572,7 @@ type PartLike interface {
 	// Attributes
 	GetClass() PartClassLike
 	GetElement() ElementLike
-	GetCardinalitys() col.ListLike[CardinalityLike]
+	GetCardinality() CardinalityLike
 }
 
 /*
@@ -606,7 +606,7 @@ instance of a concrete rule-like class.
 type RuleLike interface {
 	// Attributes
 	GetClass() RuleClassLike
-	GetComments() col.ListLike[string]
+	GetComment() string
 	GetUppercase() string
 	GetExpression() ExpressionLike
 }

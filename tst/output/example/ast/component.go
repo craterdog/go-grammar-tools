@@ -38,14 +38,6 @@ type componentClass_ struct {
 
 // Constructors
 
-func (c *componentClass_) MakeWithDefault(default_ DefaultLike) ComponentLike {
-	return &component_{
-		// Initialize instance attributes.
-		class_: c,
-		default_: default_,
-	}
-}
-
 func (c *componentClass_) MakeWithPrimitive(primitive PrimitiveLike) ComponentLike {
 	return &component_{
 		// Initialize instance attributes.
@@ -70,7 +62,6 @@ type component_ struct {
 	// Define instance attributes.
 	class_ ComponentClassLike
 	any_ any
-	default_ DefaultLike
 	primitive_ PrimitiveLike
 	list_ ListLike
 }

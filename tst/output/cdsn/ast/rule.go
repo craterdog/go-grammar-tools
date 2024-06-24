@@ -12,9 +12,7 @@
 
 package ast
 
-import (
-	col "github.com/craterdog/go-collection-framework/v4/collection"
-)
+import ()
 
 // CLASS ACCESS
 
@@ -41,14 +39,14 @@ type ruleClass_ struct {
 // Constructors
 
 func (c *ruleClass_) MakeWithAttributes(
-	comments col.ListLike[string],
+	comment string,
 	uppercase string,
 	expression ExpressionLike,
 ) RuleLike {
 	return &rule_{
 		// Initialize instance attributes.
 		class_: c,
-		comments_: comments,
+		comment_: comment,
 		uppercase_: uppercase,
 		expression_: expression,
 	}
@@ -61,7 +59,7 @@ func (c *ruleClass_) MakeWithAttributes(
 type rule_ struct {
 	// Define instance attributes.
 	class_ RuleClassLike
-	comments_ col.ListLike[string]
+	comment_ string
 	uppercase_ string
 	expression_ ExpressionLike
 }
@@ -72,8 +70,8 @@ func (v *rule_) GetClass() RuleClassLike {
 	return v.class_
 }
 
-func (v *rule_) GetComments() col.ListLike[string] {
-	return v.comments_
+func (v *rule_) GetComment() string {
+	return v.comment_
 }
 
 func (v *rule_) GetUppercase() string {
