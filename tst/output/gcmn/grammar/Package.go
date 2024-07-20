@@ -1,6 +1,6 @@
 /*
 ................................................................................
-.                   Copyright (c) 2024.  All Rights Reserved.                  .
+.    Copyright (c) 2009-2024 Crater Dog Technologies.  All Rights Reserved.    .
 ................................................................................
 .  DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.               .
 .                                                                              .
@@ -11,10 +11,16 @@
 */
 
 /*
-Package "agent" provides...
+Package "grammar" provides the following grammar classes that operate on the
+abstract syntax tree (AST) for this module:
+  - Token captures the attributes associated with a parsed token.
+  - Scanner is used to scan the source byte stream and recognize matching tokens.
+  - Parser is used to process the token stream and generate the AST.
+  - Validator is used to validate the semantics associated with an AST.
+  - Formatter is used to format an AST back into a canonical version of its source.
 
 For detailed documentation on this package refer to the wiki:
-  - <wiki>
+  - https://github.com/craterdog/example/gcmn/wiki
 
 This package follows the Crater Dog Technologies™ Go Coding Conventions located
 here:
@@ -22,14 +28,14 @@ here:
 
 Additional concrete implementations of the classes defined by this package can
 be developed and used seamlessly since the interface definitions only depend on
-other interfaces and primitive types—and the class implementations only depend
+other interfaces and intrinsic types—and the class implementations only depend
 on interfaces, not on each other.
 */
-package agent
+package grammar
 
 import (
-	ast "github.com/craterdog/example/example/ast"
-	col "github.com/craterdog/go-collection-framework/v4/collection"
+	ast "github.com/craterdog/example/gcmn/ast"
+	abs "github.com/craterdog/go-collection-framework/v4/collection"
 )
 
 // Types
@@ -42,9 +48,13 @@ type TokenType uint8
 
 const (
 	ErrorToken TokenType = iota
+	CommentToken
 	DelimiterToken
-	EOFToken
-	EOLToken
+	EofToken
+	EolToken
+	NameToken
+	NoteToken
+	PathToken
 	SpaceToken
 )
 
@@ -75,6 +85,8 @@ ScannerClassLike is a class interface that defines the complete set of
 class constants, constructors and functions that must be supported by each
 concrete scanner-like class.  The following functions are supported:
 
+AsString() returns the string version of the token type.
+
 FormatToken() returns a formatted string containing the attributes of the token.
 
 MatchToken() a list of strings representing any matches found in the specified
@@ -86,15 +98,16 @@ type ScannerClassLike interface {
 	// Constructors
 	Make(
 		source string,
-		tokens col.QueueLike[TokenLike],
+		tokens abs.QueueLike[TokenLike],
 	) ScannerLike
 
 	// Functions
+	AsString(type_ TokenType) string
 	FormatToken(token TokenLike) string
 	MatchToken(
 		type_ TokenType,
 		text string,
-	) col.ListLike[string]
+	) abs.ListLike[string]
 }
 
 /*
@@ -135,7 +148,7 @@ type FormatterLike interface {
 	GetDepth() uint
 
 	// Methods
-	FormatDocument(document ast.DocumentLike) string
+	FormatModel(model ast.ModelLike) string
 }
 
 /*
@@ -148,7 +161,7 @@ type ParserLike interface {
 	GetClass() ParserClassLike
 
 	// Methods
-	ParseSource(source string) ast.DocumentLike
+	ParseSource(source string) ast.ModelLike
 }
 
 /*
@@ -185,5 +198,5 @@ type ValidatorLike interface {
 	GetClass() ValidatorClassLike
 
 	// Methods
-	ValidateDocument(document ast.DocumentLike)
+	ValidateModel(model ast.ModelLike)
 }

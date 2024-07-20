@@ -12,7 +12,9 @@
 
 package ast
 
-import ()
+import (
+	col "github.com/craterdog/go-collection-framework/v4"
+)
 
 // CLASS ACCESS
 
@@ -39,13 +41,24 @@ type constructorClass_ struct {
 // Constructors
 
 func (c *constructorClass_) Make(
-	identifier string,
-	parameters ParametersLike,
+	name string,
+	optionalParameters ParametersLike,
 	abstraction AbstractionLike,
 ) ConstructorLike {
-	return &constructor_{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	case col.IsUndefined(name):
+		panic("The name attribute is required by this class.")
+	case col.IsUndefined(abstraction):
+		panic("The abstraction attribute is required by this class.")
+	default:
+		return &constructor_{
+			// Initialize instance attributes.
+			class_: c,
+			name_: name,
+			optionalParameters_: optionalParameters,
+			abstraction_: abstraction,
+		}
 	}
 }
 
@@ -56,8 +69,8 @@ func (c *constructorClass_) Make(
 type constructor_ struct {
 	// Define instance attributes.
 	class_ ConstructorClassLike
-	identifier_ string
-	parameters_ ParametersLike
+	name_ string
+	optionalParameters_ ParametersLike
 	abstraction_ AbstractionLike
 }
 
@@ -67,12 +80,12 @@ func (v *constructor_) GetClass() ConstructorClassLike {
 	return v.class_
 }
 
-func (v *constructor_) GetIdentifier() string {
-	return v.identifier_
+func (v *constructor_) GetName() string {
+	return v.name_
 }
 
-func (v *constructor_) GetParameters() ParametersLike {
-	return v.parameters_
+func (v *constructor_) GetOptionalParameters() ParametersLike {
+	return v.optionalParameters_
 }
 
 func (v *constructor_) GetAbstraction() AbstractionLike {

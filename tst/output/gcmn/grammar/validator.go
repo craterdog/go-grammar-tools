@@ -10,41 +10,41 @@
 ................................................................................
 */
 
-package agent
+package grammar
 
 import (
+	fmt "fmt"
 	ast "github.com/craterdog/example/gcmn/ast"
-	sts "strings"
 )
 
 // CLASS ACCESS
 
 // Reference
 
-var formatterClass = &formatterClass_{
+var validatorClass = &validatorClass_{
 	// Initialize the class constants.
 }
 
 // Function
 
-func Formatter() FormatterClassLike {
-	return formatterClass
+func Validator() ValidatorClassLike {
+	return validatorClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type formatterClass_ struct {
+type validatorClass_ struct {
 	// Define the class constants.
 }
 
 // Constructors
 
-func (c *formatterClass_) Make() FormatterLike {
-	return &formatter_{
+func (c *validatorClass_) Make() ValidatorLike {
+	return &validator_{
 		// Initialize the instance attributes.
-		class_:   c,
+		class_: c,
 	}
 }
 
@@ -52,56 +52,40 @@ func (c *formatterClass_) Make() FormatterLike {
 
 // Target
 
-type formatter_ struct {
+type validator_ struct {
 	// Define the instance attributes.
-	class_   FormatterClassLike
-	depth_   uint
-	result_  sts.Builder
+	class_    ValidatorClassLike
 }
 
 // Attributes
 
-func (v *formatter_) GetClass() FormatterClassLike {
+func (v *validator_) GetClass() ValidatorClassLike {
 	return v.class_
-}
-
-func (v *formatter_) GetDepth() uint {
-	return v.depth_
 }
 
 // Public
 
-func (v *formatter_) FormatModel(model ast.ModelLike) string {
-	v.formatModel(model)
-	return v.getResult()
+func (v *validator_) ValidateModel(model ast.ModelLike) {
+	// TBA - Add a real method implementation.
+	var name = "foobar"
+	if !v.matchesToken(ErrorToken, name) {
+		var message = v.formatError(name, "Oops!")
+		panic(message)
+	}
 }
 
 // Private
 
-func (v *formatter_) appendNewline() {
-	var newline = "\n"
-	var indentation = "\t"
-	var level uint
-	for ; level < v.depth_; level++ {
-		newline += indentation
-	}
-	v.appendString(newline)
+func (v *validator_) formatError(name, message string) string {
+	message = fmt.Sprintf(
+		"The definition for %v is invalid:\n%v\n",
+		name,
+		message,
+	)
+	return message
 }
 
-func (v *formatter_) appendString(s string) {
-	v.result_.WriteString(s)
-}
-
-func (v *formatter_) formatModel(model ast.ModelLike) {
-	// TBA - Add real method implementation.
-	v.depth_++
-	v.appendString("test")
-	v.appendNewline()
-	v.depth_--
-}
-
-func (v *formatter_) getResult() string {
-	var result = v.result_.String()
-	v.result_.Reset()
-	return result
+func (v *validator_) matchesToken(type_ TokenType, value string) bool {
+	var matches = Scanner().MatchToken(type_, value)
+	return !matches.IsEmpty()
 }

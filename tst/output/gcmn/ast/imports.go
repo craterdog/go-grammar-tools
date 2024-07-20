@@ -10,45 +10,47 @@
 ................................................................................
 */
 
-package agent
+package ast
+
+import (
+	col "github.com/craterdog/go-collection-framework/v4"
+)
 
 // CLASS ACCESS
 
 // Reference
 
-var tokenClass = &tokenClass_{
-	// Initialize the class constants.
+var importsClass = &importsClass_{
+	// Initialize class constants.
 }
 
 // Function
 
-func Token() TokenClassLike {
-	return tokenClass
+func Imports() ImportsClassLike {
+	return importsClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type tokenClass_ struct {
-	// Define the class constants.
+type importsClass_ struct {
+	// Define class constants.
 }
 
 // Constructors
 
-func (c *tokenClass_) Make(
-	line int,
-	position int,
-	type_ TokenType,
-	value string,
-) TokenLike {
-	return &token_{
-		// Initialize the instance attributes.
-		class_:    c,
-		line_:     line,
-		position_: position,
-		type_:     type_,
-		value_:    value,
+func (c *importsClass_) Make(modules ModulesLike) ImportsLike {
+	// Validate the arguments.
+	switch {
+	case col.IsUndefined(modules):
+		panic("The modules attribute is required by this class.")
+	default:
+		return &imports_{
+			// Initialize instance attributes.
+			class_: c,
+			modules_: modules,
+		}
 	}
 }
 
@@ -56,33 +58,20 @@ func (c *tokenClass_) Make(
 
 // Target
 
-type token_ struct {
-	// Define the instance attributes.
-	class_    TokenClassLike
-	line_     int
-	position_ int
-	type_     TokenType
-	value_    string
+type imports_ struct {
+	// Define instance attributes.
+	class_ ImportsClassLike
+	modules_ ModulesLike
 }
 
 // Attributes
 
-func (v *token_) GetClass() TokenClassLike {
+func (v *imports_) GetClass() ImportsClassLike {
 	return v.class_
 }
 
-func (v *token_) GetLine() int {
-	return v.line_
+func (v *imports_) GetModules() ModulesLike {
+	return v.modules_
 }
 
-func (v *token_) GetPosition() int {
-	return v.position_
-}
-
-func (v *token_) GetType() TokenType {
-	return v.type_
-}
-
-func (v *token_) GetValue() string {
-	return v.value_
-}
+// Private

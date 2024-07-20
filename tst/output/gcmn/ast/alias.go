@@ -12,7 +12,9 @@
 
 package ast
 
-import ()
+import (
+	col "github.com/craterdog/go-collection-framework/v4"
+)
 
 // CLASS ACCESS
 
@@ -38,10 +40,17 @@ type aliasClass_ struct {
 
 // Constructors
 
-func (c *aliasClass_) Make(identifier string) AliasLike {
-	return &alias_{
-		// Initialize instance attributes.
-		class_: c,
+func (c *aliasClass_) Make(name string) AliasLike {
+	// Validate the arguments.
+	switch {
+	case col.IsUndefined(name):
+		panic("The name attribute is required by this class.")
+	default:
+		return &alias_{
+			// Initialize instance attributes.
+			class_: c,
+			name_: name,
+		}
 	}
 }
 
@@ -52,7 +61,7 @@ func (c *aliasClass_) Make(identifier string) AliasLike {
 type alias_ struct {
 	// Define instance attributes.
 	class_ AliasClassLike
-	identifier_ string
+	name_ string
 }
 
 // Attributes
@@ -61,8 +70,8 @@ func (v *alias_) GetClass() AliasClassLike {
 	return v.class_
 }
 
-func (v *alias_) GetIdentifier() string {
-	return v.identifier_
+func (v *alias_) GetName() string {
+	return v.name_
 }
 
 // Private

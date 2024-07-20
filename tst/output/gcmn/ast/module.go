@@ -12,7 +12,9 @@
 
 package ast
 
-import ()
+import (
+	col "github.com/craterdog/go-collection-framework/v4"
+)
 
 // CLASS ACCESS
 
@@ -39,12 +41,22 @@ type moduleClass_ struct {
 // Constructors
 
 func (c *moduleClass_) Make(
-	identifier string,
-	text string,
+	name string,
+	path string,
 ) ModuleLike {
-	return &module_{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	case col.IsUndefined(name):
+		panic("The name attribute is required by this class.")
+	case col.IsUndefined(path):
+		panic("The path attribute is required by this class.")
+	default:
+		return &module_{
+			// Initialize instance attributes.
+			class_: c,
+			name_: name,
+			path_: path,
+		}
 	}
 }
 
@@ -55,8 +67,8 @@ func (c *moduleClass_) Make(
 type module_ struct {
 	// Define instance attributes.
 	class_ ModuleClassLike
-	identifier_ string
-	text_ string
+	name_ string
+	path_ string
 }
 
 // Attributes
@@ -65,12 +77,12 @@ func (v *module_) GetClass() ModuleClassLike {
 	return v.class_
 }
 
-func (v *module_) GetIdentifier() string {
-	return v.identifier_
+func (v *module_) GetName() string {
+	return v.name_
 }
 
-func (v *module_) GetText() string {
-	return v.text_
+func (v *module_) GetPath() string {
+	return v.path_
 }
 
 // Private

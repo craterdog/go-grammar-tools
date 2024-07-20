@@ -20,44 +20,36 @@ import (
 
 // Reference
 
-var ruleClass = &ruleClass_{
+var stringClass = &stringClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func Rule() RuleClassLike {
-	return ruleClass
+func String() StringClassLike {
+	return stringClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type ruleClass_ struct {
+type stringClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *ruleClass_) Make(
-	optionalComment string,
-	uppercase string,
-	definition DefinitionLike,
-) RuleLike {
+func (c *stringClass_) Make(any_ any) StringLike {
 	// Validate the arguments.
 	switch {
-	case col.IsUndefined(uppercase):
-		panic("The uppercase attribute is required by this class.")
-	case col.IsUndefined(definition):
-		panic("The definition attribute is required by this class.")
+	case col.IsUndefined(any_):
+		panic("The any attribute is required by this class.")
 	default:
-		return &rule_{
+		return &string_{
 			// Initialize instance attributes.
 			class_: c,
-			optionalComment_: optionalComment,
-			uppercase_: uppercase,
-			definition_: definition,
+			any_: any_,
 		}
 	}
 }
@@ -66,30 +58,20 @@ func (c *ruleClass_) Make(
 
 // Target
 
-type rule_ struct {
+type string_ struct {
 	// Define instance attributes.
-	class_ RuleClassLike
-	optionalComment_ string
-	uppercase_ string
-	definition_ DefinitionLike
+	class_ StringClassLike
+	any_ any
 }
 
 // Attributes
 
-func (v *rule_) GetClass() RuleClassLike {
+func (v *string_) GetClass() StringClassLike {
 	return v.class_
 }
 
-func (v *rule_) GetOptionalComment() string {
-	return v.optionalComment_
-}
-
-func (v *rule_) GetUppercase() string {
-	return v.uppercase_
-}
-
-func (v *rule_) GetDefinition() DefinitionLike {
-	return v.definition_
+func (v *string_) GetAny() any {
+	return v.any_
 }
 
 // Private

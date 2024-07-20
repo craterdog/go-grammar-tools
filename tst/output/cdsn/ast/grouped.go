@@ -12,7 +12,9 @@
 
 package ast
 
-import ()
+import (
+	col "github.com/craterdog/go-collection-framework/v4"
+)
 
 // CLASS ACCESS
 
@@ -39,9 +41,16 @@ type groupedClass_ struct {
 // Constructors
 
 func (c *groupedClass_) Make(pattern PatternLike) GroupedLike {
-	return &grouped_{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	case col.IsUndefined(pattern):
+		panic("The pattern attribute is required by this class.")
+	default:
+		return &grouped_{
+			// Initialize instance attributes.
+			class_: c,
+			pattern_: pattern,
+		}
 	}
 }
 

@@ -13,7 +13,8 @@
 package ast
 
 import (
-	col "github.com/craterdog/go-collection-framework/v4/collection"
+	abs "github.com/craterdog/go-collection-framework/v4/collection"
+	col "github.com/craterdog/go-collection-framework/v4"
 )
 
 // CLASS ACCESS
@@ -40,10 +41,17 @@ type modulesClass_ struct {
 
 // Constructors
 
-func (c *modulesClass_) Make(modules col.ListLike[ModuleLike]) ModulesLike {
-	return &modules_{
-		// Initialize instance attributes.
-		class_: c,
+func (c *modulesClass_) Make(modules abs.Sequential[ModuleLike]) ModulesLike {
+	// Validate the arguments.
+	switch {
+	case col.IsUndefined(modules):
+		panic("The modules attribute is required by this class.")
+	default:
+		return &modules_{
+			// Initialize instance attributes.
+			class_: c,
+			modules_: modules,
+		}
 	}
 }
 
@@ -54,7 +62,7 @@ func (c *modulesClass_) Make(modules col.ListLike[ModuleLike]) ModulesLike {
 type modules_ struct {
 	// Define instance attributes.
 	class_ ModulesClassLike
-	modules_ col.ListLike[ModuleLike]
+	modules_ abs.Sequential[ModuleLike]
 }
 
 // Attributes
@@ -63,7 +71,7 @@ func (v *modules_) GetClass() ModulesClassLike {
 	return v.class_
 }
 
-func (v *modules_) GetModules() col.ListLike[ModuleLike] {
+func (v *modules_) GetModules() abs.Sequential[ModuleLike] {
 	return v.modules_
 }
 

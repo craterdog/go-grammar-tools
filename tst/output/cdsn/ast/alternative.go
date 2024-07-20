@@ -13,7 +13,8 @@
 package ast
 
 import (
-	col "github.com/craterdog/go-collection-framework/v4/collection"
+	abs "github.com/craterdog/go-collection-framework/v4/collection"
+	col "github.com/craterdog/go-collection-framework/v4"
 )
 
 // CLASS ACCESS
@@ -40,10 +41,17 @@ type alternativeClass_ struct {
 
 // Constructors
 
-func (c *alternativeClass_) Make(parts col.ListLike[PartLike]) AlternativeLike {
-	return &alternative_{
-		// Initialize instance attributes.
-		class_: c,
+func (c *alternativeClass_) Make(parts abs.Sequential[PartLike]) AlternativeLike {
+	// Validate the arguments.
+	switch {
+	case col.IsUndefined(parts):
+		panic("The parts attribute is required by this class.")
+	default:
+		return &alternative_{
+			// Initialize instance attributes.
+			class_: c,
+			parts_: parts,
+		}
 	}
 }
 
@@ -54,7 +62,7 @@ func (c *alternativeClass_) Make(parts col.ListLike[PartLike]) AlternativeLike {
 type alternative_ struct {
 	// Define instance attributes.
 	class_ AlternativeClassLike
-	parts_ col.ListLike[PartLike]
+	parts_ abs.Sequential[PartLike]
 }
 
 // Attributes
@@ -63,7 +71,7 @@ func (v *alternative_) GetClass() AlternativeClassLike {
 	return v.class_
 }
 
-func (v *alternative_) GetParts() col.ListLike[PartLike] {
+func (v *alternative_) GetParts() abs.Sequential[PartLike] {
 	return v.parts_
 }
 

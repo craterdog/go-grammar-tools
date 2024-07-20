@@ -12,36 +12,38 @@
 
 package ast
 
-import ()
-
 // CLASS ACCESS
 
 // Reference
 
-var minimumClass = &minimumClass_{
+var arrayClass = &arrayClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func Minimum() MinimumClassLike {
-	return minimumClass
+func Array() ArrayClassLike {
+	return arrayClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type minimumClass_ struct {
+type arrayClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *minimumClass_) Make(number string) MinimumLike {
-	return &minimum_{
-		// Initialize instance attributes.
-		class_: c,
+func (c *arrayClass_) Make() ArrayLike {
+	// Validate the arguments.
+	switch {
+	default:
+		return &array_{
+			// Initialize instance attributes.
+			class_: c,
+		}
 	}
 }
 
@@ -49,20 +51,15 @@ func (c *minimumClass_) Make(number string) MinimumLike {
 
 // Target
 
-type minimum_ struct {
+type array_ struct {
 	// Define instance attributes.
-	class_ MinimumClassLike
-	number_ string
+	class_ ArrayClassLike
 }
 
 // Attributes
 
-func (v *minimum_) GetClass() MinimumClassLike {
+func (v *array_) GetClass() ArrayClassLike {
 	return v.class_
-}
-
-func (v *minimum_) GetNumber() string {
-	return v.number_
 }
 
 // Private

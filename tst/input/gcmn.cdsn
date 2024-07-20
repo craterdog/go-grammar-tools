@@ -53,93 +53,106 @@ tokens is greedy and will match as many repeated token types as possible. The
 sequence of factors within in a rule definition may be separated by spaces which
 are ignored by the parser.
 <!
-Model: Notice Header Modules? Types? Functionals? Aspects? Classes? Instances? EOL* EOF  ! Terminated with an end-of-file marker.
+Model: Notice Header Imports? Types? Functionals? Classes Instances Aspects? EOF
 
-Notice: comment EOL
+Notice: comment
 
-Header: comment "package" identifier EOL
+Header: comment "package" name
 
-Modules: "import" "(" EOL Module* ")" EOL
+Imports: "import" "(" Modules ")"
 
-Module: identifier text EOL
+Modules: Module+
 
-Types: EOL "// Types" EOL Type+ EOL
+Module: name path
 
-Type: EOL Declaration Abstraction Enumeration? EOL
+Types: note Type+
 
-Declaration: comment "type" identifier GenericParameters?
+Type: Declaration Abstraction Enumeration?
+
+Declaration: comment "type" name GenericParameters?
 
 GenericParameters: "[" Parameters "]"
 
 Parameters: Parameter AdditionalParameter* ","?
 
+Parameter: name Abstraction
+
 AdditionalParameter: "," Parameter
 
-Parameter: identifier Abstraction
-
-Abstraction: Prefix? identifier GenericArguments?
+Abstraction: Prefix? Alias? name GenericArguments?
 
 Prefix:
+    Array
     Map
-    Alias
+    Channel
 
-Map: "map" "[" identifier "]"
+Array: "[" "]"
 
-Alias: identifier "."
+Map: "map" "[" name "]"
+
+Channel: "chan"
+
+Alias: name "."
 
 GenericArguments: "[" Arguments "]"
 
-Arguments: Argument AdditionalArgument* ","?
-
-AdditionalArgument: "," Argument
+Arguments: Argument AdditionalArgument*
 
 Argument: Abstraction
 
-Enumeration: "const" "(" Parameter "=" "iota" identifier* ")" EOL
+AdditionalArgument: "," Argument
 
-Functionals: EOL "// Functionals" EOL Functional+ EOL
+Enumeration: "const" "(" Values ")"
 
-Functional: EOL Declaration "func" "(" Parameters? ")" Result EOL
+Values: Value AdditionalValue*
+
+Value: name Abstraction "=" "iota"
+
+AdditionalValue: name
+
+Functionals: note Functional+
+
+Functional: Declaration "func" "(" Parameters? ")" Result
 
 Result:
     Abstraction
-    Named
+    Parameterized
 
-Named: "(" Parameters ")"
+Parameterized: "(" Parameters ")"
 
-Aspects: EOL "// Aspects" EOL Aspect+ EOL
+Classes: note Class+
 
-Aspect: EOL Declaration "interface" "{" Methods "}" EOL
+Class: Declaration "interface" "{" Constructors Constants? Functions? "}"
 
-Classes: EOL "// Classes" EOL Class+ EOL
+Constructors: note Constructor+
 
-Class: EOL Declaration "interface" "{" Constants? Constructors? Functions? "}" EOL
+Constructor: name "(" Parameters? ")" Abstraction
 
-Constants: EOL "// Constants" EOL Constant+ EOL
+Constants: note Constant+
 
-Constant: EOL identifier "(" ")" Abstraction EOL
+Constant: name "(" ")" Abstraction
 
-Constructors: EOL "// Constructors" EOL Constructor+ EOL
+Functions: note Function+
 
-Constructor: EOL identifier "(" Parameters? ")" Abstraction EOL
+Function: name "(" Parameters? ")" Result
 
-Functions: EOL "// Functions" EOL Function+ EOL
+Instances: note Instance+
 
-Function: EOL identifier "(" Parameters? ")" Result EOL
+Instance: Declaration "interface" "{" Attributes Abstractions? Methods? "}"
 
-Instances: EOL "// Instances" EOL Instance+ EOL
+Attributes: note Attribute+
 
-Instance: EOL Declaration "interface" "{" Attributes? Abstractions? Methods? "}" EOL
+Attribute: name "(" Parameter? ")" Abstraction?
 
-Attributes: EOL "// Attributes" EOL Attribute+ EOL
+Abstractions: note Abstraction+
 
-Attribute: EOL identifier "(" Parameter? ")" Abstraction? EOL
+Methods: note Method+
 
-Abstractions: EOL "// Abstractions" EOL Abstraction+ EOL
+Method: name "(" Parameters? ")" Result?
 
-Methods: EOL "// EOL Methods" Method+ EOL
+Aspects: note Aspect+
 
-Method: EOL identifier "(" Parameters? ")" Result? EOL
+Aspect: Declaration "interface" "{" Method+ "}"
 
 !>
 LEXIGRAM DEFINITIONS
@@ -156,7 +169,11 @@ comment: "/*" ANY* "*/" EOL  ! Chooses the shortest possible match.
 
 delimiter: "[" | "]" | "(" | ")" | "{" | "}" | "." | "," | "="
 
-identifier: (LOWER | UPPER) (LOWER | UPPER | DIGIT)*
+mnemonic: LOWER (LOWER | DIGIT){2}
 
-text: '"' ANY* '"'  ! Chooses the shortest possible match.
+name: (LOWER | UPPER) (LOWER | UPPER | DIGIT)* "_"?
+
+note: "//" ~[CONTROL]*
+
+path: '"' ANY* '"'  ! Chooses the shortest possible match.
 

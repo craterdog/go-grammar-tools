@@ -1,6 +1,6 @@
 /*
 ................................................................................
-.                   Copyright (c) 2024.  All Rights Reserved.                  .
+.    Copyright (c) 2009-2024 Crater Dog Technologies.  All Rights Reserved.    .
 ................................................................................
 .  DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.               .
 .                                                                              .
@@ -12,36 +12,45 @@
 
 package ast
 
-import ()
+import (
+	col "github.com/craterdog/go-collection-framework/v4"
+)
 
 // CLASS ACCESS
 
 // Reference
 
-var primitiveClass = &primitiveClass_{
+var additionalValueClass = &additionalValueClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func Primitive() PrimitiveClassLike {
-	return primitiveClass
+func AdditionalValue() AdditionalValueClassLike {
+	return additionalValueClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type primitiveClass_ struct {
+type additionalValueClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *primitiveClass_) Make(any any) PrimitiveLike {
-	return &primitive_{
-		// Initialize instance attributes.
-		class_: c,
+func (c *additionalValueClass_) Make(name string) AdditionalValueLike {
+	// Validate the arguments.
+	switch {
+	case col.IsUndefined(name):
+		panic("The name attribute is required by this class.")
+	default:
+		return &additionalValue_{
+			// Initialize instance attributes.
+			class_: c,
+			name_: name,
+		}
 	}
 }
 
@@ -49,20 +58,20 @@ func (c *primitiveClass_) Make(any any) PrimitiveLike {
 
 // Target
 
-type primitive_ struct {
+type additionalValue_ struct {
 	// Define instance attributes.
-	class_ PrimitiveClassLike
-	any_ any
+	class_ AdditionalValueClassLike
+	name_ string
 }
 
 // Attributes
 
-func (v *primitive_) GetClass() PrimitiveClassLike {
+func (v *additionalValue_) GetClass() AdditionalValueClassLike {
 	return v.class_
 }
 
-func (v *primitive_) GetAny() any {
-	return v.any_
+func (v *additionalValue_) GetName() string {
+	return v.name_
 }
 
 // Private

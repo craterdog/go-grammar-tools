@@ -13,7 +13,8 @@
 package ast
 
 import (
-	col "github.com/craterdog/go-collection-framework/v4/collection"
+	abs "github.com/craterdog/go-collection-framework/v4/collection"
+	col "github.com/craterdog/go-collection-framework/v4"
 )
 
 // CLASS ACCESS
@@ -41,13 +42,26 @@ type syntaxClass_ struct {
 // Constructors
 
 func (c *syntaxClass_) Make(
-	headers col.ListLike[HeaderLike],
-	rules col.ListLike[RuleLike],
-	lexigrams col.ListLike[LexigramLike],
+	headers abs.Sequential[HeaderLike],
+	rules abs.Sequential[RuleLike],
+	expressions abs.Sequential[ExpressionLike],
 ) SyntaxLike {
-	return &syntax_{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	case col.IsUndefined(headers):
+		panic("The headers attribute is required by this class.")
+	case col.IsUndefined(rules):
+		panic("The rules attribute is required by this class.")
+	case col.IsUndefined(expressions):
+		panic("The expressions attribute is required by this class.")
+	default:
+		return &syntax_{
+			// Initialize instance attributes.
+			class_: c,
+			headers_: headers,
+			rules_: rules,
+			expressions_: expressions,
+		}
 	}
 }
 
@@ -58,9 +72,9 @@ func (c *syntaxClass_) Make(
 type syntax_ struct {
 	// Define instance attributes.
 	class_ SyntaxClassLike
-	headers_ col.ListLike[HeaderLike]
-	rules_ col.ListLike[RuleLike]
-	lexigrams_ col.ListLike[LexigramLike]
+	headers_ abs.Sequential[HeaderLike]
+	rules_ abs.Sequential[RuleLike]
+	expressions_ abs.Sequential[ExpressionLike]
 }
 
 // Attributes
@@ -69,16 +83,16 @@ func (v *syntax_) GetClass() SyntaxClassLike {
 	return v.class_
 }
 
-func (v *syntax_) GetHeaders() col.ListLike[HeaderLike] {
+func (v *syntax_) GetHeaders() abs.Sequential[HeaderLike] {
 	return v.headers_
 }
 
-func (v *syntax_) GetRules() col.ListLike[RuleLike] {
+func (v *syntax_) GetRules() abs.Sequential[RuleLike] {
 	return v.rules_
 }
 
-func (v *syntax_) GetLexigrams() col.ListLike[LexigramLike] {
-	return v.lexigrams_
+func (v *syntax_) GetExpressions() abs.Sequential[ExpressionLike] {
+	return v.expressions_
 }
 
 // Private

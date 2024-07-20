@@ -13,7 +13,8 @@
 package ast
 
 import (
-	col "github.com/craterdog/go-collection-framework/v4/collection"
+	abs "github.com/craterdog/go-collection-framework/v4/collection"
+	col "github.com/craterdog/go-collection-framework/v4"
 )
 
 // CLASS ACCESS
@@ -42,11 +43,21 @@ type listClass_ struct {
 
 func (c *listClass_) Make(
 	component ComponentLike,
-	additionals col.ListLike[AdditionalLike],
+	additionals abs.Sequential[AdditionalLike],
 ) ListLike {
-	return &list_{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	case col.IsUndefined(component):
+		panic("The component attribute is required by this class.")
+	case col.IsUndefined(additionals):
+		panic("The additionals attribute is required by this class.")
+	default:
+		return &list_{
+			// Initialize instance attributes.
+			class_: c,
+			component_: component,
+			additionals_: additionals,
+		}
 	}
 }
 
@@ -58,7 +69,7 @@ type list_ struct {
 	// Define instance attributes.
 	class_ ListClassLike
 	component_ ComponentLike
-	additionals_ col.ListLike[AdditionalLike]
+	additionals_ abs.Sequential[AdditionalLike]
 }
 
 // Attributes
@@ -71,7 +82,7 @@ func (v *list_) GetComponent() ComponentLike {
 	return v.component_
 }
 
-func (v *list_) GetAdditionals() col.ListLike[AdditionalLike] {
+func (v *list_) GetAdditionals() abs.Sequential[AdditionalLike] {
 	return v.additionals_
 }
 

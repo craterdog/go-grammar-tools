@@ -10,38 +10,45 @@
 ................................................................................
 */
 
-package ast
-
-import ()
+package grammar
 
 // CLASS ACCESS
 
 // Reference
 
-var initialClass = &initialClass_{
-	// Initialize class constants.
+var tokenClass = &tokenClass_{
+	// Initialize the class constants.
 }
 
 // Function
 
-func Initial() InitialClassLike {
-	return initialClass
+func Token() TokenClassLike {
+	return tokenClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type initialClass_ struct {
-	// Define class constants.
+type tokenClass_ struct {
+	// Define the class constants.
 }
 
 // Constructors
 
-func (c *initialClass_) Make(rune_ string) InitialLike {
-	return &initial_{
-		// Initialize instance attributes.
-		class_: c,
+func (c *tokenClass_) Make(
+	line int,
+	position int,
+	type_ TokenType,
+	value string,
+) TokenLike {
+	return &token_{
+		// Initialize the instance attributes.
+		class_:    c,
+		line_:     line,
+		position_: position,
+		type_:     type_,
+		value_:    value,
 	}
 }
 
@@ -49,20 +56,33 @@ func (c *initialClass_) Make(rune_ string) InitialLike {
 
 // Target
 
-type initial_ struct {
-	// Define instance attributes.
-	class_ InitialClassLike
-	rune_ string
+type token_ struct {
+	// Define the instance attributes.
+	class_    TokenClassLike
+	line_     int
+	position_ int
+	type_     TokenType
+	value_    string
 }
 
 // Attributes
 
-func (v *initial_) GetClass() InitialClassLike {
+func (v *token_) GetClass() TokenClassLike {
 	return v.class_
 }
 
-func (v *initial_) GetRune() string {
-	return v.rune_
+func (v *token_) GetLine() int {
+	return v.line_
 }
 
-// Private
+func (v *token_) GetPosition() int {
+	return v.position_
+}
+
+func (v *token_) GetType() TokenType {
+	return v.type_
+}
+
+func (v *token_) GetValue() string {
+	return v.value_
+}

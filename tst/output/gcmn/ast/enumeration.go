@@ -13,7 +13,7 @@
 package ast
 
 import (
-	col "github.com/craterdog/go-collection-framework/v4/collection"
+	col "github.com/craterdog/go-collection-framework/v4"
 )
 
 // CLASS ACCESS
@@ -40,13 +40,17 @@ type enumerationClass_ struct {
 
 // Constructors
 
-func (c *enumerationClass_) Make(
-	parameter ParameterLike,
-	identifiers col.ListLike[string],
-) EnumerationLike {
-	return &enumeration_{
-		// Initialize instance attributes.
-		class_: c,
+func (c *enumerationClass_) Make(values ValuesLike) EnumerationLike {
+	// Validate the arguments.
+	switch {
+	case col.IsUndefined(values):
+		panic("The values attribute is required by this class.")
+	default:
+		return &enumeration_{
+			// Initialize instance attributes.
+			class_: c,
+			values_: values,
+		}
 	}
 }
 
@@ -57,8 +61,7 @@ func (c *enumerationClass_) Make(
 type enumeration_ struct {
 	// Define instance attributes.
 	class_ EnumerationClassLike
-	parameter_ ParameterLike
-	identifiers_ col.ListLike[string]
+	values_ ValuesLike
 }
 
 // Attributes
@@ -67,12 +70,8 @@ func (v *enumeration_) GetClass() EnumerationClassLike {
 	return v.class_
 }
 
-func (v *enumeration_) GetParameter() ParameterLike {
-	return v.parameter_
-}
-
-func (v *enumeration_) GetIdentifiers() col.ListLike[string] {
-	return v.identifiers_
+func (v *enumeration_) GetValues() ValuesLike {
+	return v.values_
 }
 
 // Private

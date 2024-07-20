@@ -12,7 +12,9 @@
 
 package ast
 
-import ()
+import (
+	col "github.com/craterdog/go-collection-framework/v4"
+)
 
 // CLASS ACCESS
 
@@ -38,10 +40,17 @@ type predicateClass_ struct {
 
 // Constructors
 
-func (c *predicateClass_) Make(any any) PredicateLike {
-	return &predicate_{
-		// Initialize instance attributes.
-		class_: c,
+func (c *predicateClass_) Make(any_ any) PredicateLike {
+	// Validate the arguments.
+	switch {
+	case col.IsUndefined(any_):
+		panic("The any attribute is required by this class.")
+	default:
+		return &predicate_{
+			// Initialize instance attributes.
+			class_: c,
+			any_: any_,
+		}
 	}
 }
 

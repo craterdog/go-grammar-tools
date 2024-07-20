@@ -20,44 +20,36 @@ import (
 
 // Reference
 
-var ruleClass = &ruleClass_{
+var parameterizedClass = &parameterizedClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func Rule() RuleClassLike {
-	return ruleClass
+func Parameterized() ParameterizedClassLike {
+	return parameterizedClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type ruleClass_ struct {
+type parameterizedClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *ruleClass_) Make(
-	optionalComment string,
-	uppercase string,
-	definition DefinitionLike,
-) RuleLike {
+func (c *parameterizedClass_) Make(parameters ParametersLike) ParameterizedLike {
 	// Validate the arguments.
 	switch {
-	case col.IsUndefined(uppercase):
-		panic("The uppercase attribute is required by this class.")
-	case col.IsUndefined(definition):
-		panic("The definition attribute is required by this class.")
+	case col.IsUndefined(parameters):
+		panic("The parameters attribute is required by this class.")
 	default:
-		return &rule_{
+		return &parameterized_{
 			// Initialize instance attributes.
 			class_: c,
-			optionalComment_: optionalComment,
-			uppercase_: uppercase,
-			definition_: definition,
+			parameters_: parameters,
 		}
 	}
 }
@@ -66,30 +58,20 @@ func (c *ruleClass_) Make(
 
 // Target
 
-type rule_ struct {
+type parameterized_ struct {
 	// Define instance attributes.
-	class_ RuleClassLike
-	optionalComment_ string
-	uppercase_ string
-	definition_ DefinitionLike
+	class_ ParameterizedClassLike
+	parameters_ ParametersLike
 }
 
 // Attributes
 
-func (v *rule_) GetClass() RuleClassLike {
+func (v *parameterized_) GetClass() ParameterizedClassLike {
 	return v.class_
 }
 
-func (v *rule_) GetOptionalComment() string {
-	return v.optionalComment_
-}
-
-func (v *rule_) GetUppercase() string {
-	return v.uppercase_
-}
-
-func (v *rule_) GetDefinition() DefinitionLike {
-	return v.definition_
+func (v *parameterized_) GetParameters() ParametersLike {
+	return v.parameters_
 }
 
 // Private

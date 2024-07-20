@@ -12,7 +12,9 @@
 
 package ast
 
-import ()
+import (
+	col "github.com/craterdog/go-collection-framework/v4"
+)
 
 // CLASS ACCESS
 
@@ -39,9 +41,16 @@ type additionalClass_ struct {
 // Constructors
 
 func (c *additionalClass_) Make(component ComponentLike) AdditionalLike {
-	return &additional_{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	case col.IsUndefined(component):
+		panic("The component attribute is required by this class.")
+	default:
+		return &additional_{
+			// Initialize instance attributes.
+			class_: c,
+			component_: component,
+		}
 	}
 }
 

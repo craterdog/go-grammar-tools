@@ -13,7 +13,8 @@
 package ast
 
 import (
-	col "github.com/craterdog/go-collection-framework/v4/collection"
+	abs "github.com/craterdog/go-collection-framework/v4/collection"
+	col "github.com/craterdog/go-collection-framework/v4"
 )
 
 // CLASS ACCESS
@@ -40,10 +41,23 @@ type attributesClass_ struct {
 
 // Constructors
 
-func (c *attributesClass_) Make(attributes col.ListLike[AttributeLike]) AttributesLike {
-	return &attributes_{
-		// Initialize instance attributes.
-		class_: c,
+func (c *attributesClass_) Make(
+	note string,
+	attributes abs.Sequential[AttributeLike],
+) AttributesLike {
+	// Validate the arguments.
+	switch {
+	case col.IsUndefined(note):
+		panic("The note attribute is required by this class.")
+	case col.IsUndefined(attributes):
+		panic("The attributes attribute is required by this class.")
+	default:
+		return &attributes_{
+			// Initialize instance attributes.
+			class_: c,
+			note_: note,
+			attributes_: attributes,
+		}
 	}
 }
 
@@ -54,7 +68,8 @@ func (c *attributesClass_) Make(attributes col.ListLike[AttributeLike]) Attribut
 type attributes_ struct {
 	// Define instance attributes.
 	class_ AttributesClassLike
-	attributes_ col.ListLike[AttributeLike]
+	note_ string
+	attributes_ abs.Sequential[AttributeLike]
 }
 
 // Attributes
@@ -63,7 +78,11 @@ func (v *attributes_) GetClass() AttributesClassLike {
 	return v.class_
 }
 
-func (v *attributes_) GetAttributes() col.ListLike[AttributeLike] {
+func (v *attributes_) GetNote() string {
+	return v.note_
+}
+
+func (v *attributes_) GetAttributes() abs.Sequential[AttributeLike] {
 	return v.attributes_
 }
 

@@ -12,7 +12,9 @@
 
 package ast
 
-import ()
+import (
+	col "github.com/craterdog/go-collection-framework/v4"
+)
 
 // CLASS ACCESS
 
@@ -40,13 +42,25 @@ type classClass_ struct {
 
 func (c *classClass_) Make(
 	declaration DeclarationLike,
-	constants ConstantsLike,
 	constructors ConstructorsLike,
-	functions FunctionsLike,
+	optionalConstants ConstantsLike,
+	optionalFunctions FunctionsLike,
 ) ClassLike {
-	return &class_{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	case col.IsUndefined(declaration):
+		panic("The declaration attribute is required by this class.")
+	case col.IsUndefined(constructors):
+		panic("The constructors attribute is required by this class.")
+	default:
+		return &class_{
+			// Initialize instance attributes.
+			class_: c,
+			declaration_: declaration,
+			constructors_: constructors,
+			optionalConstants_: optionalConstants,
+			optionalFunctions_: optionalFunctions,
+		}
 	}
 }
 
@@ -58,9 +72,9 @@ type class_ struct {
 	// Define instance attributes.
 	class_ ClassClassLike
 	declaration_ DeclarationLike
-	constants_ ConstantsLike
 	constructors_ ConstructorsLike
-	functions_ FunctionsLike
+	optionalConstants_ ConstantsLike
+	optionalFunctions_ FunctionsLike
 }
 
 // Attributes
@@ -73,16 +87,16 @@ func (v *class_) GetDeclaration() DeclarationLike {
 	return v.declaration_
 }
 
-func (v *class_) GetConstants() ConstantsLike {
-	return v.constants_
-}
-
 func (v *class_) GetConstructors() ConstructorsLike {
 	return v.constructors_
 }
 
-func (v *class_) GetFunctions() FunctionsLike {
-	return v.functions_
+func (v *class_) GetOptionalConstants() ConstantsLike {
+	return v.optionalConstants_
+}
+
+func (v *class_) GetOptionalFunctions() FunctionsLike {
+	return v.optionalFunctions_
 }
 
 // Private

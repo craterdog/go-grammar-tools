@@ -12,7 +12,9 @@
 
 package ast
 
-import ()
+import (
+	col "github.com/craterdog/go-collection-framework/v4"
+)
 
 // CLASS ACCESS
 
@@ -41,11 +43,22 @@ type typeClass_ struct {
 func (c *typeClass_) Make(
 	declaration DeclarationLike,
 	abstraction AbstractionLike,
-	enumeration EnumerationLike,
+	optionalEnumeration EnumerationLike,
 ) TypeLike {
-	return &type_{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	case col.IsUndefined(declaration):
+		panic("The declaration attribute is required by this class.")
+	case col.IsUndefined(abstraction):
+		panic("The abstraction attribute is required by this class.")
+	default:
+		return &type_{
+			// Initialize instance attributes.
+			class_: c,
+			declaration_: declaration,
+			abstraction_: abstraction,
+			optionalEnumeration_: optionalEnumeration,
+		}
 	}
 }
 
@@ -58,7 +71,7 @@ type type_ struct {
 	class_ TypeClassLike
 	declaration_ DeclarationLike
 	abstraction_ AbstractionLike
-	enumeration_ EnumerationLike
+	optionalEnumeration_ EnumerationLike
 }
 
 // Attributes
@@ -75,8 +88,8 @@ func (v *type_) GetAbstraction() AbstractionLike {
 	return v.abstraction_
 }
 
-func (v *type_) GetEnumeration() EnumerationLike {
-	return v.enumeration_
+func (v *type_) GetOptionalEnumeration() EnumerationLike {
+	return v.optionalEnumeration_
 }
 
 // Private

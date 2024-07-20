@@ -12,7 +12,9 @@
 
 package ast
 
-import ()
+import (
+	col "github.com/craterdog/go-collection-framework/v4"
+)
 
 // CLASS ACCESS
 
@@ -39,13 +41,22 @@ type methodClass_ struct {
 // Constructors
 
 func (c *methodClass_) Make(
-	identifier string,
-	parameters ParametersLike,
-	result ResultLike,
+	name string,
+	optionalParameters ParametersLike,
+	optionalResult ResultLike,
 ) MethodLike {
-	return &method_{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	case col.IsUndefined(name):
+		panic("The name attribute is required by this class.")
+	default:
+		return &method_{
+			// Initialize instance attributes.
+			class_: c,
+			name_: name,
+			optionalParameters_: optionalParameters,
+			optionalResult_: optionalResult,
+		}
 	}
 }
 
@@ -56,9 +67,9 @@ func (c *methodClass_) Make(
 type method_ struct {
 	// Define instance attributes.
 	class_ MethodClassLike
-	identifier_ string
-	parameters_ ParametersLike
-	result_ ResultLike
+	name_ string
+	optionalParameters_ ParametersLike
+	optionalResult_ ResultLike
 }
 
 // Attributes
@@ -67,16 +78,16 @@ func (v *method_) GetClass() MethodClassLike {
 	return v.class_
 }
 
-func (v *method_) GetIdentifier() string {
-	return v.identifier_
+func (v *method_) GetName() string {
+	return v.name_
 }
 
-func (v *method_) GetParameters() ParametersLike {
-	return v.parameters_
+func (v *method_) GetOptionalParameters() ParametersLike {
+	return v.optionalParameters_
 }
 
-func (v *method_) GetResult() ResultLike {
-	return v.result_
+func (v *method_) GetOptionalResult() ResultLike {
+	return v.optionalResult_
 }
 
 // Private

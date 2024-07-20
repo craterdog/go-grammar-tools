@@ -12,7 +12,9 @@
 
 package ast
 
-import ()
+import (
+	col "github.com/craterdog/go-collection-framework/v4"
+)
 
 // CLASS ACCESS
 
@@ -39,13 +41,22 @@ type attributeClass_ struct {
 // Constructors
 
 func (c *attributeClass_) Make(
-	identifier string,
-	parameter ParameterLike,
-	abstraction AbstractionLike,
+	name string,
+	optionalParameter ParameterLike,
+	optionalAbstraction AbstractionLike,
 ) AttributeLike {
-	return &attribute_{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	case col.IsUndefined(name):
+		panic("The name attribute is required by this class.")
+	default:
+		return &attribute_{
+			// Initialize instance attributes.
+			class_: c,
+			name_: name,
+			optionalParameter_: optionalParameter,
+			optionalAbstraction_: optionalAbstraction,
+		}
 	}
 }
 
@@ -56,9 +67,9 @@ func (c *attributeClass_) Make(
 type attribute_ struct {
 	// Define instance attributes.
 	class_ AttributeClassLike
-	identifier_ string
-	parameter_ ParameterLike
-	abstraction_ AbstractionLike
+	name_ string
+	optionalParameter_ ParameterLike
+	optionalAbstraction_ AbstractionLike
 }
 
 // Attributes
@@ -67,16 +78,16 @@ func (v *attribute_) GetClass() AttributeClassLike {
 	return v.class_
 }
 
-func (v *attribute_) GetIdentifier() string {
-	return v.identifier_
+func (v *attribute_) GetName() string {
+	return v.name_
 }
 
-func (v *attribute_) GetParameter() ParameterLike {
-	return v.parameter_
+func (v *attribute_) GetOptionalParameter() ParameterLike {
+	return v.optionalParameter_
 }
 
-func (v *attribute_) GetAbstraction() AbstractionLike {
-	return v.abstraction_
+func (v *attribute_) GetOptionalAbstraction() AbstractionLike {
+	return v.optionalAbstraction_
 }
 
 // Private

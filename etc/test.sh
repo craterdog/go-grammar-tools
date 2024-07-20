@@ -41,10 +41,10 @@ echo "Generating the AST and agent packages:"
 for file in `ls $input`; do
 	syntax=${file%?cdsn}
 	echo "    $syntax"
-	bin/generate $module/$syntax $output/$syntax
+	bin/generate $module/$syntax $module/$syntax/wiki $output/$syntax
 done
 echo "    example"
-bin/generate $module/example $output/example
+bin/generate $module/example $module/example/wiki $output/example
 echo
 
 echo "Generating the go.mod file:"

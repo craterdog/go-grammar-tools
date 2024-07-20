@@ -12,7 +12,9 @@
 
 package ast
 
-import ()
+import (
+	col "github.com/craterdog/go-collection-framework/v4"
+)
 
 // CLASS ACCESS
 
@@ -38,10 +40,17 @@ type cardinalityClass_ struct {
 
 // Constructors
 
-func (c *cardinalityClass_) Make(any any) CardinalityLike {
-	return &cardinality_{
-		// Initialize instance attributes.
-		class_: c,
+func (c *cardinalityClass_) Make(any_ any) CardinalityLike {
+	// Validate the arguments.
+	switch {
+	case col.IsUndefined(any_):
+		panic("The any attribute is required by this class.")
+	default:
+		return &cardinality_{
+			// Initialize instance attributes.
+			class_: c,
+			any_: any_,
+		}
 	}
 }
 

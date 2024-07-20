@@ -12,36 +12,38 @@
 
 package ast
 
-import ()
-
 // CLASS ACCESS
 
 // Reference
 
-var maximumClass = &maximumClass_{
+var channelClass = &channelClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func Maximum() MaximumClassLike {
-	return maximumClass
+func Channel() ChannelClassLike {
+	return channelClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type maximumClass_ struct {
+type channelClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *maximumClass_) Make(number string) MaximumLike {
-	return &maximum_{
-		// Initialize instance attributes.
-		class_: c,
+func (c *channelClass_) Make() ChannelLike {
+	// Validate the arguments.
+	switch {
+	default:
+		return &channel_{
+			// Initialize instance attributes.
+			class_: c,
+		}
 	}
 }
 
@@ -49,20 +51,15 @@ func (c *maximumClass_) Make(number string) MaximumLike {
 
 // Target
 
-type maximum_ struct {
+type channel_ struct {
 	// Define instance attributes.
-	class_ MaximumClassLike
-	number_ string
+	class_ ChannelClassLike
 }
 
 // Attributes
 
-func (v *maximum_) GetClass() MaximumClassLike {
+func (v *channel_) GetClass() ChannelClassLike {
 	return v.class_
-}
-
-func (v *maximum_) GetNumber() string {
-	return v.number_
 }
 
 // Private

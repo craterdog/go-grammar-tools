@@ -12,7 +12,9 @@
 
 package ast
 
-import ()
+import (
+	col "github.com/craterdog/go-collection-framework/v4"
+)
 
 // CLASS ACCESS
 
@@ -39,12 +41,20 @@ type constrainedClass_ struct {
 // Constructors
 
 func (c *constrainedClass_) Make(
-	minimum MinimumLike,
-	maximum MaximumLike,
+	number string,
+	optionalLimit LimitLike,
 ) ConstrainedLike {
-	return &constrained_{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	case col.IsUndefined(number):
+		panic("The number attribute is required by this class.")
+	default:
+		return &constrained_{
+			// Initialize instance attributes.
+			class_: c,
+			number_: number,
+			optionalLimit_: optionalLimit,
+		}
 	}
 }
 
@@ -55,8 +65,8 @@ func (c *constrainedClass_) Make(
 type constrained_ struct {
 	// Define instance attributes.
 	class_ ConstrainedClassLike
-	minimum_ MinimumLike
-	maximum_ MaximumLike
+	number_ string
+	optionalLimit_ LimitLike
 }
 
 // Attributes
@@ -65,12 +75,12 @@ func (v *constrained_) GetClass() ConstrainedClassLike {
 	return v.class_
 }
 
-func (v *constrained_) GetMinimum() MinimumLike {
-	return v.minimum_
+func (v *constrained_) GetNumber() string {
+	return v.number_
 }
 
-func (v *constrained_) GetMaximum() MaximumLike {
-	return v.maximum_
+func (v *constrained_) GetOptionalLimit() LimitLike {
+	return v.optionalLimit_
 }
 
 // Private

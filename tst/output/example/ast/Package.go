@@ -11,10 +11,12 @@
 */
 
 /*
-Package "ast" provides...
+Package "ast" provides the abstract syntax tree (AST) classes for this module.
+Each AST class manages the attributes associated with the rule definition found
+in the syntax grammar with the same rule name as the class.
 
 For detailed documentation on this package refer to the wiki:
-  - <wiki>
+  - https://github.com/craterdog/example/example/wiki
 
 This package follows the Crater Dog Technologies™ Go Coding Conventions located
 here:
@@ -22,13 +24,13 @@ here:
 
 Additional concrete implementations of the classes defined by this package can
 be developed and used seamlessly since the interface definitions only depend on
-other interfaces and primitive types—and the class implementations only depend
+other interfaces and intrinsic types—and the class implementations only depend
 on interfaces, not on each other.
 */
 package ast
 
 import (
-	col "github.com/craterdog/go-collection-framework/v4/collection"
+	abs "github.com/craterdog/go-collection-framework/v4/collection"
 )
 
 // Classes
@@ -50,7 +52,7 @@ concrete component-like class.
 */
 type ComponentClassLike interface {
 	// Constructors
-	Make(any any) ComponentLike
+	Make(any_ any) ComponentLike
 }
 
 /*
@@ -64,6 +66,16 @@ type DocumentClassLike interface {
 }
 
 /*
+IntrinsicClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete intrinsic-like class.
+*/
+type IntrinsicClassLike interface {
+	// Constructors
+	Make(any_ any) IntrinsicLike
+}
+
+/*
 ListClassLike is a class interface that defines the complete set of
 class constants, constructors and functions that must be supported by each
 concrete list-like class.
@@ -72,18 +84,8 @@ type ListClassLike interface {
 	// Constructors
 	Make(
 		component ComponentLike,
-		additionals col.ListLike[AdditionalLike],
+		additionals abs.Sequential[AdditionalLike],
 	) ListLike
-}
-
-/*
-PrimitiveClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete primitive-like class.
-*/
-type PrimitiveClassLike interface {
-	// Constructors
-	Make(any any) PrimitiveLike
 }
 
 // Instances
@@ -122,6 +124,17 @@ type DocumentLike interface {
 }
 
 /*
+IntrinsicLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete intrinsic-like class.
+*/
+type IntrinsicLike interface {
+	// Attributes
+	GetClass() IntrinsicClassLike
+	GetAny() any
+}
+
+/*
 ListLike is an instance interface that defines the complete set of
 instance attributes, abstractions and methods that must be supported by each
 instance of a concrete list-like class.
@@ -130,16 +143,5 @@ type ListLike interface {
 	// Attributes
 	GetClass() ListClassLike
 	GetComponent() ComponentLike
-	GetAdditionals() col.ListLike[AdditionalLike]
-}
-
-/*
-PrimitiveLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete primitive-like class.
-*/
-type PrimitiveLike interface {
-	// Attributes
-	GetClass() PrimitiveClassLike
-	GetAny() any
+	GetAdditionals() abs.Sequential[AdditionalLike]
 }

@@ -12,7 +12,9 @@
 
 package ast
 
-import ()
+import (
+	col "github.com/craterdog/go-collection-framework/v4"
+)
 
 // CLASS ACCESS
 
@@ -41,12 +43,24 @@ type instanceClass_ struct {
 func (c *instanceClass_) Make(
 	declaration DeclarationLike,
 	attributes AttributesLike,
-	abstractions AbstractionsLike,
-	methods MethodsLike,
+	optionalAbstractions AbstractionsLike,
+	optionalMethods MethodsLike,
 ) InstanceLike {
-	return &instance_{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	case col.IsUndefined(declaration):
+		panic("The declaration attribute is required by this class.")
+	case col.IsUndefined(attributes):
+		panic("The attributes attribute is required by this class.")
+	default:
+		return &instance_{
+			// Initialize instance attributes.
+			class_: c,
+			declaration_: declaration,
+			attributes_: attributes,
+			optionalAbstractions_: optionalAbstractions,
+			optionalMethods_: optionalMethods,
+		}
 	}
 }
 
@@ -59,8 +73,8 @@ type instance_ struct {
 	class_ InstanceClassLike
 	declaration_ DeclarationLike
 	attributes_ AttributesLike
-	abstractions_ AbstractionsLike
-	methods_ MethodsLike
+	optionalAbstractions_ AbstractionsLike
+	optionalMethods_ MethodsLike
 }
 
 // Attributes
@@ -77,12 +91,12 @@ func (v *instance_) GetAttributes() AttributesLike {
 	return v.attributes_
 }
 
-func (v *instance_) GetAbstractions() AbstractionsLike {
-	return v.abstractions_
+func (v *instance_) GetOptionalAbstractions() AbstractionsLike {
+	return v.optionalAbstractions_
 }
 
-func (v *instance_) GetMethods() MethodsLike {
-	return v.methods_
+func (v *instance_) GetOptionalMethods() MethodsLike {
+	return v.optionalMethods_
 }
 
 // Private

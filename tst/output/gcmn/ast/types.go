@@ -13,7 +13,8 @@
 package ast
 
 import (
-	col "github.com/craterdog/go-collection-framework/v4/collection"
+	abs "github.com/craterdog/go-collection-framework/v4/collection"
+	col "github.com/craterdog/go-collection-framework/v4"
 )
 
 // CLASS ACCESS
@@ -40,10 +41,23 @@ type typesClass_ struct {
 
 // Constructors
 
-func (c *typesClass_) Make(types col.ListLike[TypeLike]) TypesLike {
-	return &types_{
-		// Initialize instance attributes.
-		class_: c,
+func (c *typesClass_) Make(
+	note string,
+	types abs.Sequential[TypeLike],
+) TypesLike {
+	// Validate the arguments.
+	switch {
+	case col.IsUndefined(note):
+		panic("The note attribute is required by this class.")
+	case col.IsUndefined(types):
+		panic("The types attribute is required by this class.")
+	default:
+		return &types_{
+			// Initialize instance attributes.
+			class_: c,
+			note_: note,
+			types_: types,
+		}
 	}
 }
 
@@ -54,7 +68,8 @@ func (c *typesClass_) Make(types col.ListLike[TypeLike]) TypesLike {
 type types_ struct {
 	// Define instance attributes.
 	class_ TypesClassLike
-	types_ col.ListLike[TypeLike]
+	note_ string
+	types_ abs.Sequential[TypeLike]
 }
 
 // Attributes
@@ -63,7 +78,11 @@ func (v *types_) GetClass() TypesClassLike {
 	return v.class_
 }
 
-func (v *types_) GetTypes() col.ListLike[TypeLike] {
+func (v *types_) GetNote() string {
+	return v.note_
+}
+
+func (v *types_) GetTypes() abs.Sequential[TypeLike] {
 	return v.types_
 }
 

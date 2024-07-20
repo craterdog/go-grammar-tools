@@ -12,7 +12,9 @@
 
 package ast
 
-import ()
+import (
+	col "github.com/craterdog/go-collection-framework/v4"
+)
 
 // CLASS ACCESS
 
@@ -39,12 +41,20 @@ type boundedClass_ struct {
 // Constructors
 
 func (c *boundedClass_) Make(
-	initial InitialLike,
-	extent ExtentLike,
+	rune_ string,
+	optionalExtent ExtentLike,
 ) BoundedLike {
-	return &bounded_{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	case col.IsUndefined(rune_):
+		panic("The rune attribute is required by this class.")
+	default:
+		return &bounded_{
+			// Initialize instance attributes.
+			class_: c,
+			rune_: rune_,
+			optionalExtent_: optionalExtent,
+		}
 	}
 }
 
@@ -55,8 +65,8 @@ func (c *boundedClass_) Make(
 type bounded_ struct {
 	// Define instance attributes.
 	class_ BoundedClassLike
-	initial_ InitialLike
-	extent_ ExtentLike
+	rune_ string
+	optionalExtent_ ExtentLike
 }
 
 // Attributes
@@ -65,12 +75,12 @@ func (v *bounded_) GetClass() BoundedClassLike {
 	return v.class_
 }
 
-func (v *bounded_) GetInitial() InitialLike {
-	return v.initial_
+func (v *bounded_) GetRune() string {
+	return v.rune_
 }
 
-func (v *bounded_) GetExtent() ExtentLike {
-	return v.extent_
+func (v *bounded_) GetOptionalExtent() ExtentLike {
+	return v.optionalExtent_
 }
 
 // Private

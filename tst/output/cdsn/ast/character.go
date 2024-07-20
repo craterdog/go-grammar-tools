@@ -12,7 +12,9 @@
 
 package ast
 
-import ()
+import (
+	col "github.com/craterdog/go-collection-framework/v4"
+)
 
 // CLASS ACCESS
 
@@ -38,10 +40,17 @@ type characterClass_ struct {
 
 // Constructors
 
-func (c *characterClass_) Make(any any) CharacterLike {
-	return &character_{
-		// Initialize instance attributes.
-		class_: c,
+func (c *characterClass_) Make(any_ any) CharacterLike {
+	// Validate the arguments.
+	switch {
+	case col.IsUndefined(any_):
+		panic("The any attribute is required by this class.")
+	default:
+		return &character_{
+			// Initialize instance attributes.
+			class_: c,
+			any_: any_,
+		}
 	}
 }
 

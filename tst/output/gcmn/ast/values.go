@@ -13,6 +13,7 @@
 package ast
 
 import (
+	abs "github.com/craterdog/go-collection-framework/v4/collection"
 	col "github.com/craterdog/go-collection-framework/v4"
 )
 
@@ -20,44 +21,42 @@ import (
 
 // Reference
 
-var ruleClass = &ruleClass_{
+var valuesClass = &valuesClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func Rule() RuleClassLike {
-	return ruleClass
+func Values() ValuesClassLike {
+	return valuesClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type ruleClass_ struct {
+type valuesClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *ruleClass_) Make(
-	optionalComment string,
-	uppercase string,
-	definition DefinitionLike,
-) RuleLike {
+func (c *valuesClass_) Make(
+	value ValueLike,
+	additionalValues abs.Sequential[AdditionalValueLike],
+) ValuesLike {
 	// Validate the arguments.
 	switch {
-	case col.IsUndefined(uppercase):
-		panic("The uppercase attribute is required by this class.")
-	case col.IsUndefined(definition):
-		panic("The definition attribute is required by this class.")
+	case col.IsUndefined(value):
+		panic("The value attribute is required by this class.")
+	case col.IsUndefined(additionalValues):
+		panic("The additionalValues attribute is required by this class.")
 	default:
-		return &rule_{
+		return &values_{
 			// Initialize instance attributes.
 			class_: c,
-			optionalComment_: optionalComment,
-			uppercase_: uppercase,
-			definition_: definition,
+			value_: value,
+			additionalValues_: additionalValues,
 		}
 	}
 }
@@ -66,30 +65,25 @@ func (c *ruleClass_) Make(
 
 // Target
 
-type rule_ struct {
+type values_ struct {
 	// Define instance attributes.
-	class_ RuleClassLike
-	optionalComment_ string
-	uppercase_ string
-	definition_ DefinitionLike
+	class_ ValuesClassLike
+	value_ ValueLike
+	additionalValues_ abs.Sequential[AdditionalValueLike]
 }
 
 // Attributes
 
-func (v *rule_) GetClass() RuleClassLike {
+func (v *values_) GetClass() ValuesClassLike {
 	return v.class_
 }
 
-func (v *rule_) GetOptionalComment() string {
-	return v.optionalComment_
+func (v *values_) GetValue() ValueLike {
+	return v.value_
 }
 
-func (v *rule_) GetUppercase() string {
-	return v.uppercase_
-}
-
-func (v *rule_) GetDefinition() DefinitionLike {
-	return v.definition_
+func (v *values_) GetAdditionalValues() abs.Sequential[AdditionalValueLike] {
+	return v.additionalValues_
 }
 
 // Private

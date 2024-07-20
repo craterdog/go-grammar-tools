@@ -12,7 +12,9 @@
 
 package ast
 
-import ()
+import (
+	col "github.com/craterdog/go-collection-framework/v4"
+)
 
 // CLASS ACCESS
 
@@ -39,12 +41,22 @@ type constantClass_ struct {
 // Constructors
 
 func (c *constantClass_) Make(
-	identifier string,
+	name string,
 	abstraction AbstractionLike,
 ) ConstantLike {
-	return &constant_{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	case col.IsUndefined(name):
+		panic("The name attribute is required by this class.")
+	case col.IsUndefined(abstraction):
+		panic("The abstraction attribute is required by this class.")
+	default:
+		return &constant_{
+			// Initialize instance attributes.
+			class_: c,
+			name_: name,
+			abstraction_: abstraction,
+		}
 	}
 }
 
@@ -55,7 +67,7 @@ func (c *constantClass_) Make(
 type constant_ struct {
 	// Define instance attributes.
 	class_ ConstantClassLike
-	identifier_ string
+	name_ string
 	abstraction_ AbstractionLike
 }
 
@@ -65,8 +77,8 @@ func (v *constant_) GetClass() ConstantClassLike {
 	return v.class_
 }
 
-func (v *constant_) GetIdentifier() string {
-	return v.identifier_
+func (v *constant_) GetName() string {
+	return v.name_
 }
 
 func (v *constant_) GetAbstraction() AbstractionLike {

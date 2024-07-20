@@ -10,41 +10,41 @@
 ................................................................................
 */
 
-package agent
+package grammar
 
 import (
-	fmt "fmt"
 	ast "github.com/craterdog/example/example/ast"
+	sts "strings"
 )
 
 // CLASS ACCESS
 
 // Reference
 
-var validatorClass = &validatorClass_{
+var formatterClass = &formatterClass_{
 	// Initialize the class constants.
 }
 
 // Function
 
-func Validator() ValidatorClassLike {
-	return validatorClass
+func Formatter() FormatterClassLike {
+	return formatterClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type validatorClass_ struct {
+type formatterClass_ struct {
 	// Define the class constants.
 }
 
 // Constructors
 
-func (c *validatorClass_) Make() ValidatorLike {
-	return &validator_{
+func (c *formatterClass_) Make() FormatterLike {
+	return &formatter_{
 		// Initialize the instance attributes.
-		class_: c,
+		class_:   c,
 	}
 }
 
@@ -52,40 +52,56 @@ func (c *validatorClass_) Make() ValidatorLike {
 
 // Target
 
-type validator_ struct {
+type formatter_ struct {
 	// Define the instance attributes.
-	class_    ValidatorClassLike
+	class_   FormatterClassLike
+	depth_   uint
+	result_  sts.Builder
 }
 
 // Attributes
 
-func (v *validator_) GetClass() ValidatorClassLike {
+func (v *formatter_) GetClass() FormatterClassLike {
 	return v.class_
+}
+
+func (v *formatter_) GetDepth() uint {
+	return v.depth_
 }
 
 // Public
 
-func (v *validator_) ValidateDocument(document ast.DocumentLike) {
-	// TBA - Add a real method implementation.
-	var name = "foobar"
-	if !v.matchesToken(ErrorToken, name) {
-		var message = v.formatError(name, "Oops!")
-		panic(message)
-	}
+func (v *formatter_) FormatDocument(document ast.DocumentLike) string {
+	v.formatDocument(document)
+	return v.getResult()
 }
 
 // Private
 
-func (v *validator_) formatError(name, message string) string {
-	message = fmt.Sprintf(
-		"The definition for %v is invalid:\n%v\n",
-		name,
-		message,
-	)
-	return message
+func (v *formatter_) appendNewline() {
+	var newline = "\n"
+	var indentation = "\t"
+	var level uint
+	for ; level < v.depth_; level++ {
+		newline += indentation
+	}
+	v.appendString(newline)
 }
 
-func (v *validator_) matchesToken(type_ TokenType, value string) bool {
-	var matches = Scanner().MatchToken(type_, value)
-	return !matches.IsEmpty()
+func (v *formatter_) appendString(s string) {
+	v.result_.WriteString(s)
+}
+
+func (v *formatter_) formatDocument(document ast.DocumentLike) {
+	// TBA - Add real method implementation.
+	v.depth_++
+	v.appendString("test")
+	v.appendNewline()
+	v.depth_--
+}
+
+func (v *formatter_) getResult() string {
+	var result = v.result_.String()
+	v.result_.Reset()
+	return result
 }

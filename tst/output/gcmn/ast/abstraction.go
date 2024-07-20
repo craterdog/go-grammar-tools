@@ -12,7 +12,9 @@
 
 package ast
 
-import ()
+import (
+	col "github.com/craterdog/go-collection-framework/v4"
+)
 
 // CLASS ACCESS
 
@@ -39,13 +41,24 @@ type abstractionClass_ struct {
 // Constructors
 
 func (c *abstractionClass_) Make(
-	prefix PrefixLike,
-	identifier string,
-	genericArguments GenericArgumentsLike,
+	optionalPrefix PrefixLike,
+	optionalAlias AliasLike,
+	name string,
+	optionalGenericArguments GenericArgumentsLike,
 ) AbstractionLike {
-	return &abstraction_{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	case col.IsUndefined(name):
+		panic("The name attribute is required by this class.")
+	default:
+		return &abstraction_{
+			// Initialize instance attributes.
+			class_: c,
+			optionalPrefix_: optionalPrefix,
+			optionalAlias_: optionalAlias,
+			name_: name,
+			optionalGenericArguments_: optionalGenericArguments,
+		}
 	}
 }
 
@@ -56,9 +69,10 @@ func (c *abstractionClass_) Make(
 type abstraction_ struct {
 	// Define instance attributes.
 	class_ AbstractionClassLike
-	prefix_ PrefixLike
-	identifier_ string
-	genericArguments_ GenericArgumentsLike
+	optionalPrefix_ PrefixLike
+	optionalAlias_ AliasLike
+	name_ string
+	optionalGenericArguments_ GenericArgumentsLike
 }
 
 // Attributes
@@ -67,16 +81,20 @@ func (v *abstraction_) GetClass() AbstractionClassLike {
 	return v.class_
 }
 
-func (v *abstraction_) GetPrefix() PrefixLike {
-	return v.prefix_
+func (v *abstraction_) GetOptionalPrefix() PrefixLike {
+	return v.optionalPrefix_
 }
 
-func (v *abstraction_) GetIdentifier() string {
-	return v.identifier_
+func (v *abstraction_) GetOptionalAlias() AliasLike {
+	return v.optionalAlias_
 }
 
-func (v *abstraction_) GetGenericArguments() GenericArgumentsLike {
-	return v.genericArguments_
+func (v *abstraction_) GetName() string {
+	return v.name_
+}
+
+func (v *abstraction_) GetOptionalGenericArguments() GenericArgumentsLike {
+	return v.optionalGenericArguments_
 }
 
 // Private

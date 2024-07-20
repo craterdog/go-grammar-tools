@@ -10,41 +10,45 @@
 ................................................................................
 */
 
-package agent
-
-import (
-	fmt "fmt"
-	ast "github.com/craterdog/example/gcmn/ast"
-)
+package grammar
 
 // CLASS ACCESS
 
 // Reference
 
-var validatorClass = &validatorClass_{
+var tokenClass = &tokenClass_{
 	// Initialize the class constants.
 }
 
 // Function
 
-func Validator() ValidatorClassLike {
-	return validatorClass
+func Token() TokenClassLike {
+	return tokenClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type validatorClass_ struct {
+type tokenClass_ struct {
 	// Define the class constants.
 }
 
 // Constructors
 
-func (c *validatorClass_) Make() ValidatorLike {
-	return &validator_{
+func (c *tokenClass_) Make(
+	line int,
+	position int,
+	type_ TokenType,
+	value string,
+) TokenLike {
+	return &token_{
 		// Initialize the instance attributes.
-		class_: c,
+		class_:    c,
+		line_:     line,
+		position_: position,
+		type_:     type_,
+		value_:    value,
 	}
 }
 
@@ -52,40 +56,33 @@ func (c *validatorClass_) Make() ValidatorLike {
 
 // Target
 
-type validator_ struct {
+type token_ struct {
 	// Define the instance attributes.
-	class_    ValidatorClassLike
+	class_    TokenClassLike
+	line_     int
+	position_ int
+	type_     TokenType
+	value_    string
 }
 
 // Attributes
 
-func (v *validator_) GetClass() ValidatorClassLike {
+func (v *token_) GetClass() TokenClassLike {
 	return v.class_
 }
 
-// Public
-
-func (v *validator_) ValidateModel(model ast.ModelLike) {
-	// TBA - Add a real method implementation.
-	var name = "foobar"
-	if !v.matchesToken(ErrorToken, name) {
-		var message = v.formatError(name, "Oops!")
-		panic(message)
-	}
+func (v *token_) GetLine() int {
+	return v.line_
 }
 
-// Private
-
-func (v *validator_) formatError(name, message string) string {
-	message = fmt.Sprintf(
-		"The definition for %v is invalid:\n%v\n",
-		name,
-		message,
-	)
-	return message
+func (v *token_) GetPosition() int {
+	return v.position_
 }
 
-func (v *validator_) matchesToken(type_ TokenType, value string) bool {
-	var matches = Scanner().MatchToken(type_, value)
-	return !matches.IsEmpty()
+func (v *token_) GetType() TokenType {
+	return v.type_
+}
+
+func (v *token_) GetValue() string {
+	return v.value_
 }

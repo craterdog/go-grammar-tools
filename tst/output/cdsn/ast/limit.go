@@ -12,52 +12,38 @@
 
 package ast
 
-import (
-	col "github.com/craterdog/go-collection-framework/v4"
-)
-
 // CLASS ACCESS
 
 // Reference
 
-var ruleClass = &ruleClass_{
+var limitClass = &limitClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func Rule() RuleClassLike {
-	return ruleClass
+func Limit() LimitClassLike {
+	return limitClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type ruleClass_ struct {
+type limitClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *ruleClass_) Make(
-	optionalComment string,
-	uppercase string,
-	definition DefinitionLike,
-) RuleLike {
+func (c *limitClass_) Make(optionalNumber string) LimitLike {
 	// Validate the arguments.
 	switch {
-	case col.IsUndefined(uppercase):
-		panic("The uppercase attribute is required by this class.")
-	case col.IsUndefined(definition):
-		panic("The definition attribute is required by this class.")
 	default:
-		return &rule_{
+		return &limit_{
 			// Initialize instance attributes.
 			class_: c,
-			optionalComment_: optionalComment,
-			uppercase_: uppercase,
-			definition_: definition,
+			optionalNumber_: optionalNumber,
 		}
 	}
 }
@@ -66,30 +52,20 @@ func (c *ruleClass_) Make(
 
 // Target
 
-type rule_ struct {
+type limit_ struct {
 	// Define instance attributes.
-	class_ RuleClassLike
-	optionalComment_ string
-	uppercase_ string
-	definition_ DefinitionLike
+	class_ LimitClassLike
+	optionalNumber_ string
 }
 
 // Attributes
 
-func (v *rule_) GetClass() RuleClassLike {
+func (v *limit_) GetClass() LimitClassLike {
 	return v.class_
 }
 
-func (v *rule_) GetOptionalComment() string {
-	return v.optionalComment_
-}
-
-func (v *rule_) GetUppercase() string {
-	return v.uppercase_
-}
-
-func (v *rule_) GetDefinition() DefinitionLike {
-	return v.definition_
+func (v *limit_) GetOptionalNumber() string {
+	return v.optionalNumber_
 }
 
 // Private

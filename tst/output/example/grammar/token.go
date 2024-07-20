@@ -1,6 +1,6 @@
 /*
 ................................................................................
-.    Copyright (c) 2009-2024 Crater Dog Technologies.  All Rights Reserved.    .
+.                   Copyright (c) 2024.  All Rights Reserved.                  .
 ................................................................................
 .  DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.               .
 .                                                                              .
@@ -10,7 +10,7 @@
 ................................................................................
 */
 
-package agent
+package grammar
 
 // CLASS ACCESS
 

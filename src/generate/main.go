@@ -21,7 +21,7 @@ import (
 )
 
 func main() {
-	var module, directory = retrieveArguments()
+	var module, wiki, directory = retrieveArguments()
 	var syntaxFile = directory + "Syntax.cdsn"
 	if !pathExists(syntaxFile) {
 		fmt.Printf(
@@ -33,48 +33,50 @@ func main() {
 	var syntax = parseSyntax(directory)
 	validateSyntax(syntax)
 	if !pathExists(directory + "ast") {
-		var astModel = generateAST(module, directory, syntax)
+		var astModel = generateAst(module, wiki, directory, syntax)
 		validateModel(astModel)
 		generateClasses(module, directory, astModel)
 	}
-	if !pathExists(directory + "agent") {
-		var agentModel = generateAgent(module, directory, syntax)
-		validateModel(agentModel)
-		generateFormatter(module, directory, syntax, agentModel)
-		generateParser(module, directory, syntax, agentModel)
-		generateScanner(module, directory, syntax, agentModel)
-		generateToken(module, directory, syntax, agentModel)
-		generateValidator(module, directory, syntax, agentModel)
+	if !pathExists(directory + "grammar") {
+		var grammarModel = generateGrammar(module, wiki, directory, syntax)
+		validateModel(grammarModel)
+		generateFormatter(module, wiki, directory, syntax)
+		generateParser(module, wiki, directory, syntax)
+		generateScanner(module, wiki, directory, syntax)
+		generateToken(module, wiki, directory, syntax)
+		generateValidator(module, wiki, directory, syntax)
 	}
 }
 
-func generateAgent(
+func generateGrammar(
 	module string,
+	wiki string,
 	directory string,
 	syntax gra.SyntaxLike,
 ) mod.ModelLike {
-	var agentDirectory = directory + "agent/"
-	var err = osx.MkdirAll(agentDirectory, 0755)
+	var grammarDirectory = directory + "grammar/"
+	var err = osx.MkdirAll(grammarDirectory, 0755)
 	if err != nil {
 		panic(err)
 	}
-	var agentFile = agentDirectory + "Package.go"
+	var grammarFile = grammarDirectory + "Package.go"
 	var generator = gra.Generator()
-	var agentModel = generator.GenerateAgent(module, syntax)
+	var grammarModel = generator.GenerateGrammar(module, wiki, syntax)
 	var validator = mod.Validator()
-	validator.ValidateModel(agentModel)
+	validator.ValidateModel(grammarModel)
 	var formatter = mod.Formatter()
-	var source = formatter.FormatModel(agentModel)
+	var source = formatter.FormatModel(grammarModel)
 	var bytes = []byte(source)
-	err = osx.WriteFile(agentFile, bytes, 0644)
+	err = osx.WriteFile(grammarFile, bytes, 0644)
 	if err != nil {
 		panic(err)
 	}
-	return agentModel
+	return grammarModel
 }
 
-func generateAST(
+func generateAst(
 	module string,
+	wiki string,
 	directory string,
 	syntax gra.SyntaxLike,
 ) mod.ModelLike {
@@ -85,7 +87,7 @@ func generateAST(
 	}
 	var astFile = astDirectory + "Package.go"
 	var generator = gra.Generator()
-	var astModel = generator.GenerateAST(module, syntax)
+	var astModel = generator.GenerateAst(module, wiki, syntax)
 	var validator = mod.Validator()
 	validator.ValidateModel(astModel)
 	var formatter = mod.Formatter()
@@ -104,11 +106,11 @@ func generateClasses(
 	astModel mod.ModelLike,
 ) {
 	var generator = mod.Generator()
-	var iterator = astModel.GetClasses().GetIterator()
+	var iterator = astModel.GetClasses().GetClasses().GetIterator()
 	for iterator.HasNext() {
 		var class = iterator.GetNext()
 		var name = sts.ToLower(sts.TrimSuffix(
-			class.GetDeclaration().GetIdentifier(),
+			class.GetDeclaration().GetName(),
 			"ClassLike",
 		))
 		var source = generator.GenerateClass(astModel, name)
@@ -123,14 +125,14 @@ func generateClasses(
 
 func generateFormatter(
 	module string,
+	wiki string,
 	directory string,
 	syntax gra.SyntaxLike,
-	agentModel mod.ModelLike,
 ) {
 	var generator = gra.Generator()
-	var source = generator.GenerateFormatter(module, syntax, agentModel)
+	var source = generator.GenerateFormatter(module, wiki, syntax)
 	var bytes = []byte(source)
-	var filename = directory + "agent/formatter.go"
+	var filename = directory + "grammar/formatter.go"
 	var err = osx.WriteFile(filename, bytes, 0644)
 	if err != nil {
 		panic(err)
@@ -139,14 +141,14 @@ func generateFormatter(
 
 func generateParser(
 	module string,
+	wiki string,
 	directory string,
 	syntax gra.SyntaxLike,
-	agentModel mod.ModelLike,
 ) {
 	var generator = gra.Generator()
-	var source = generator.GenerateParser(module, syntax, agentModel)
+	var source = generator.GenerateParser(module, wiki, syntax)
 	var bytes = []byte(source)
-	var filename = directory + "agent/parser.go"
+	var filename = directory + "grammar/parser.go"
 	var err = osx.WriteFile(filename, bytes, 0644)
 	if err != nil {
 		panic(err)
@@ -155,14 +157,14 @@ func generateParser(
 
 func generateScanner(
 	module string,
+	wiki string,
 	directory string,
 	syntax gra.SyntaxLike,
-	agentModel mod.ModelLike,
 ) {
 	var generator = gra.Generator()
-	var source = generator.GenerateScanner(module, syntax, agentModel)
+	var source = generator.GenerateScanner(module, wiki, syntax)
 	var bytes = []byte(source)
-	var filename = directory + "agent/scanner.go"
+	var filename = directory + "grammar/scanner.go"
 	var err = osx.WriteFile(filename, bytes, 0644)
 	if err != nil {
 		panic(err)
@@ -171,14 +173,14 @@ func generateScanner(
 
 func generateToken(
 	module string,
+	wiki string,
 	directory string,
 	syntax gra.SyntaxLike,
-	agentModel mod.ModelLike,
 ) {
 	var generator = gra.Generator()
-	var source = generator.GenerateToken(module, syntax, agentModel)
+	var source = generator.GenerateToken(module, wiki, syntax)
 	var bytes = []byte(source)
-	var filename = directory + "agent/token.go"
+	var filename = directory + "grammar/token.go"
 	var err = osx.WriteFile(filename, bytes, 0644)
 	if err != nil {
 		panic(err)
@@ -187,14 +189,14 @@ func generateToken(
 
 func generateValidator(
 	module string,
+	wiki string,
 	directory string,
 	syntax gra.SyntaxLike,
-	agentModel mod.ModelLike,
 ) {
 	var generator = gra.Generator()
-	var source = generator.GenerateValidator(module, syntax, agentModel)
+	var source = generator.GenerateValidator(module, wiki, syntax)
 	var bytes = []byte(source)
-	var filename = directory + "agent/validator.go"
+	var filename = directory + "grammar/validator.go"
 	var err = osx.WriteFile(filename, bytes, 0644)
 	if err != nil {
 		panic(err)
@@ -226,18 +228,20 @@ func pathExists(path string) bool {
 
 func retrieveArguments() (
 	module string,
+	wiki string,
 	directory string,
 ) {
-	if len(osx.Args) < 3 {
-		fmt.Println("Usage: generate <module> <directory>")
+	if len(osx.Args) < 4 {
+		fmt.Println("Usage: generate <module> <wiki> <directory>")
 		osx.Exit(1)
 	}
 	module = osx.Args[1]
-	directory = osx.Args[2]
+	wiki = osx.Args[2]
+	directory = osx.Args[3]
 	if !sts.HasSuffix(directory, "/") {
 		directory += "/"
 	}
-	return module, directory
+	return module, wiki, directory
 }
 
 func validateModel(model mod.ModelLike) {

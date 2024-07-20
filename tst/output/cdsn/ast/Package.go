@@ -11,10 +11,12 @@
 */
 
 /*
-Package "ast" provides...
+Package "ast" provides the abstract syntax tree (AST) classes for this module.
+Each AST class manages the attributes associated with the rule definition found
+in the syntax grammar with the same rule name as the class.
 
 For detailed documentation on this package refer to the wiki:
-  - <wiki>
+  - https://github.com/craterdog/example/cdsn/wiki
 
 This package follows the Crater Dog Technologies™ Go Coding Conventions located
 here:
@@ -22,13 +24,13 @@ here:
 
 Additional concrete implementations of the classes defined by this package can
 be developed and used seamlessly since the interface definitions only depend on
-other interfaces and primitive types—and the class implementations only depend
+other interfaces and intrinsic types—and the class implementations only depend
 on interfaces, not on each other.
 */
 package ast
 
 import (
-	col "github.com/craterdog/go-collection-framework/v4/collection"
+	abs "github.com/craterdog/go-collection-framework/v4/collection"
 )
 
 // Classes
@@ -40,7 +42,7 @@ concrete alternative-like class.
 */
 type AlternativeClassLike interface {
 	// Constructors
-	Make(parts col.ListLike[PartLike]) AlternativeLike
+	Make(parts abs.Sequential[PartLike]) AlternativeLike
 }
 
 /*
@@ -51,8 +53,8 @@ concrete bounded-like class.
 type BoundedClassLike interface {
 	// Constructors
 	Make(
-		initial InitialLike,
-		extent ExtentLike,
+		rune_ string,
+		optionalExtent ExtentLike,
 	) BoundedLike
 }
 
@@ -63,7 +65,7 @@ concrete cardinality-like class.
 */
 type CardinalityClassLike interface {
 	// Constructors
-	Make(any any) CardinalityLike
+	Make(any_ any) CardinalityLike
 }
 
 /*
@@ -73,7 +75,7 @@ concrete character-like class.
 */
 type CharacterClassLike interface {
 	// Constructors
-	Make(any any) CharacterLike
+	Make(any_ any) CharacterLike
 }
 
 /*
@@ -84,9 +86,19 @@ concrete constrained-like class.
 type ConstrainedClassLike interface {
 	// Constructors
 	Make(
-		minimum MinimumLike,
-		maximum MaximumLike,
+		number string,
+		optionalLimit LimitLike,
 	) ConstrainedLike
+}
+
+/*
+DefinitionClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete definition-like class.
+*/
+type DefinitionClassLike interface {
+	// Constructors
+	Make(any_ any) DefinitionLike
 }
 
 /*
@@ -96,7 +108,7 @@ concrete element-like class.
 */
 type ElementClassLike interface {
 	// Constructors
-	Make(any any) ElementLike
+	Make(any_ any) ElementLike
 }
 
 /*
@@ -106,7 +118,12 @@ concrete expression-like class.
 */
 type ExpressionClassLike interface {
 	// Constructors
-	Make(any any) ExpressionLike
+	Make(
+		optionalComment string,
+		lowercase string,
+		pattern PatternLike,
+		optionalNote string,
+	) ExpressionLike
 }
 
 /*
@@ -128,7 +145,7 @@ type FactorClassLike interface {
 	// Constructors
 	Make(
 		predicate PredicateLike,
-		cardinality CardinalityLike,
+		optionalCardinality CardinalityLike,
 	) FactorLike
 }
 
@@ -140,8 +157,8 @@ concrete filtered-like class.
 type FilteredClassLike interface {
 	// Constructors
 	Make(
-		negation string,
-		characters col.ListLike[CharacterLike],
+		optionalNegation string,
+		characters abs.Sequential[CharacterLike],
 	) FilteredLike
 }
 
@@ -172,17 +189,7 @@ concrete identifier-like class.
 */
 type IdentifierClassLike interface {
 	// Constructors
-	Make(any any) IdentifierLike
-}
-
-/*
-InitialClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete initial-like class.
-*/
-type InitialClassLike interface {
-	// Constructors
-	Make(rune_ string) InitialLike
+	Make(any_ any) IdentifierLike
 }
 
 /*
@@ -193,24 +200,19 @@ concrete inlined-like class.
 type InlinedClassLike interface {
 	// Constructors
 	Make(
-		factors col.ListLike[FactorLike],
-		note string,
+		factors abs.Sequential[FactorLike],
+		optionalNote string,
 	) InlinedLike
 }
 
 /*
-LexigramClassLike is a class interface that defines the complete set of
+LimitClassLike is a class interface that defines the complete set of
 class constants, constructors and functions that must be supported by each
-concrete lexigram-like class.
+concrete limit-like class.
 */
-type LexigramClassLike interface {
+type LimitClassLike interface {
 	// Constructors
-	Make(
-		comment string,
-		lowercase string,
-		pattern PatternLike,
-		note string,
-	) LexigramLike
+	Make(optionalNumber string) LimitLike
 }
 
 /*
@@ -222,28 +224,8 @@ type LineClassLike interface {
 	// Constructors
 	Make(
 		identifier IdentifierLike,
-		note string,
+		optionalNote string,
 	) LineLike
-}
-
-/*
-MaximumClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete maximum-like class.
-*/
-type MaximumClassLike interface {
-	// Constructors
-	Make(number string) MaximumLike
-}
-
-/*
-MinimumClassLike is a class interface that defines the complete set of
-class constants, constructors and functions that must be supported by each
-concrete minimum-like class.
-*/
-type MinimumClassLike interface {
-	// Constructors
-	Make(number string) MinimumLike
 }
 
 /*
@@ -253,7 +235,7 @@ concrete multilined-like class.
 */
 type MultilinedClassLike interface {
 	// Constructors
-	Make(lines col.ListLike[LineLike]) MultilinedLike
+	Make(lines abs.Sequential[LineLike]) MultilinedLike
 }
 
 /*
@@ -265,7 +247,7 @@ type PartClassLike interface {
 	// Constructors
 	Make(
 		element ElementLike,
-		cardinality CardinalityLike,
+		optionalCardinality CardinalityLike,
 	) PartLike
 }
 
@@ -277,8 +259,8 @@ concrete pattern-like class.
 type PatternClassLike interface {
 	// Constructors
 	Make(
-		parts col.ListLike[PartLike],
-		alternatives col.ListLike[AlternativeLike],
+		parts abs.Sequential[PartLike],
+		alternatives abs.Sequential[AlternativeLike],
 	) PatternLike
 }
 
@@ -289,7 +271,7 @@ concrete predicate-like class.
 */
 type PredicateClassLike interface {
 	// Constructors
-	Make(any any) PredicateLike
+	Make(any_ any) PredicateLike
 }
 
 /*
@@ -300,10 +282,20 @@ concrete rule-like class.
 type RuleClassLike interface {
 	// Constructors
 	Make(
-		comment string,
+		optionalComment string,
 		uppercase string,
-		expression ExpressionLike,
+		definition DefinitionLike,
 	) RuleLike
+}
+
+/*
+StringClassLike is a class interface that defines the complete set of
+class constants, constructors and functions that must be supported by each
+concrete string-like class.
+*/
+type StringClassLike interface {
+	// Constructors
+	Make(any_ any) StringLike
 }
 
 /*
@@ -314,9 +306,9 @@ concrete syntax-like class.
 type SyntaxClassLike interface {
 	// Constructors
 	Make(
-		headers col.ListLike[HeaderLike],
-		rules col.ListLike[RuleLike],
-		lexigrams col.ListLike[LexigramLike],
+		headers abs.Sequential[HeaderLike],
+		rules abs.Sequential[RuleLike],
+		expressions abs.Sequential[ExpressionLike],
 	) SyntaxLike
 }
 
@@ -330,7 +322,7 @@ instance of a concrete alternative-like class.
 type AlternativeLike interface {
 	// Attributes
 	GetClass() AlternativeClassLike
-	GetParts() col.ListLike[PartLike]
+	GetParts() abs.Sequential[PartLike]
 }
 
 /*
@@ -341,8 +333,8 @@ instance of a concrete bounded-like class.
 type BoundedLike interface {
 	// Attributes
 	GetClass() BoundedClassLike
-	GetInitial() InitialLike
-	GetExtent() ExtentLike
+	GetRune() string
+	GetOptionalExtent() ExtentLike
 }
 
 /*
@@ -375,8 +367,19 @@ instance of a concrete constrained-like class.
 type ConstrainedLike interface {
 	// Attributes
 	GetClass() ConstrainedClassLike
-	GetMinimum() MinimumLike
-	GetMaximum() MaximumLike
+	GetNumber() string
+	GetOptionalLimit() LimitLike
+}
+
+/*
+DefinitionLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete definition-like class.
+*/
+type DefinitionLike interface {
+	// Attributes
+	GetClass() DefinitionClassLike
+	GetAny() any
 }
 
 /*
@@ -398,7 +401,10 @@ instance of a concrete expression-like class.
 type ExpressionLike interface {
 	// Attributes
 	GetClass() ExpressionClassLike
-	GetAny() any
+	GetOptionalComment() string
+	GetLowercase() string
+	GetPattern() PatternLike
+	GetOptionalNote() string
 }
 
 /*
@@ -421,7 +427,7 @@ type FactorLike interface {
 	// Attributes
 	GetClass() FactorClassLike
 	GetPredicate() PredicateLike
-	GetCardinality() CardinalityLike
+	GetOptionalCardinality() CardinalityLike
 }
 
 /*
@@ -432,8 +438,8 @@ instance of a concrete filtered-like class.
 type FilteredLike interface {
 	// Attributes
 	GetClass() FilteredClassLike
-	GetNegation() string
-	GetCharacters() col.ListLike[CharacterLike]
+	GetOptionalNegation() string
+	GetCharacters() abs.Sequential[CharacterLike]
 }
 
 /*
@@ -470,17 +476,6 @@ type IdentifierLike interface {
 }
 
 /*
-InitialLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete initial-like class.
-*/
-type InitialLike interface {
-	// Attributes
-	GetClass() InitialClassLike
-	GetRune() string
-}
-
-/*
 InlinedLike is an instance interface that defines the complete set of
 instance attributes, abstractions and methods that must be supported by each
 instance of a concrete inlined-like class.
@@ -488,22 +483,19 @@ instance of a concrete inlined-like class.
 type InlinedLike interface {
 	// Attributes
 	GetClass() InlinedClassLike
-	GetFactors() col.ListLike[FactorLike]
-	GetNote() string
+	GetFactors() abs.Sequential[FactorLike]
+	GetOptionalNote() string
 }
 
 /*
-LexigramLike is an instance interface that defines the complete set of
+LimitLike is an instance interface that defines the complete set of
 instance attributes, abstractions and methods that must be supported by each
-instance of a concrete lexigram-like class.
+instance of a concrete limit-like class.
 */
-type LexigramLike interface {
+type LimitLike interface {
 	// Attributes
-	GetClass() LexigramClassLike
-	GetComment() string
-	GetLowercase() string
-	GetPattern() PatternLike
-	GetNote() string
+	GetClass() LimitClassLike
+	GetOptionalNumber() string
 }
 
 /*
@@ -515,29 +507,7 @@ type LineLike interface {
 	// Attributes
 	GetClass() LineClassLike
 	GetIdentifier() IdentifierLike
-	GetNote() string
-}
-
-/*
-MaximumLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete maximum-like class.
-*/
-type MaximumLike interface {
-	// Attributes
-	GetClass() MaximumClassLike
-	GetNumber() string
-}
-
-/*
-MinimumLike is an instance interface that defines the complete set of
-instance attributes, abstractions and methods that must be supported by each
-instance of a concrete minimum-like class.
-*/
-type MinimumLike interface {
-	// Attributes
-	GetClass() MinimumClassLike
-	GetNumber() string
+	GetOptionalNote() string
 }
 
 /*
@@ -548,7 +518,7 @@ instance of a concrete multilined-like class.
 type MultilinedLike interface {
 	// Attributes
 	GetClass() MultilinedClassLike
-	GetLines() col.ListLike[LineLike]
+	GetLines() abs.Sequential[LineLike]
 }
 
 /*
@@ -560,7 +530,7 @@ type PartLike interface {
 	// Attributes
 	GetClass() PartClassLike
 	GetElement() ElementLike
-	GetCardinality() CardinalityLike
+	GetOptionalCardinality() CardinalityLike
 }
 
 /*
@@ -571,8 +541,8 @@ instance of a concrete pattern-like class.
 type PatternLike interface {
 	// Attributes
 	GetClass() PatternClassLike
-	GetParts() col.ListLike[PartLike]
-	GetAlternatives() col.ListLike[AlternativeLike]
+	GetParts() abs.Sequential[PartLike]
+	GetAlternatives() abs.Sequential[AlternativeLike]
 }
 
 /*
@@ -594,9 +564,20 @@ instance of a concrete rule-like class.
 type RuleLike interface {
 	// Attributes
 	GetClass() RuleClassLike
-	GetComment() string
+	GetOptionalComment() string
 	GetUppercase() string
-	GetExpression() ExpressionLike
+	GetDefinition() DefinitionLike
+}
+
+/*
+StringLike is an instance interface that defines the complete set of
+instance attributes, abstractions and methods that must be supported by each
+instance of a concrete string-like class.
+*/
+type StringLike interface {
+	// Attributes
+	GetClass() StringClassLike
+	GetAny() any
 }
 
 /*
@@ -607,7 +588,7 @@ instance of a concrete syntax-like class.
 type SyntaxLike interface {
 	// Attributes
 	GetClass() SyntaxClassLike
-	GetHeaders() col.ListLike[HeaderLike]
-	GetRules() col.ListLike[RuleLike]
-	GetLexigrams() col.ListLike[LexigramLike]
+	GetHeaders() abs.Sequential[HeaderLike]
+	GetRules() abs.Sequential[RuleLike]
+	GetExpressions() abs.Sequential[ExpressionLike]
 }

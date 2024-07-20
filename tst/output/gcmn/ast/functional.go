@@ -12,7 +12,9 @@
 
 package ast
 
-import ()
+import (
+	col "github.com/craterdog/go-collection-framework/v4"
+)
 
 // CLASS ACCESS
 
@@ -40,12 +42,23 @@ type functionalClass_ struct {
 
 func (c *functionalClass_) Make(
 	declaration DeclarationLike,
-	parameters ParametersLike,
+	optionalParameters ParametersLike,
 	result ResultLike,
 ) FunctionalLike {
-	return &functional_{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	case col.IsUndefined(declaration):
+		panic("The declaration attribute is required by this class.")
+	case col.IsUndefined(result):
+		panic("The result attribute is required by this class.")
+	default:
+		return &functional_{
+			// Initialize instance attributes.
+			class_: c,
+			declaration_: declaration,
+			optionalParameters_: optionalParameters,
+			result_: result,
+		}
 	}
 }
 
@@ -57,7 +70,7 @@ type functional_ struct {
 	// Define instance attributes.
 	class_ FunctionalClassLike
 	declaration_ DeclarationLike
-	parameters_ ParametersLike
+	optionalParameters_ ParametersLike
 	result_ ResultLike
 }
 
@@ -71,8 +84,8 @@ func (v *functional_) GetDeclaration() DeclarationLike {
 	return v.declaration_
 }
 
-func (v *functional_) GetParameters() ParametersLike {
-	return v.parameters_
+func (v *functional_) GetOptionalParameters() ParametersLike {
+	return v.optionalParameters_
 }
 
 func (v *functional_) GetResult() ResultLike {

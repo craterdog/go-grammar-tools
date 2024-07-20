@@ -12,7 +12,9 @@
 
 package ast
 
-import ()
+import (
+	col "github.com/craterdog/go-collection-framework/v4"
+)
 
 // CLASS ACCESS
 
@@ -38,10 +40,17 @@ type mapClass_ struct {
 
 // Constructors
 
-func (c *mapClass_) Make(identifier string) MapLike {
-	return &map_{
-		// Initialize instance attributes.
-		class_: c,
+func (c *mapClass_) Make(name string) MapLike {
+	// Validate the arguments.
+	switch {
+	case col.IsUndefined(name):
+		panic("The name attribute is required by this class.")
+	default:
+		return &map_{
+			// Initialize instance attributes.
+			class_: c,
+			name_: name,
+		}
 	}
 }
 
@@ -52,7 +61,7 @@ func (c *mapClass_) Make(identifier string) MapLike {
 type map_ struct {
 	// Define instance attributes.
 	class_ MapClassLike
-	identifier_ string
+	name_ string
 }
 
 // Attributes
@@ -61,8 +70,8 @@ func (v *map_) GetClass() MapClassLike {
 	return v.class_
 }
 
-func (v *map_) GetIdentifier() string {
-	return v.identifier_
+func (v *map_) GetName() string {
+	return v.name_
 }
 
 // Private

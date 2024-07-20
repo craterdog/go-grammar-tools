@@ -12,7 +12,9 @@
 
 package ast
 
-import ()
+import (
+	col "github.com/craterdog/go-collection-framework/v4"
+)
 
 // CLASS ACCESS
 
@@ -39,9 +41,16 @@ type noticeClass_ struct {
 // Constructors
 
 func (c *noticeClass_) Make(comment string) NoticeLike {
-	return &notice_{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	case col.IsUndefined(comment):
+		panic("The comment attribute is required by this class.")
+	default:
+		return &notice_{
+			// Initialize instance attributes.
+			class_: c,
+			comment_: comment,
+		}
 	}
 }
 

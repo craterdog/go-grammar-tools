@@ -1,6 +1,6 @@
 /*
 ................................................................................
-.                   Copyright (c) 2024.  All Rights Reserved.                  .
+.    Copyright (c) 2009-2024 Crater Dog Technologies.  All Rights Reserved.    .
 ................................................................................
 .  DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS FILE HEADER.               .
 .                                                                              .
@@ -10,10 +10,10 @@
 ................................................................................
 */
 
-package agent
+package grammar
 
 import (
-	ast "github.com/craterdog/example/example/ast"
+	ast "github.com/craterdog/example/gcmn/ast"
 	sts "strings"
 )
 
@@ -71,8 +71,8 @@ func (v *formatter_) GetDepth() uint {
 
 // Public
 
-func (v *formatter_) FormatDocument(document ast.DocumentLike) string {
-	v.formatDocument(document)
+func (v *formatter_) FormatModel(model ast.ModelLike) string {
+	v.formatModel(model)
 	return v.getResult()
 }
 
@@ -92,7 +92,7 @@ func (v *formatter_) appendString(s string) {
 	v.result_.WriteString(s)
 }
 
-func (v *formatter_) formatDocument(document ast.DocumentLike) {
+func (v *formatter_) formatModel(model ast.ModelLike) {
 	// TBA - Add real method implementation.
 	v.depth_++
 	v.appendString("test")

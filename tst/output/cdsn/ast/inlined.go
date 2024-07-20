@@ -13,7 +13,8 @@
 package ast
 
 import (
-	col "github.com/craterdog/go-collection-framework/v4/collection"
+	abs "github.com/craterdog/go-collection-framework/v4/collection"
+	col "github.com/craterdog/go-collection-framework/v4"
 )
 
 // CLASS ACCESS
@@ -41,12 +42,20 @@ type inlinedClass_ struct {
 // Constructors
 
 func (c *inlinedClass_) Make(
-	factors col.ListLike[FactorLike],
-	note string,
+	factors abs.Sequential[FactorLike],
+	optionalNote string,
 ) InlinedLike {
-	return &inlined_{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	case col.IsUndefined(factors):
+		panic("The factors attribute is required by this class.")
+	default:
+		return &inlined_{
+			// Initialize instance attributes.
+			class_: c,
+			factors_: factors,
+			optionalNote_: optionalNote,
+		}
 	}
 }
 
@@ -57,8 +66,8 @@ func (c *inlinedClass_) Make(
 type inlined_ struct {
 	// Define instance attributes.
 	class_ InlinedClassLike
-	factors_ col.ListLike[FactorLike]
-	note_ string
+	factors_ abs.Sequential[FactorLike]
+	optionalNote_ string
 }
 
 // Attributes
@@ -67,12 +76,12 @@ func (v *inlined_) GetClass() InlinedClassLike {
 	return v.class_
 }
 
-func (v *inlined_) GetFactors() col.ListLike[FactorLike] {
+func (v *inlined_) GetFactors() abs.Sequential[FactorLike] {
 	return v.factors_
 }
 
-func (v *inlined_) GetNote() string {
-	return v.note_
+func (v *inlined_) GetOptionalNote() string {
+	return v.optionalNote_
 }
 
 // Private

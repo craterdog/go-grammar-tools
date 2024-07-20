@@ -12,36 +12,45 @@
 
 package ast
 
-import ()
+import (
+	col "github.com/craterdog/go-collection-framework/v4"
+)
 
 // CLASS ACCESS
 
 // Reference
 
-var namedClass = &namedClass_{
+var definitionClass = &definitionClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func Named() NamedClassLike {
-	return namedClass
+func Definition() DefinitionClassLike {
+	return definitionClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type namedClass_ struct {
+type definitionClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *namedClass_) Make(parameters ParametersLike) NamedLike {
-	return &named_{
-		// Initialize instance attributes.
-		class_: c,
+func (c *definitionClass_) Make(any_ any) DefinitionLike {
+	// Validate the arguments.
+	switch {
+	case col.IsUndefined(any_):
+		panic("The any attribute is required by this class.")
+	default:
+		return &definition_{
+			// Initialize instance attributes.
+			class_: c,
+			any_: any_,
+		}
 	}
 }
 
@@ -49,20 +58,20 @@ func (c *namedClass_) Make(parameters ParametersLike) NamedLike {
 
 // Target
 
-type named_ struct {
+type definition_ struct {
 	// Define instance attributes.
-	class_ NamedClassLike
-	parameters_ ParametersLike
+	class_ DefinitionClassLike
+	any_ any
 }
 
 // Attributes
 
-func (v *named_) GetClass() NamedClassLike {
+func (v *definition_) GetClass() DefinitionClassLike {
 	return v.class_
 }
 
-func (v *named_) GetParameters() ParametersLike {
-	return v.parameters_
+func (v *definition_) GetAny() any {
+	return v.any_
 }
 
 // Private

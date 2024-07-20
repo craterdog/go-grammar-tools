@@ -10,12 +10,12 @@
 ................................................................................
 */
 
-package agent
+package grammar
 
 import (
 	fmt "fmt"
-	cdc "github.com/craterdog/go-collection-framework/v4/cdcn"
-	col "github.com/craterdog/go-collection-framework/v4/collection"
+	col "github.com/craterdog/go-collection-framework/v4"
+	abs "github.com/craterdog/go-collection-framework/v4/collection"
 	ast "github.com/craterdog/example/example/ast"
 	sts "strings"
 )
@@ -63,8 +63,8 @@ type parser_ struct {
 	// Define the instance attributes.
 	class_  ParserClassLike
 	source_ string                   // The original source code.
-	tokens_ col.QueueLike[TokenLike] // A queue of unread tokens from the scanner.
-	next_   col.StackLike[TokenLike] // A stack of read, but unprocessed tokens.
+	tokens_ abs.QueueLike[TokenLike] // A queue of unread tokens from the scanner.
+	next_   abs.StackLike[TokenLike] // A stack of read, but unprocessed tokens.
 }
 
 // Attributes
@@ -77,9 +77,8 @@ func (v *parser_) GetClass() ParserClassLike {
 
 func (v *parser_) ParseSource(source string) ast.DocumentLike {
 	v.source_ = source
-	var notation = cdc.Notation().Make()
-	v.tokens_ = col.Queue[TokenLike](notation).MakeWithCapacity(parserClass.queueSize_)
-	v.next_ = col.Stack[TokenLike](notation).MakeWithCapacity(parserClass.stackSize_)
+	v.tokens_ = col.Queue[TokenLike](parserClass.queueSize_)
+	v.next_ = col.Stack[TokenLike](parserClass.stackSize_)
 
 	// The scanner runs in a separate Go routine.
 	Scanner().Make(v.source_, v.tokens_)
@@ -96,11 +95,11 @@ func (v *parser_) ParseSource(source string) ast.DocumentLike {
 
 	// Attempt to parse optional end-of-line characters.
 	for ok {
-		_, _, ok = v.parseToken(EOLToken, "")
+		_, _, ok = v.parseToken(EolToken, "")
 	}
 
 	// Attempt to parse the end-of-file marker.
-	_, token, ok = v.parseToken(EOFToken, "")
+	_, token, ok = v.parseToken(EofToken, "")
 	if !ok {
 		var message = v.formatError(token)
 		message += v.generateSyntax("EOF",
@@ -200,8 +199,7 @@ func (v *parser_) parseToken(expectedType TokenType, expectedValue string) (
 	token = v.getNextToken()
 	if token.GetType() == expectedType {
 		value = token.GetValue()
-		var notConstrained = len(expectedValue) == 0
-		if notConstrained || value == expectedValue {
+		if col.IsUndefined(expectedValue) || value == expectedValue {
 			// Found the right token.
 			return value, token, true
 		}

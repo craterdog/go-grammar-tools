@@ -13,7 +13,8 @@
 package ast
 
 import (
-	col "github.com/craterdog/go-collection-framework/v4/collection"
+	abs "github.com/craterdog/go-collection-framework/v4/collection"
+	col "github.com/craterdog/go-collection-framework/v4"
 )
 
 // CLASS ACCESS
@@ -40,10 +41,23 @@ type abstractionsClass_ struct {
 
 // Constructors
 
-func (c *abstractionsClass_) Make(abstractions col.ListLike[AbstractionLike]) AbstractionsLike {
-	return &abstractions_{
-		// Initialize instance attributes.
-		class_: c,
+func (c *abstractionsClass_) Make(
+	note string,
+	abstractions abs.Sequential[AbstractionLike],
+) AbstractionsLike {
+	// Validate the arguments.
+	switch {
+	case col.IsUndefined(note):
+		panic("The note attribute is required by this class.")
+	case col.IsUndefined(abstractions):
+		panic("The abstractions attribute is required by this class.")
+	default:
+		return &abstractions_{
+			// Initialize instance attributes.
+			class_: c,
+			note_: note,
+			abstractions_: abstractions,
+		}
 	}
 }
 
@@ -54,7 +68,8 @@ func (c *abstractionsClass_) Make(abstractions col.ListLike[AbstractionLike]) Ab
 type abstractions_ struct {
 	// Define instance attributes.
 	class_ AbstractionsClassLike
-	abstractions_ col.ListLike[AbstractionLike]
+	note_ string
+	abstractions_ abs.Sequential[AbstractionLike]
 }
 
 // Attributes
@@ -63,7 +78,11 @@ func (v *abstractions_) GetClass() AbstractionsClassLike {
 	return v.class_
 }
 
-func (v *abstractions_) GetAbstractions() col.ListLike[AbstractionLike] {
+func (v *abstractions_) GetNote() string {
+	return v.note_
+}
+
+func (v *abstractions_) GetAbstractions() abs.Sequential[AbstractionLike] {
 	return v.abstractions_
 }
 

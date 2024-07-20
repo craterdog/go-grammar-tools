@@ -12,7 +12,9 @@
 
 package ast
 
-import ()
+import (
+	col "github.com/craterdog/go-collection-framework/v4"
+)
 
 // CLASS ACCESS
 
@@ -39,9 +41,16 @@ type extentClass_ struct {
 // Constructors
 
 func (c *extentClass_) Make(rune_ string) ExtentLike {
-	return &extent_{
-		// Initialize instance attributes.
-		class_: c,
+	// Validate the arguments.
+	switch {
+	case col.IsUndefined(rune_):
+		panic("The rune attribute is required by this class.")
+	default:
+		return &extent_{
+			// Initialize instance attributes.
+			class_: c,
+			rune_: rune_,
+		}
 	}
 }
 

@@ -12,41 +12,51 @@
 
 package ast
 
-import ()
+import (
+	col "github.com/craterdog/go-collection-framework/v4"
+)
 
 // CLASS ACCESS
 
 // Reference
 
-var lexigramClass = &lexigramClass_{
+var valueClass = &valueClass_{
 	// Initialize class constants.
 }
 
 // Function
 
-func Lexigram() LexigramClassLike {
-	return lexigramClass
+func Value() ValueClassLike {
+	return valueClass
 }
 
 // CLASS METHODS
 
 // Target
 
-type lexigramClass_ struct {
+type valueClass_ struct {
 	// Define class constants.
 }
 
 // Constructors
 
-func (c *lexigramClass_) Make(
-	comment string,
-	lowercase string,
-	pattern PatternLike,
-	note string,
-) LexigramLike {
-	return &lexigram_{
-		// Initialize instance attributes.
-		class_: c,
+func (c *valueClass_) Make(
+	name string,
+	abstraction AbstractionLike,
+) ValueLike {
+	// Validate the arguments.
+	switch {
+	case col.IsUndefined(name):
+		panic("The name attribute is required by this class.")
+	case col.IsUndefined(abstraction):
+		panic("The abstraction attribute is required by this class.")
+	default:
+		return &value_{
+			// Initialize instance attributes.
+			class_: c,
+			name_: name,
+			abstraction_: abstraction,
+		}
 	}
 }
 
@@ -54,35 +64,25 @@ func (c *lexigramClass_) Make(
 
 // Target
 
-type lexigram_ struct {
+type value_ struct {
 	// Define instance attributes.
-	class_ LexigramClassLike
-	comment_ string
-	lowercase_ string
-	pattern_ PatternLike
-	note_ string
+	class_ ValueClassLike
+	name_ string
+	abstraction_ AbstractionLike
 }
 
 // Attributes
 
-func (v *lexigram_) GetClass() LexigramClassLike {
+func (v *value_) GetClass() ValueClassLike {
 	return v.class_
 }
 
-func (v *lexigram_) GetComment() string {
-	return v.comment_
+func (v *value_) GetName() string {
+	return v.name_
 }
 
-func (v *lexigram_) GetLowercase() string {
-	return v.lowercase_
-}
-
-func (v *lexigram_) GetPattern() PatternLike {
-	return v.pattern_
-}
-
-func (v *lexigram_) GetNote() string {
-	return v.note_
+func (v *value_) GetAbstraction() AbstractionLike {
+	return v.abstraction_
 }
 
 // Private

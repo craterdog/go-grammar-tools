@@ -13,7 +13,8 @@
 package ast
 
 import (
-	col "github.com/craterdog/go-collection-framework/v4/collection"
+	abs "github.com/craterdog/go-collection-framework/v4/collection"
+	col "github.com/craterdog/go-collection-framework/v4"
 )
 
 // CLASS ACCESS
@@ -40,10 +41,23 @@ type constantsClass_ struct {
 
 // Constructors
 
-func (c *constantsClass_) Make(constants col.ListLike[ConstantLike]) ConstantsLike {
-	return &constants_{
-		// Initialize instance attributes.
-		class_: c,
+func (c *constantsClass_) Make(
+	note string,
+	constants abs.Sequential[ConstantLike],
+) ConstantsLike {
+	// Validate the arguments.
+	switch {
+	case col.IsUndefined(note):
+		panic("The note attribute is required by this class.")
+	case col.IsUndefined(constants):
+		panic("The constants attribute is required by this class.")
+	default:
+		return &constants_{
+			// Initialize instance attributes.
+			class_: c,
+			note_: note,
+			constants_: constants,
+		}
 	}
 }
 
@@ -54,7 +68,8 @@ func (c *constantsClass_) Make(constants col.ListLike[ConstantLike]) ConstantsLi
 type constants_ struct {
 	// Define instance attributes.
 	class_ ConstantsClassLike
-	constants_ col.ListLike[ConstantLike]
+	note_ string
+	constants_ abs.Sequential[ConstantLike]
 }
 
 // Attributes
@@ -63,7 +78,11 @@ func (v *constants_) GetClass() ConstantsClassLike {
 	return v.class_
 }
 
-func (v *constants_) GetConstants() col.ListLike[ConstantLike] {
+func (v *constants_) GetNote() string {
+	return v.note_
+}
+
+func (v *constants_) GetConstants() abs.Sequential[ConstantLike] {
 	return v.constants_
 }
 
