@@ -243,7 +243,7 @@ collision with other private Go class constants in this package.
 const (
 	error_ = "x^"
 	any_ = "."
-	comment_ = "(?:/\\*" + any_ + "*?\\*/" + eol_ + ")"
+	comment_ = "(?:/\\*" + eol_ + "(" + any_ + "|" + eol_ + ")*?" + eol_ + "\\*/" + eol_ + ")"
 	control_ = "\\p{Cc}"
 	delimiter_ = "(?:\\[|\\]|\\(|\\)|\\{|\\}|\\.|,|=)"
 	digit_ = "\\p{Nd}"

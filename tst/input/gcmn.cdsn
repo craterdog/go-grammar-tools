@@ -163,7 +163,7 @@ expression.  Regular expression patterns cannot be recursive and the scanning of
 patterns is NOT greedy.  Any spaces within a regular expression pattern are part
 of the regular expression and are NOT ignored.
 <!
-comment: "/*" ANY* "*/" EOL  ! Chooses the shortest possible match.
+comment: "/*" EOL (ANY | EOL)* EOL "*/" EOL  ! Chooses the shortest possible match.
 
 delimiter: "[" | "]" | "(" | ")" | "{" | "}" | "." | "," | "="
 
