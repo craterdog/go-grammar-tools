@@ -39,14 +39,14 @@ var scannerClass = &scannerClass_{
 	},
 	matchers_: map[TokenType]*reg.Regexp{
 		ErrorToken: reg.MustCompile("x^"),
-		CommentToken: reg.MustCompile("^(?:" + comment_ + ")"),
-		DelimiterToken: reg.MustCompile("^(?:" + delimiter_ + ")"),
-		EofToken: reg.MustCompile("^(?:" + eof_ + ")"),
-		EolToken: reg.MustCompile("^(?:" + eol_ + ")"),
-		NameToken: reg.MustCompile("^(?:" + name_ + ")"),
-		NoteToken: reg.MustCompile("^(?:" + note_ + ")"),
-		PathToken: reg.MustCompile("^(?:" + path_ + ")"),
-		SpaceToken: reg.MustCompile("^(?:" + space_ + ")"),
+		CommentToken: reg.MustCompile("^" + comment_),
+		DelimiterToken: reg.MustCompile("^" + delimiter_),
+		EofToken: reg.MustCompile("^" + eof_),
+		EolToken: reg.MustCompile("^" + eol_),
+		NameToken: reg.MustCompile("^" + name_),
+		NoteToken: reg.MustCompile("^" + note_),
+		PathToken: reg.MustCompile("^" + path_),
+		SpaceToken: reg.MustCompile("^" + space_),
 	},
 }
 
@@ -242,21 +242,17 @@ collision with other private Go class constants in this package.
 */
 const (
 	error_ = "x^"
-	any_ =  ".|" + eol_
-	base16_ =  "[0-9a-f]"
-	comment_ = "/\\*" + any_ + "*\\*/" + eol_ + ""
-	control_ =  "\\p{Cc}"
-	delimiter_ = "\\[|\\]|\\(|\\)|\\{|\\}|\\.|,|="
-	digit_ =  "\\p{Nd}"
-	eof_ =  "\\z"
-	eol_ =  "\\n"
-	escape_ =  "\\\\(?:(?:" + unicode_ + ")|[abfnrtv'\"\\\\])"
-	lower_ =  "\\p{Ll}"
-	mnemonic_ = "" + lower_ + "" + lower_ + "|" + digit_ + "(" + lower_ + "|" + digit_ + "){2}"
-	name_ = "" + lower_ + "|" + upper_ + "(" + lower_ + "|" + upper_ + ")" + lower_ + "|" + upper_ + "|" + digit_ + "(" + lower_ + "|" + upper_ + "|" + digit_ + ")*_?"
-	note_ = "//[^" + control_ + "]*"
-	path_ = "\"" + any_ + "*\""
-	space_ =  "[ \\t]+"
-	unicode_ =  "x" + base16_ + "{2}|u" + base16_ + "{4}|U" + base16_ + "{8}"
-	upper_ =  "\\p{Lu}"
+	any_ = "."
+	comment_ = "(?:/\\*" + any_ + "*?\\*/" + eol_ + ")"
+	control_ = "\\p{Cc}"
+	delimiter_ = "(?:\\[|\\]|\\(|\\)|\\{|\\}|\\.|,|=)"
+	digit_ = "\\p{Nd}"
+	eof_ = "\\z"
+	eol_ = "\\r?\\n"
+	lower_ = "\\p{Ll}"
+	name_ = "(?:(" + lower_ + "|" + upper_ + ")(" + lower_ + "|" + upper_ + "|" + digit_ + ")*_?)"
+	note_ = "(?://[^" + control_ + "]*)"
+	path_ = "(?:\"" + any_ + "*?\")"
+	space_ = "[ \\t]+"
+	upper_ = "\\p{Lu}"
 )

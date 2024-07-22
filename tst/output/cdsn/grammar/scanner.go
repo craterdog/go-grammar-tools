@@ -45,20 +45,20 @@ var scannerClass = &scannerClass_{
 	},
 	matchers_: map[TokenType]*reg.Regexp{
 		ErrorToken: reg.MustCompile("x^"),
-		CommentToken: reg.MustCompile("^(?:" + comment_ + ")"),
-		DelimiterToken: reg.MustCompile("^(?:" + delimiter_ + ")"),
-		EofToken: reg.MustCompile("^(?:" + eof_ + ")"),
-		EolToken: reg.MustCompile("^(?:" + eol_ + ")"),
-		IntrinsicToken: reg.MustCompile("^(?:" + intrinsic_ + ")"),
-		LiteralToken: reg.MustCompile("^(?:" + literal_ + ")"),
-		LowercaseToken: reg.MustCompile("^(?:" + lowercase_ + ")"),
-		NegationToken: reg.MustCompile("^(?:" + negation_ + ")"),
-		NoteToken: reg.MustCompile("^(?:" + note_ + ")"),
-		NumberToken: reg.MustCompile("^(?:" + number_ + ")"),
-		QuantifiedToken: reg.MustCompile("^(?:" + quantified_ + ")"),
-		RuneToken: reg.MustCompile("^(?:" + rune_ + ")"),
-		SpaceToken: reg.MustCompile("^(?:" + space_ + ")"),
-		UppercaseToken: reg.MustCompile("^(?:" + uppercase_ + ")"),
+		CommentToken: reg.MustCompile("^" + comment_),
+		DelimiterToken: reg.MustCompile("^" + delimiter_),
+		EofToken: reg.MustCompile("^" + eof_),
+		EolToken: reg.MustCompile("^" + eol_),
+		IntrinsicToken: reg.MustCompile("^" + intrinsic_),
+		LiteralToken: reg.MustCompile("^" + literal_),
+		LowercaseToken: reg.MustCompile("^" + lowercase_),
+		NegationToken: reg.MustCompile("^" + negation_),
+		NoteToken: reg.MustCompile("^" + note_),
+		NumberToken: reg.MustCompile("^" + number_),
+		QuantifiedToken: reg.MustCompile("^" + quantified_),
+		RuneToken: reg.MustCompile("^" + rune_),
+		SpaceToken: reg.MustCompile("^" + space_),
+		UppercaseToken: reg.MustCompile("^" + uppercase_),
 	},
 }
 
@@ -260,27 +260,26 @@ collision with other private Go class constants in this package.
 */
 const (
 	error_ = "x^"
-	any_ =  ".|" + eol_
-	base16_ =  "[0-9a-f]"
-	comment_ = "!>" + eol_ + "" + any_ + "*" + eol_ + "<!" + eol_ + ""
-	control_ =  "\\p{Cc}"
-	delimiter_ = ":|\\||\\(|\\)|\\[|\\]|\\{|\\}|\\.\\."
-	digit_ =  "\\p{Nd}"
-	eof_ =  "\\z"
-	eol_ =  "\\n"
-	escape_ =  "\\\\(?:(?:" + unicode_ + ")|[abfnrtv'\"\\\\])"
-	intrinsic_ = "ANY|LOWER|UPPER|DIGIT|ESCAPE|CONTROL|EOL|EOF"
-	letter_ = "[" + lower_ + "" + upper_ + "]"
-	literal_ = "\"" + escape_ + "|[^\"" + control_ + "](" + escape_ + "|[^\"" + control_ + "])+\""
-	lower_ =  "\\p{Ll}"
-	lowercase_ = "" + lower_ + "" + letter_ + "|" + digit_ + "(" + letter_ + "|" + digit_ + ")*"
-	negation_ = "~"
-	note_ = "! [^" + control_ + "]*"
-	number_ = "" + digit_ + "+"
-	quantified_ = "\\?|\\*|\\+"
-	rune_ = "'[^" + control_ + "]'"
-	space_ =  "[ \\t]+"
-	unicode_ =  "x" + base16_ + "{2}|u" + base16_ + "{4}|U" + base16_ + "{8}"
-	upper_ =  "\\p{Lu}"
-	uppercase_ = "" + upper_ + "" + letter_ + "|" + digit_ + "(" + letter_ + "|" + digit_ + ")*"
+	any_ = "."
+	base16_ = "(?:[0-9a-f])"
+	comment_ = "(?:!>" + eol_ + "(" + any_ + "|" + eol_ + ")*?" + eol_ + "<!" + eol_ + ")"
+	control_ = "\\p{Cc}"
+	delimiter_ = "(?::|\\||\\(|\\)|\\[|\\]|\\{|\\}|\\.\\.)"
+	digit_ = "\\p{Nd}"
+	eof_ = "\\z"
+	eol_ = "\\r?\\n"
+	escape_ = "(?:\\\\((?:" + unicode_ + ")|[abfnrtv\"\\\\]))"
+	intrinsic_ = "(?:ANY|LOWER|UPPER|DIGIT|CONTROL|EOL|EOF)"
+	literal_ = "(?:\"((?:" + escape_ + ")|[^\"" + control_ + "])+\")"
+	lower_ = "\\p{Ll}"
+	lowercase_ = "(?:" + lower_ + "(" + lower_ + "|" + upper_ + "|" + digit_ + ")*)"
+	negation_ = "(?:~)"
+	note_ = "(?:! [^" + control_ + "]*)"
+	number_ = "(?:" + digit_ + "+)"
+	quantified_ = "(?:\\?|\\*|\\+)"
+	rune_ = "(?:'[^" + control_ + "]')"
+	space_ = "[ \\t]+"
+	unicode_ = "(?:x(?:" + base16_ + "){2}|u(?:" + base16_ + "){4}|U(?:" + base16_ + "){8})"
+	upper_ = "\\p{Lu}"
+	uppercase_ = "(?:" + upper_ + "(" + lower_ + "|" + upper_ + "|" + digit_ + ")*)"
 )
